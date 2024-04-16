@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2C554D;
+    padding: 10px;
+}
+
+.logo__container>img {
+    width: 50px;
+    border-radius: 50%;
+    outline: 3px solid #fff;
+}
+
+.logo__container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+header > button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    background-color: transparent;
+    border: 5px solid #36675E;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 32px;
+    transition: background-color .2s;
+
+    &:hover {
+        background-color: #36675E;
+    }
+}
