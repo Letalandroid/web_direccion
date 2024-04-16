@@ -12,11 +12,13 @@
   <header>
     <button><i class="fas fa-bars"></i></button>
     <div class="logo__container">
-      <img src="/assets/img/logo.jpeg" alt="logo_clavelitos_de_sjt">
+      <a href="/">
+        <img src="/assets/img/logo.jpeg" alt="logo_clavelitos_de_sjt">
+      </a>
     </div>
   </header>
   <main>
-    <div id="sadsada" class="container__nav">
+    <div class="container__nav">
       <nav>
       <ul>
         <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/asistencias">Asistencias</a></li>
@@ -37,7 +39,8 @@
     </button>
     </div>
     <div class="container__sections">
-      <div class="section__asistencias">
+      <div class="sections__top">
+        <div class="section__asistencias">
         <h2>Asistencias</h2>
         <p>100/100</p>
         <span>0 días de falta</span>
@@ -53,17 +56,42 @@
           <p>📝Evaluación: S1_Listas y Tablas</p>
         </div>
       </div>
-      <h2></h2>
-      <div class="section__notas">
-        <h2>Próximos eventos:</h2>
-        <div class="agenda__items">
-          <b>Hoy:</b>
-          <p>📝Evaluación: S2_Frameworks de CSS</p>
+      </div>
+      <div class="container__section__notas">
+        <h2>Mis notas:</h2>
+        <div class="container__notas">
+          <div class="section__notas">
+            <div>
+              <i class="fas fa-book-open"></i>
+              <h3>Comunicación</h3>
+            </div>
+            <div>
+              <p>Promedio:</p>
+              <span>17.5</span>
+            </div>
+          </div>
+          <div class="section__notas">
+            <div>
+              <i class="fas fa-book-open"></i>
+              <h3>Ciencias:</h3>
+            </div>
+            <div style="background-color: #E2A300;">
+              <p>Promedio:</p>
+              <span>11.3</span>
+            </div>
+          </div>
+          <div class="section__notas">
+            <div>
+              <i class="fas fa-book-open"></i>
+              <h3>Matemáticas:</h3>
+            </div>
+            <div style="background-color: #E20900;">
+              <p>Promedio:</p>
+              <span>6.8</span>
+            </div>
+          </div>
         </div>
-        <div class="agenda__items">
-          <b>16/04:</b>
-          <p>📝Evaluación: S1_Listas y Tablas</p>
-        </div>
+      </div>
       </div>
     </div>
   </main>
