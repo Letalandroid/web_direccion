@@ -6,12 +6,13 @@
   <link rel="stylesheet" href="/css/home.css">
   <link rel="shortcut icon" href="/assets/img/logo.jpeg" type="image/x-icon">
   <script defer src="/js/home.js"></script>
+  <script defer src="/js/header.js"></script>
   <script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
   <title>I.E.P Los Clavelitos de SJT - Piura | Panel</title>
 </head>
 <body>
   <header>
-    <button><i class="fas fa-bars"></i></button>
+    <button onclick="closed_menu()"><i class="fas fa-bars"></i></button>
     <div class="logo__container">
       <a href="/">
         <img src="/assets/img/logo.jpeg" alt="logo_clavelitos_de_sjt">
@@ -21,23 +22,23 @@
   <main>
     <div class="container__nav">
       <nav>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/asistencias">Asistencias</a></li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/agenda">Agenda</a></li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/notas">Notas</a></li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/conducta">Conducta</a></li>
-      </ul>
-    </nav>
-    <button id="closedSession">
-      <i class="fas fa-door-open"></i>
-      Cerrar sesión
-    </button>
+        <ul>
+          <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/asistencias">Asistencias</a></li>
+        </ul>
+        <ul>
+          <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/agenda">Agenda</a></li>
+        </ul>
+        <ul>
+          <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/notas">Notas</a></li>
+        </ul>
+        <ul>
+          <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/conducta">Conducta</a></li>
+        </ul>
+      </nav>
+      <button id="closedSession">
+        <i class="fas fa-door-open"></i>
+        Cerrar sesión
+      </button>
     </div>
     <div class="container__sections">
       <div class="sections__top">
