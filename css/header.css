@@ -61,6 +61,15 @@ nav>ul>li {
     &:hover {
         background-color: #d14c4750;
     }
+
+    &.selected__page {
+        color: #fff;
+        background-color: var(--red);
+
+        a {
+            color: #fff;
+        }
+    }
 }
 
 .link__menu {

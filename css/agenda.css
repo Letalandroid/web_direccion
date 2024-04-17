@@ -24,6 +24,7 @@ main {
         tr td {
             text-align: center;
             padding: 20px;
+            transition: background-color .3s;
         }
 
         .event {

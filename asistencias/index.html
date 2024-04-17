@@ -3,43 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/asistencias.css">
-  <link rel="shortcut icon" href="/assets/img/logo.jpeg" type="image/x-icon">
-  <script defer src="/js/header.js"></script>
+	<link rel="stylesheet" href="/css/header.css" />
+		<link rel="stylesheet" href="/css/asistencias.css" />
+		<script defer src="/components/header.js"></script>
+		<script defer src="/components/nav.js"></script>
+		<link
+			rel="shortcut icon"
+			href="/assets/img/logo.jpeg"
+			type="image/x-icon" />
+		<script defer src="/js/header.js"></script>
+		<script defer>
+			document.addEventListener("DOMContentLoaded", () => {
+				nav('Asistencias');
+				closed_menu();
+			});
+		</script>
   <script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
   <title>I.E.P Los Clavelitos de SJT - Piura | Asistencias</title>
 </head>
 <body>
-  <header>
-    <button onclick="closed_menu()"><i class="fas fa-bars"></i></button>
-    <div class="logo__container">
-      <a href="/">
-        <img src="/assets/img/logo.jpeg" alt="logo_clavelitos_de_sjt">
-      </a>
-    </div>
-  </header>
   <main>
-    <div class="container__nav">
-      <nav>
-      <ul>
-        <li style="color: #ffff; background-color: var(--red);"><i class="fas fa-chevron-right"></i><a class="link__menu" style="color: #ffff;" href="/asistencias">Asistencias</a></li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/agenda">Agenda</a></li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/notas">Notas</a></li>
-      </ul>
-      <ul>
-        <li><i class="fas fa-chevron-right"></i><a class="link__menu" href="/conducta">Conducta</a></li>
-      </ul>
-    </nav>
-    <button id="closedSession">
-      <i class="fas fa-door-open"></i>
-      Cerrar sesión
-    </button>
-    </div>
     <div class="container__section">
         <div>
             <div class="section__asistencias">
