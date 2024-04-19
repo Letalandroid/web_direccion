@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/css/header.css" />
-		<link rel="stylesheet" href="/css/agenda.css" />
+		<link rel="stylesheet" href="/css/notas.css" />
 		<script defer src="/components/header.js"></script>
 		<script defer src="/components/nav.js"></script>
 		<link
@@ -12,6 +12,7 @@
 			href="/assets/img/logo.jpeg"
 			type="image/x-icon" />
 		<script defer src="/js/header.js"></script>
+		<script defer src="/js/notas.js"></script>
 		<script defer>
 			document.addEventListener('DOMContentLoaded', () => {
 				nav('Notas');
@@ -25,7 +26,10 @@
 	</head>
 	<body>
 		<main>
-			<div class="container__section"></div>
+			<div class="container__section">
+				<h2>Mis notas:</h2>
+				<div class="container__notas"></div>
+			</div>
 		</main>
 	</body>
 </html>
