@@ -5,7 +5,7 @@ main {
 }
 
 .container__sections {
-    width: 100%;
+    width: calc(100vw - 221px);
     height: calc(100vh - 75.11px);
     display: flex;
     flex-direction: column;
@@ -16,6 +16,25 @@ main {
     .sections__top {
         display: flex;
         gap: 20px;
+    }
+
+    .sections__perfil {
+        width: 564px;
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+
+        p {
+            width: 480px;
+            font-weight: bold;
+            font-size: 28px;
+        }
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+        }
     }
 
     .section__asistencias {
@@ -163,16 +182,5 @@ main {
             background-color: #39E379;
         }
 
-    }
-
-    .section__observacion {
-        width: 570px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-
-        li {
-            line-height: 25px;
-        }
     }
 }
