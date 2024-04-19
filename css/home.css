@@ -5,8 +5,8 @@ main {
 }
 
 .container__sections {
-    width: calc(100vw - 221px);
-    height: calc(100vh - 75.11px);
+    width: calc(100vw - 228px);
+    height: calc(100vh - 200px);
     display: flex;
     flex-direction: column;
     justify-content: center;

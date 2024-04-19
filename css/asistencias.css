@@ -4,7 +4,7 @@ main {
 
 .container__section {
     width: 100%;
-    height: calc(100vh - 75.11px);
+    height: calc(100vh - 76.5px);
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -81,7 +81,7 @@ nav>ul>li {
 .container__nav {
     position: relative;
     width: min-content;
-    height: calc(100vh - 75.11px);
+    height: calc(100vh - 76.5px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
