@@ -61,7 +61,7 @@ notas_alumno.forEach((notas, index) => {
     const nPractica = notas.notas_bimestres[index].practica;
     const nParticipacion = notas.notas_bimestres[index].participacion;
     const nExamen = notas.notas_bimestres[index].examen;
-    let promedio = (nPractica + nParticipacion + nExamen) / 4;
+    let promedio = (nPractica + nParticipacion + nExamen) / 3;
     let color;
 
     if (promedio <= 20 && promedio >= 18) {
@@ -72,7 +72,7 @@ notas_alumno.forEach((notas, index) => {
         color = '#39E379; color: #000';
     } else if (promedio <= 14 && promedio >= 11) {
         promedio = 'B';
-        color = '#ff8d00';
+        color = '#ff8d00; color: #000;';
     } else if (promedio <= 10 && promedio >= 0) {
         promedio = 'C';
         color = '#f00';
