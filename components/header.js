@@ -3,7 +3,7 @@ const header = () => {
 			<button onclick="closed_menu()"><i class="fas fa-bars"></i></button>
 			<div class="logo__container">
 				<a href="/">
-					<img src="/assets/img/logo1.jpg" alt="logo_clavelitos_de_sjt" />
+					<img src="/assets/img/logo.jpg" alt="logo_clavelitos_de_sjt" />
 				</a>
 			</div>`;
 
