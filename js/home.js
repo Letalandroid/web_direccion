@@ -9,3 +9,8 @@ btn_left.addEventListener('click', () => {
 btn_right.addEventListener('click', () => {
 	container_notas.scrollLeft += 150;
 });
+
+fetch('/api/controllers/alumnos.php')
+	.then((response) => response.json())
+	.then((data) => console.log(data))
+	.catch((error) => console.error('Error:', error));
