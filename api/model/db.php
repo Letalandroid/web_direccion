@@ -28,12 +28,12 @@ class Database
 
     public function __construct()
     {
-        $this->host = $_ENV["MYSQLHOST"];
-        $this->port = $_ENV["MYSQLPORT"];
-        $this->db = $_ENV["MYSQL_DATABASE"];
-        $this->user = $_ENV["MYSQLUSER"];
-        $this->password = $_ENV["MYSQL_ROOT_PASSWORD"];
-        $this->charset = $_ENV["MYSQL_DATABASE_CHARSET"];
+        $this->host = $_ENV["MYSQLHOST"] || getenv('MYSQLHOST');
+        $this->port = $_ENV["MYSQLPORT"] || getenv('MYSQLPORT');
+        $this->db = $_ENV["MYSQL_DATABASE"] || getenv('MYSQL_DATABASE');
+        $this->user = $_ENV["MYSQLUSER"] || getenv('MYSQLUSER');
+        $this->password = $_ENV["MYSQL_ROOT_PASSWORD"] || getenv('MYSQL_ROOT_PASSWORD');
+        $this->charset = $_ENV["MYSQL_DATABASE_CHARSET"] || getenv('MYSQL_DATABASE_CHARSET');
     }
 
     public function connect()
