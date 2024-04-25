@@ -8,7 +8,7 @@ $url = $_SERVER['REQUEST_URI'];
 if ($apoderado) {
     $path = __DIR__ . '/views';
     $profile = explode('/', $url)[1];
-    $reg = explode('/', $url)[2];
+    $reg = explode('/', $url)[2] ?? '';
     $url_now =  $path . "/$profile/pages/$reg" . '.php';
 
     if (file_exists($url_now)) {
