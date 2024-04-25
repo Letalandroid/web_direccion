@@ -5,8 +5,8 @@ namespace Letalandroid\model;
 use PDO;
 use Exception;
 
-if (file_exists(__DIR__ . '/../../.env')) {
-    $env = parse_ini_file(__DIR__ . '/../../.env');
+if (file_exists(__DIR__ . '/../.env')) {
+    $env = parse_ini_file(__DIR__ . '/../.env');
     foreach ($env as $key => $value) {
         $_ENV[$key] = $value;
     }

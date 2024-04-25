@@ -3,16 +3,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/css/header.css" />
-		<link rel="stylesheet" href="/css/notas.css" />
-		<script defer src="/components/header.js"></script>
-		<script defer src="/components/nav.js"></script>
+		<link rel="stylesheet" href="/views/apoderado/css/header.css" />
+		<link rel="stylesheet" href="/views/apoderado/css/notas.css" />
+		<script defer src="/views/apoderado/components/header.js"></script>
+		<script defer src="/views/apoderado/components/nav.js"></script>
 		<link
 			rel="shortcut icon"
-			href="/assets/img/logo_transparent.png"
+			href="/views/apoderado/assets/img/logo_transparent.png"
 			type="image/x-icon" />
-		<script defer src="/js/header.js"></script>
-		<script defer src="/js/notas.js"></script>
+		<script defer src="/views/apoderado/js/header.js"></script>
+		<script defer src="/views/apoderado/js/notas.js"></script>
 		<script defer>
 			document.addEventListener('DOMContentLoaded', () => {
 				nav('Notas');

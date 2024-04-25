@@ -1,2 +1,3 @@
 RewriteEngine on
 RewriteCond %{REQUES_URI} !index.php
+RewriteRule ^(.*)$ index.php?url=$1

@@ -7,7 +7,7 @@ const nav = (pageName) => {
 			navContent += `
 					<li class='${page === pageName ? 'selected__page' : ''}'>
 						<i class="fas fa-chevron-right"></i>
-						<a class="link__menu" href="/${page.toLowerCase()}">${page}</a>
+						<a class="link__menu" href="/apoderado/${page.toLowerCase()}">${page}</a>
 					</li>`;
 		});
 
