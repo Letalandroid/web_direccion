@@ -19,9 +19,7 @@
 				closed_menu();
 			});
 		</script>
-		<script
-			src="https://kit.fontawesome.com/8b1c082df7.js"
-			crossorigin="anonymous"></script>
+		<script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
 		<title>I.E.P Los Clavelitos de SJT - Piura</title>
 	</head>
 	<body>

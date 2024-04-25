@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            img {
+                width: 50%;
+            }
+        }
+    </style>
     <title>404 Not Found</title>
 </head>
+
 <body>
-    <h1>Página no encontrada</h1>
+    <main>
+        <img src="/views/404/assets/meme.jpg" alt="meme megamente">
+        <h1>Página no encontrada</h1>
+        <p>¿Para donde te ibas?</p>
+    </main>
 </body>
+
 </html>
