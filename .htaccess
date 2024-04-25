@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteCond %{REQUES_URI} !index.php
