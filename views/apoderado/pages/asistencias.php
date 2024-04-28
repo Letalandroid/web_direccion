@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/views/apoderado/css/header.css" />
     <link rel="stylesheet" href="/views/apoderado/css/asistencias.css" />
-    <script defer src="/views/apoderado/components/header.js"></script>
-    <script defer src="/views/apoderado/components/nav.js"></script>
     <link rel="shortcut icon" href="/views/apoderado/assets/img/logo_transparent.png" type="image/x-icon" />
     <script defer src="/views/apoderado/js/header.js"></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", () => {
-            nav('Asistencias');
             closed_menu();
         });
     </script>
@@ -21,7 +18,9 @@
 </head>
 
 <body>
+    <?php require_once __DIR__ . '/../components/header.php' ?>
     <main>
+        <?php show_nav('Asistencias') ?>
         <div class="container__section">
             <div>
                 <div class="section__asistencias">
