@@ -11,22 +11,26 @@ $profile = $route[1];
 $reg = $route[2] ?? '';
 $url_now =  $path . "/$profile/pages/$reg" . '.php';
 
+if ($url == '/' && !isset($_COOKIE['session'])) {
+    header('Location: /login');
+}
+
 if ($apoderado) {
 
     if (file_exists($url_now)) {
 
-        require $url_now;
+        require_once $url_now;
 
     } else {
         $index = $path . "/$profile/pages/home.php";
 
         if (file_exists($index) && empty($reg)) {
-            require $index;
+            require_once $index;
         } else {
             $not_found = $path . "/404/404.php";
 
             if (file_exists($not_found)) {
-                require $not_found;
+                require_once $not_found;
             }
         }
     }
