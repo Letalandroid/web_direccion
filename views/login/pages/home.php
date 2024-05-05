@@ -1,9 +1,3 @@
-<?php
-
-$path = __DIR__;
-
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
