@@ -24,7 +24,7 @@
         <input type="password" placeholder="*******************" id="password">
 
         <button class="btn-grow-ellipse">Iniciar sesión</button>
-        <p><a href="">Olvide mi contraseña</a></p>
+        <p><a href="#">Olvide mi contraseña</a></p>
     </form>
     <div class="contacto">
 
