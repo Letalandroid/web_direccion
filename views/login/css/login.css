@@ -1,23 +1,23 @@
-
-      *,
+*,
 *:before,
-*:after{
+*:after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-body{
-    background-image: url(/img/fondo.png) ;
+
+body {
+    background-image: url(/views/login/assets/img/fondo.png);
     background-size: cover;
-  background-attachment: fixed;
+    background-attachment: fixed;
 
 }
 
-.background{
+.background {
     width: 430px;
     height: 520px;
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
 }
@@ -28,54 +28,59 @@ form {
     width: 320px;
     background-color: rgba(217, 217, 217, 0.712);
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     border-radius: 30px;
     backdrop-filter: blur(2.5px);
-    border: 2px solid rgba(255,255,255,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     padding: 40px 20px;
 }
 
-form *{
-    
-    font-family: 'Poppins',sans-serif;
+form * {
+
+    font-family: 'Poppins', sans-serif;
     color: #000000;
     letter-spacing: 0px;
     outline: none;
     border: none;
 
-    
+
 }
 
-.img{
+.img {
     text-align: center;
 }
-form img{
 
-    width : 120px; 
-    height : 130px;
+form img {
+
+    width: 120px;
+    height: 130px;
 }
-form h4{
+
+form h4 {
     text-align: center;
 
 }
-form p{
+
+form p {
     margin: 15px;
     text-align: center;
     font-size: 12px;
 }
-.d1{
+
+.d1 {
     font-size: 14px;
 }
 
-label{
+label {
     display: block;
     margin-top: 25px;
     font-size: 15px;
     font-weight: 500;
 }
-input{
+
+input {
     box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.144);
     display: block;
     height: 46px;
@@ -87,9 +92,11 @@ input{
     font-size: 14px;
     font-weight: 300;
 }
-::placeholder{
+
+::placeholder {
     color: #e5e5e5;
 }
+
 /* Original button styles (adjust as needed) */
 button {
     margin-top: 30px;
@@ -101,28 +108,34 @@ button {
     font-weight: 600;
     border-radius: 30px;
     cursor: pointer;
-  }
-  
-  /* Styles for the grow ellipse animation (adapted) */
-  .btn-grow-ellipse {
-    background: #fff; /* color de fondo */
-    color: #204033; /* color de fuente */
-    border: 2px solid #204033; /* tamaño y color de borde */
+}
+
+/* Styles for the grow ellipse animation (adapted) */
+.btn-grow-ellipse {
+    background: #fff;
+    /* color de fondo */
+    color: #204033;
+    /* color de fuente */
+    border: 2px solid #204033;
+    /* tamaño y color de borde */
     padding: 16px 20px;
-    border-radius: 30px; /* redondear bordes */
+    border-radius: 30px;
+    /* redondear bordes */
     position: relative;
     z-index: 1;
     overflow: hidden;
     display: inline-block;
-  }
-  
-  .btn-grow-ellipse:hover {
-    color: #fff; /* color de fuente hover */
-  }
-  
-  .btn-grow-ellipse::after {
+}
+
+.btn-grow-ellipse:hover {
+    color: #fff;
+    /* color de fuente hover */
+}
+
+.btn-grow-ellipse::after {
     content: "";
-    background: #204033; /* color de fondo hover */
+    background: #204033;
+    /* color de fondo hover */
     position: absolute;
     z-index: -1;
     padding: 16px 20px;
@@ -134,10 +147,9 @@ button {
     bottom: -150%;
     transform: scale(0, 0);
     transition: all 0.4s ease;
-  }
-  
-  .btn-grow-ellipse:hover::after {
+}
+
+.btn-grow-ellipse:hover::after {
     transition: all 0.6s ease-out;
     transform: scale(1, 1);
-  }
-  
+}
