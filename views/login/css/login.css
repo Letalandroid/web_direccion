@@ -100,7 +100,7 @@ input {
 }
 
 /* Original button styles (adjust as needed) */
-button {
+.btn-grow-ellipse {
     margin-top: 30px;
     width: 100%;
     background-color: #204033;
@@ -114,6 +114,7 @@ button {
 
 /* Styles for the grow ellipse animation (adapted) */
 .btn-grow-ellipse {
+    margin-top: 15px;
     background: #fff;
     /* color de fondo */
     color: #204033;
