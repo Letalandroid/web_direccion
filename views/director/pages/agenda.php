@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
     header('Location: /');
     exit();
 }
@@ -14,11 +14,11 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/views/apoderado/css/header.css" />
-    <link rel="stylesheet" href="/views/apoderado/css/agenda.css" />
-    <link rel="shortcut icon" href="views/apoderado/assets/img/logo_transparent.png" type="image/x-icon" />
-    <script defer src="/views/apoderado/js/header.js"></script>
-    <script defer src="/views/apoderado/js/agenda.js"></script>
+    <link rel="stylesheet" href="/views/director/css/header.css" />
+    <link rel="stylesheet" href="/views/director/css/agenda.css" />
+    <link rel="shortcut icon" href="views/director/assets/img/logo_transparent.png" type="image/x-icon" />
+    <script defer src="/views/director/js/header.js"></script>
+    <script defer src="/views/director/js/agenda.js"></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", () => {
             closed_menu();

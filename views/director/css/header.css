@@ -49,6 +49,11 @@ header>button {
     }
 }
 
+nav>ul {
+    margin: 0;
+    padding: 0;
+}
+
 nav>ul>li {
     width: 200px;
     display: flex;
@@ -101,6 +106,8 @@ nav {
     padding: 12px;
     background-color: var(--red);
     transition: background-color .2s;
+    text-decoration: none;
+    text-align: center;
 
     &:hover {
         background-color: #812e2c;
