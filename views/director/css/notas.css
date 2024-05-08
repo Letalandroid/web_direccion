@@ -1,0 +1,128 @@
+main {
+    display: flex;
+
+    h2 {
+        margin: 20px
+    }
+}
+
+
+.container__notas {
+    width: calc(100vw - 221px - 40px);
+    margin: 20px;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .section__notas {
+
+        height: 80px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #000;
+        box-shadow: 5px 5px 5px #0004;
+        padding: 0 20px;
+        transition: margin .5s;
+
+        .notas__contain {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            div:nth-child(1) {
+                display: flex;
+                justify-content: center;
+                font-size: 24px;
+                align-items: center;
+                gap: 10px;
+
+                i {
+                    font-size: 26px;
+                }
+            }
+
+            div:nth-child(2) {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-weight: bold;
+
+                span {
+                    color: #fff;
+                    padding: 7px 20px;
+                    border-radius: 100px;
+                }
+            }
+        }
+
+        .notas__bim {
+            position: absolute;
+            left: -1px;
+            bottom: 0;
+            opacity: 0;
+            width: calc(100vw - 221px - 40px);
+            height: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-evenly;
+            background-color: #eee;
+            box-shadow: 5px 5px 5px #0004;
+            transition: all .5s;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+
+                h3 {
+                    margin-bottom: 3px;
+                }
+            }
+        }
+
+        .activate {
+            height: auto;
+            padding: 20px 0;
+            bottom: -130px;
+            opacity: 1;
+        }
+
+        .activate_btn {
+
+            bottom: -160px;
+
+            i {
+                transform: rotate(270deg);
+            }
+        }
+
+        button {
+            cursor: pointer;
+            width: 80px;
+            height: 30px;
+            position: absolute;
+            bottom: -30px;
+            right: -1px;
+            border: 1px solid #000;
+            background-color: #fff;
+            transition: background-color .2s, bottom .5s;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
+
+            i {
+                transform: rotate(90deg);
+                font-size: 22px;
+                transition: transform .2s;
+            }
+        }
+
+    }
+
+    .sparcing {
+        margin-bottom: 140px;
+    }
+}
