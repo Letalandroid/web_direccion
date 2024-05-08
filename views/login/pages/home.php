@@ -9,7 +9,7 @@ $error = array(
     'message' => 'test'
 );
 
-if ($_POST['login']) {
+if (isset($_POST['login'])) {
 
     $data = Usuarios::getAll();
 
@@ -17,9 +17,13 @@ if ($_POST['login']) {
         $error['status'] = true;
         $error['message'] = $data['message'];
     } else {
+        $userFound = false;
         foreach ($data as $users) {
             if ($users['username'] == $_POST['username']) {
+                $userFound = true;
+
                 if ($_POST['password'] == $users['password']) {
+
                     session_start();
                     $_SESSION['username'] = $users['username'];
                     $_SESSION['user_id'] = $users['user_id'];
@@ -28,31 +32,36 @@ if ($_POST['login']) {
                     switch ($users['type']) {
                         case 'Apoderado':
                             header('Location: /apoderado');
-                            break;
+                            exit();
 
                         case 'Docente':
                             header('Location: /docente');
-                            break;
+                            exit();
 
                         case 'Director':
                             header('Location: /director');
-                            break;
+                            exit();
 
                         default:
                             header('Location: /');
-                            break;
+                            exit();
                     }
+
                 } else {
                     $error['status'] = true;
                     $error['message'] = 'Contraseña incorrecta';
                     break;
                 }
-            } else {
-                $error['status'] = true;
-                $error['message'] = 'Usuario no encontrado';
+
             }
         }
+
+        if (!$userFound) {
+            $error['status'] = true;
+            $error['message'] = 'Usuario no encontrado';
+        }
     }
+
 } else {
     session_start();
     session_destroy();
