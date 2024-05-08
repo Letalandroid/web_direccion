@@ -16,7 +16,7 @@ $error = [
 
 $all_courses = Cursos::getAll();
 
-if ($all_courses['error']) {
+if (isset($all_courses['error'])) {
 	$error['status'] = true;
 	$error['message'] = $all_courses['message'];
 }

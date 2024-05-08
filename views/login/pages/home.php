@@ -83,7 +83,7 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
-    <?php if (isset($error['status'])) { ?>
+    <?php if ($error['status']) { ?>
         <div class="alert alert-danger alert-dismissible fade show m-2" role="alert">
             <strong>❌ Error:</strong> <?= $error['message'] ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
