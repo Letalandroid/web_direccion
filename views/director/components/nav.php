@@ -11,7 +11,7 @@ function show_nav($page_name)
 
 		echo "<li{$class}>
             <i class=\"fas fa-chevron-right\"></i>
-            <a class=\"link__menu\" href=\"/apoderado/" . strtolower($page) . "\">" . $page . "</a>
+            <a class=\"link__menu\" href=\"/director/" . strtolower($page) . "\">" . $page . "</a>
         </li>";
 	}
 

@@ -6,6 +6,8 @@ if (!isset($_SESSION['user_id'])) {
 	exit();
 }
 
+$username = $_SESSION['username'];
+
 ?>
 
 <!DOCTYPE html>
@@ -35,11 +37,7 @@ if (!isset($_SESSION['user_id'])) {
 		<div>
 			<div class="container__sections">
 				<div class="sections__perfil">
-					<p>Hola! Robertito Del Rosario Ramirez Ayala</p>
-					<div>
-						<span><b>Edad:</b> 10</span>
-						<span><b>Grado:</b> 5to</span>
-					</div>
+					<p>Hola! <?= $username ?></p>
 				</div>
 				<div class="sections__top">
 					<div class="section__asistencias">
