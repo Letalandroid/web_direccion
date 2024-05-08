@@ -22,8 +22,8 @@ class Usuarios
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
             return $results;
         } catch (Exception $e) {
-            http_response_code(500);
-            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+            error_log('Error in Usuarios::getAll(): ' . $e->getMessage());
+            return array('error' => true, 'message' => 'Error en el servidor. Por favor, inténtelo de nuevo más tarde.');
         }
     }
 }

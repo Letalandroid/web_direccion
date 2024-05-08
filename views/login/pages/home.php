@@ -13,10 +13,7 @@ if (isset($_POST['login'])) {
 
     $data = Usuarios::getAll();
 
-    if ($data['error']) {
-        $error['status'] = true;
-        $error['message'] = $data['message'];
-    } else {
+    if (is_array($data) && !empty($data) && !isset($data['error'])) {
         $userFound = false;
         foreach ($data as $users) {
             if ($users['username'] == $_POST['username']) {
@@ -60,6 +57,9 @@ if (isset($_POST['login'])) {
             $error['status'] = true;
             $error['message'] = 'Usuario no encontrado';
         }
+    } else {
+        $error['status'] = true;
+        $error['message'] = 'Error al obtener datos de usuario';
     }
 
 } else {
@@ -83,7 +83,7 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
-    <?php if ($error['status']) { ?>
+    <?php if (isset($error['status'])) { ?>
         <div class="alert alert-danger alert-dismissible fade show m-2" role="alert">
             <strong>❌ Error:</strong> <?= $error['message'] ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
