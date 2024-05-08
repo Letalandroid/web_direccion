@@ -1,0 +1,48 @@
+main {
+    display: flex;
+}
+
+.container__section {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    gap: 20px;
+
+    table {
+
+        width: 60vw;
+        border: 1px solid #000;
+        border-collapse: collapse;
+
+        tr th {
+            padding: 10px 0;
+            font-size: 20px;
+            text-align: center;
+            border-bottom: 1px solid #000;
+        }
+
+        tr td {
+            text-align: center;
+            padding: 20px;
+            transition: background-color .3s;
+        }
+
+        .event {
+            cursor: pointer;
+            background-color: #ffccca;
+        }
+
+    }
+
+    #container_event {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .element__container {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+    }
+}
