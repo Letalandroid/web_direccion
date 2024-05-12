@@ -111,7 +111,8 @@ $cursos = Cursos::getAll();
                         <td><?= $docente['dni'] ?></td>
                         <td><?= $docente['nombres_apellidos'] ?></td>
                         <td><?= $docente['genero'] ?></td>
-                        <td><?= $docente['fecha_nacimiento'] ?></td>
+                        <?php $d_docente = explode('-', date("d-m-Y", strtotime($docente['fecha_nacimiento']))); ?>
+                        <td><?= "$d_docente[0] de $d_docente[1] del $d_docente[2]" ?></td>
                     </tr>
                 <?php } ?>
             </table>
