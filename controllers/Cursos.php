@@ -16,6 +16,23 @@ class Cursos
         try {
             $db = new Database();
 
+            $query = $db->connect()->prepare("select * from cursos");
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
+    static function getAll_Docente()
+    {
+        try {
+            $db = new Database();
+
             $query = $db->connect()->prepare("select c.nombre as curso, concat(d.nombres,' ',d.apellidos) as docente
                                                 from docentes d
                                                 inner join cursos c
@@ -23,7 +40,6 @@ class Cursos
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
-            $query->closeCursor();
 
             return $results;
         } catch (Exception $e) {

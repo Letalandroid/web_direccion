@@ -7,7 +7,6 @@ require_once __DIR__ . '/../model/db.php';
 use Letalandroid\model\Database;
 use Exception;
 use PDO;
-
 class Docente
 {
 
@@ -32,9 +31,9 @@ class Docente
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select d.dni, concat(d.nombres,' ',d.apellidos) as nombres_apellidos,
-                                                d.genero, d.fecha_nacimiento
-                                                from docentes d group by dni;");
+            $query = $db->connect()->prepare("select dni, concat(nombres,' ',apellidos) as nombres_apellidos,
+                                                genero, fecha_nacimiento
+                                                from docentes group by dni;");
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -54,7 +53,7 @@ class Docente
                                                 genero, fecha_nacimiento) values
                                                 (?,?,?,?,?,?);');
 
-            $query->bindValue(1, $curso_id, PDO::PARAM_STR);
+            $query->bindValue(1, $curso_id, PDO::PARAM_INT);
             $query->bindValue(2, $dni, PDO::PARAM_STR);
             $query->bindValue(3, $nombres, PDO::PARAM_STR);
             $query->bindValue(4, $apellidos, PDO::PARAM_STR);

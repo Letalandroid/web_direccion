@@ -14,7 +14,7 @@ $error = [
 	'message' => ''
 ];
 
-$all_courses = Cursos::getAll();
+$all_courses = Cursos::getAll_Docente();
 
 if (isset($all_courses['error'])) {
 	$error['status'] = true;
