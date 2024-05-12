@@ -30,7 +30,7 @@ if (isset($all_courses['error'])) {
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="/views/director/css/header.css" />
-	<link rel="stylesheet" href="/views/director/css/notas.css" />
+	<link rel="stylesheet" href="/views/director/css/cursos.css" />
 	<link rel="shortcut icon" href="/views/director/assets/img/logo_transparent.png" type="image/x-icon" />
 	<script defer src="/views/director/js/header.js"></script>
 	<script defer src="/views/director/js/notas.js"></script>

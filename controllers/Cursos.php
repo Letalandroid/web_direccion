@@ -36,7 +36,8 @@ class Cursos
             $query = $db->connect()->prepare("select c.nombre as curso, concat(d.nombres,' ',d.apellidos) as docente
                                                 from docentes d
                                                 inner join cursos c
-                                                on (d.curso_id=c.curso_id);");
+                                                on (d.curso_id=c.curso_id)
+                                                order by curso;");
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
