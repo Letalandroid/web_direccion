@@ -1,0 +1,148 @@
+@import '/views/director/css/header.css';
+
+main {
+    display: flex;
+}
+
+.container__section {
+    width: calc(100% - 221px);
+    height: calc(100vh - 76.31px);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    #reload {
+        display: none;
+        color: #777;
+        background-color: #ffe600;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        box-shadow: 5px 5px 5px #0004;
+
+        button {
+            background-color: transparent;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .search__docente {
+        width: 97%;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 15px 0;
+
+        div {
+            width: 100%;
+            display: flex;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid #000;
+            padding: 5px 8px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: var(--green);
+            color: #fff;
+            padding: 10px 20px;
+            font-weight: bold;
+
+            &:hover {
+                background-color: #31635a;
+            }
+
+            i {
+                transition: .2s transform;
+            }
+        }
+    }
+
+    .create__docente {
+        width: 97%;
+        height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 15px;
+        transition: height .5s;
+
+        .container__data_docente {
+
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .left,
+            .right {
+                display: flex;
+                gap: 15px;
+
+                input,
+                select {
+                    padding: 3px 8px;
+                    border: 1px solid #000;
+                }
+            }
+
+            .cursos__container {
+                height: 60px;
+                overflow: auto;
+                padding: 0 5px;
+
+                &::-webkit-scrollbar {
+                    width: 1px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: var(--red);
+                }
+            }
+        }
+
+        button {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: var(--green);
+
+            &:hover {
+                background-color: #31635a;
+            }
+        }
+    }
+
+    table {
+        width: 97%;
+
+        td {
+            text-align: center;
+            padding: 10px 0;
+        }
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        padding: 5px 0;
+    }
+}
