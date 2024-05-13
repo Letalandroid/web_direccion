@@ -33,7 +33,7 @@ if (isset($all_courses['error'])) {
 	<link rel="stylesheet" href="/views/director/css/cursos.css" />
 	<link rel="shortcut icon" href="/views/director/assets/img/logo_transparent.png" type="image/x-icon" />
 	<script defer src="/views/director/js/header.js"></script>
-	<script defer src="/views/director/js/notas.js"></script>
+	<script defer src="/views/director/js/cursos.js"></script>
 	<script defer>
 		document.addEventListener('DOMContentLoaded', () => {
 			closed_menu();
@@ -56,12 +56,23 @@ if (isset($all_courses['error'])) {
 	<main>
 		<?php show_nav('Cursos') ?>
 		<div class="container__section">
-			<h2>Cursos:</h2>
+			<div class="reload">
+				<p id="reload_content">Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
+			</div>
+			<div class="title__container">
+				<h2>Cursos:</h2>
+				<button onclick="mostrar()" id="btn_show_add"><i class="fa fa-plus"></i></button>
+			</div>
+			<div class="add__course">
+				<label>Nombre del curso:</label>
+				<input id="new_course" type="text" placeholder="<?= $all_courses[0]['curso'] ?>">
+				<button id="btnAdd">Agregar</button>
+			</div>
 			<div class="container__notas">
 				<?php foreach ($all_courses as $course) { ?>
 					<div class="course">
 						<span><?= $course['curso'] ?></span>
-						<span><?= $course['docente'] ?></span>
+						<span><?= $course['docente'] ?? '<b>[Docente no asignado]</b>' ?></span>
 					</div>
 				<?php } ?>
 			</div>

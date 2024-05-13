@@ -35,7 +35,7 @@ class Cursos
 
             $query = $db->connect()->prepare("select c.nombre as curso, concat(d.nombres,' ',d.apellidos) as docente
                                                 from docentes d
-                                                inner join cursos c
+                                                right join cursos c
                                                 on (d.curso_id=c.curso_id)
                                                 order by curso;");
             $query->execute();
@@ -55,7 +55,7 @@ class Cursos
             $db = new Database();
             $query = $db->connect()->prepare('insert into cursos (nombre) values (?);');
 
-            $query->bindValue(1, $nombre, PDO::PARAM_INT);
+            $query->bindValue(1, $nombre, PDO::PARAM_STR);
             $query->execute();
 
             return array('success' => true, 'message' => '📚️ Curso agregado exitosamente');

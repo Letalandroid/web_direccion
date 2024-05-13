@@ -10,23 +10,11 @@ if (isset($_POST['createCurso'])) {
     try {
         $nombre = $_POST['nombre'];
 
-        $resultados = [];
+        $add = Cursos::create($nombre);
 
-        if (is_array($cursos)) {
-            foreach ($cursos as $curso_id) {
-                $add = Cursos::create($nombre);
-
-                if (!isset($add['error'])) {
-                    array_push($resultados, 1);
-                } else {
-                    array_push($resultados, 0);
-                }
-            }
-        }
-
-        if (array_filter($resultados) == 0 || empty($resultados)) {
+        if ($add['error']) {
             http_response_code(500);
-            echo json_encode('Error al ejecutar la consulta');
+            echo json_encode('Error al ejecutar la consulta', $add['message']);
             exit();
         } else {
             http_response_code(200);
