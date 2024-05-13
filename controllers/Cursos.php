@@ -48,4 +48,20 @@ class Cursos
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
         }
     }
+
+    static function create($nombre)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare('insert into cursos (nombre) values (?);');
+
+            $query->bindValue(1, $nombre, PDO::PARAM_INT);
+            $query->execute();
+
+            return array('success' => true, 'message' => '📚️ Curso agregado exitosamente');
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
 }
