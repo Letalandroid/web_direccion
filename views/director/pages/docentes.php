@@ -25,7 +25,7 @@ $cursos = Cursos::getAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/views/director/css/header.css" />
     <link rel="stylesheet" href="/views/director/css/docentes.css">
-    <link rel="shortcut icon" href="views/director/assets/img/logo_transparent.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/views/director/assets/img/logo_transparent.png" type="image/x-icon" />
     <script defer src="/views/director/js/header.js"></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", () => {
