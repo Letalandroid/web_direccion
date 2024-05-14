@@ -1,6 +1,6 @@
 <?php
 
-const PAGE_LIST = array('Agenda', 'Cursos', 'Conducta', 'Docentes');
+const PAGE_LIST = array('Agenda', 'Apoderados', 'Cursos', 'Conducta', 'Docentes');
 
 function show_nav($page_name)
 {
