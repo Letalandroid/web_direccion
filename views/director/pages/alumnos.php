@@ -10,9 +10,8 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
     exit();
 }
 
-$apoderados_con = Apoderado::getAllCon();
+$apoderados = Apoderado::getAllMin();
 $apoderados_reverse = Apoderado::getAllReverse();
-$apoderados_sin = Apoderado::getAllSinAlumn();
 
 ?>
 
@@ -38,7 +37,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
 <body>
     <?php require_once __DIR__ . '/../components/header.php' ?>
     <main>
-        <?php show_nav('Apoderados'); ?>
+        <?php show_nav('Alumnos'); ?>
         <div class="container__section">
             <div id="reload">
                 <p>Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
@@ -91,30 +90,6 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 </div>
                 <button onclick="addApoderado()">Agregar</button>
             </div>
-            <div class="apo_null_container">
-                <h2>Apoderados sin hijos asignados</h2>
-                <table>
-                    <thead>
-                        <th>DNI</th>
-                        <th>Nombres y Apellidos</th>
-                        <th>Género</th>
-                        <th>Nacionalidad</th>
-                        <th>Fecha de nacimiento</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($apoderados_sin as $apoderado) { ?>
-                            <tr>
-                                <td><?= $apoderado['dni'] ?></td>
-                                <td><?= $apoderado['nombres_apellidos'] ?></td>
-                                <td><?= $apoderado['genero'] ?></td>
-                                <td><?= $apoderado['nacionalidad'] ?></td>
-                                <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
-                                <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
             <table id="apoderadosTable">
                 <thead>
                     <th>DNI</th>
@@ -123,18 +98,16 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <th>Nacionalidad</th>
                     <th>Fecha de nacimiento</th>
                 </thead>
-                <tbody>
-                    <?php foreach ($apoderados_con as $apoderado) { ?>
-                        <tr>
-                            <td><?= $apoderado['dni'] ?></td>
-                            <td><?= $apoderado['nombres_apellidos'] ?></td>
-                            <td><?= $apoderado['genero'] ?></td>
-                            <td><?= $apoderado['nacionalidad'] ?></td>
-                            <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
-                            <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
+                <?php foreach ($apoderados as $apoderado) { ?>
+                    <tr>
+                        <td><?= $apoderado['dni'] ?></td>
+                        <td><?= $apoderado['nombres_apellidos'] ?></td>
+                        <td><?= $apoderado['genero'] ?></td>
+                        <td><?= $apoderado['nacionalidad'] ?></td>
+                        <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
+                        <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
+                    </tr>
+                <?php } ?>
             </table>
         </div>
     </main>
