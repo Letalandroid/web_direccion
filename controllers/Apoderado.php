@@ -47,14 +47,41 @@ class Apoderado
         }
     }
 
-    static function getAllMin()
+    static function getAllCon()
     {
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select dni, concat(nombres,' ',apellidos) as nombres_apellidos,
-                                                nacionalidad, genero, fecha_nacimiento
-                                                from apoderados group by dni;");
+            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,
+                                            concat(ap.nombres,' ',ap.apellidos) as    nombres_apellidos,
+                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad
+                                            from alumnos a
+                                            right join apoderados ap
+                                            on (a.apoderado_id=ap.apoderado_id)
+                                            where alumno_id is not null;");
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
+    static function getAllSinAlumn()
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,
+                                            concat(ap.nombres,' ',ap.apellidos) as    nombres_apellidos,
+                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad
+                                            from alumnos a
+                                            right join apoderados ap
+                                            on (a.apoderado_id=ap.apoderado_id)
+                                            where alumno_id is null;");
+
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
