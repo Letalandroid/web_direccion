@@ -27,6 +27,42 @@ class Apoderado
         }
     }
 
+    static function getId($dni)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select * from apoderados where dni=?;');
+            $query->bindValue(1, $dni, PDO::PARAM_STR);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
+    static function getAllFormat()
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select apoderado_id, dni,
+                                            concat(nombres,' ',apellidos) as nombres_apellidos,
+                                            genero, nacionalidad, fecha_nacimiento
+                                            from apoderados;");
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAllReverse()
     {
         try {

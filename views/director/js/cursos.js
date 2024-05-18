@@ -32,7 +32,7 @@ btnAdd.addEventListener('click', () => {
         alert('El curso no puede estar vacío');
     } else {
         const xhr = new XMLHttpRequest();
-				xhr.open('POST', '/controllers/actionsCursos/add.php');
+				xhr.open('POST', '/controllers/actions/actionsCursos.php');
 				xhr.setRequestHeader(
 					'Content-Type',
 					'application/x-www-form-urlencoded'
