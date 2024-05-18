@@ -1,7 +1,9 @@
 <?php
 
+use Letalandroid\controllers\Alumnos;
 use Letalandroid\controllers\Apoderado;
 
+require_once __DIR__ . '/../../../controllers/Alumnos.php';
 require_once __DIR__ . '/../../../controllers/Apoderado.php';
 
 session_start();
@@ -10,8 +12,8 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
     exit();
 }
 
-$apoderados = Apoderado::getAllMin();
-$apoderados_reverse = Apoderado::getAllReverse();
+$alumnos = Alumnos::getAllMin();
+$apoderados = Apoderado::getAllFormat();
 
 ?>
 
@@ -22,7 +24,7 @@ $apoderados_reverse = Apoderado::getAllReverse();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/views/director/css/header.css" />
-    <link rel="stylesheet" href="/views/director/css/apoderado.css">
+    <link rel="stylesheet" href="/views/director/css/alumnos.css">
     <link rel="shortcut icon" href="/views/director/assets/img/logo_transparent.png" type="image/x-icon" />
     <script defer src="/views/director/js/header.js"></script>
     <script defer>
@@ -31,7 +33,7 @@ $apoderados_reverse = Apoderado::getAllReverse();
         });
     </script>
     <script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
-    <title>I.E.P Los Clavelitos de SJT - Piura | Apoderados</title>
+    <title>I.E.P Los Clavelitos de SJT - Piura | Alumnos</title>
 </head>
 
 <body>
@@ -42,19 +44,19 @@ $apoderados_reverse = Apoderado::getAllReverse();
             <div id="reload">
                 <p>Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
             </div>
-            <div class="search__apoderado">
+            <div class="search__alumno">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_apoderado" type="text" placeholder="<?= $apoderados_reverse[0]['nombres_apellidos'] ?>">
+                    <input id="search_alumno" type="text" placeholder="Pedrito">
                     <button onclick="buscarDocente()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
             </div>
-            <div class="create__apoderado">
-                <h3>Agregar apoderado</h3>
-                <div class="container__data_apoderado">
+            <div class="create__alumno">
+                <h3>Agregar alumno</h3>
+                <div class="container__data_alumno">
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
@@ -79,8 +81,14 @@ $apoderados_reverse = Apoderado::getAllReverse();
                             <input id="apellidos" class="send_data" type="text">
                         </div>
                         <div>
-                            <label>Nacionaliadd:</label>
-                            <input id="nacionalidad" class="send_data" type="text">
+                            <label>Apoderado</label>
+                            <input list="apoderados" id="apoderado">
+                            <datalist id="apoderados">
+                                <?php foreach ($apoderados as $apoderado) { ?>
+                                    <option value="<?= $apoderado['dni'] . ' - ' . $apoderado['nombres_apellidos'] ?>">
+                                    </option>
+                                <?php } ?>
+                            </datalist>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
@@ -88,24 +96,22 @@ $apoderados_reverse = Apoderado::getAllReverse();
                         </div>
                     </div>
                 </div>
-                <button onclick="addApoderado()">Agregar</button>
+                <button onclick="addAlumno()">Agregar</button>
             </div>
-            <table id="apoderadosTable">
+            <table id="alumnosTable">
                 <thead>
                     <th>DNI</th>
                     <th>Nombres y Apellidos</th>
                     <th>Género</th>
-                    <th>Nacionalidad</th>
                     <th>Fecha de nacimiento</th>
                 </thead>
-                <?php foreach ($apoderados as $apoderado) { ?>
+                <?php foreach ($alumnos as $alumno) { ?>
                     <tr>
-                        <td><?= $apoderado['dni'] ?></td>
-                        <td><?= $apoderado['nombres_apellidos'] ?></td>
-                        <td><?= $apoderado['genero'] ?></td>
-                        <td><?= $apoderado['nacionalidad'] ?></td>
-                        <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
-                        <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
+                        <td><?= $alumno['dni'] ?></td>
+                        <td><?= $alumno['nombres_apellidos'] ?></td>
+                        <td><?= $alumno['genero'] ?></td>
+                        <?php $d_alumno = explode('-', date("d-m-Y", strtotime($alumno['fecha_nacimiento']))); ?>
+                        <td><?= "$d_alumno[0] de $d_alumno[1] del $d_alumno[2]" ?></td>
                     </tr>
                 <?php } ?>
             </table>
@@ -115,22 +121,22 @@ $apoderados_reverse = Apoderado::getAllReverse();
         let show = false;
 
         const buscarApoderado = () => {
-            const apoderadoName = document.getElementById('search_apoderado').value;
-            const apoderados = <?= json_encode($apoderados) ?>;
-            const matchingapoderados = apoderados.filter(apoderado => apoderado.nombres_apellidos.toLowerCase().includes(apoderadoName));
+            const alumnoName = document.getElementById('search_alumno').value;
+            const alumnos = <?= json_encode($alumnos) ?>;
+            const matchingalumnos = alumnos.filter(alumno => alumno.nombres_apellidos.toLowerCase().includes(alumnoName));
 
-            const tableBody = document.getElementById('apoderadosTable').getElementsByTagName('tbody')[0];
+            const tableBody = document.getElementById('alumnosTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = "";
 
-            if (matchingApoderados.length > 0) {
-                matchingApoderados.forEach(apoderado => {
+            if (matchingAlumnos.length > 0) {
+                matchingAlumnos.forEach(alumno => {
                     const row = tableBody.insertRow();
                     row.innerHTML = `
-                <td>${apoderado.dni}</td>
-                <td>${apoderado.nombres_apellidos}</td>
-                <td>${apoderado.genero}</td>
-                <td>${apoderado.nacionalidad}</td>
-                <td>${apoderado.fecha_nacimiento}</td>
+                <td>${alumno.dni}</td>
+                <td>${alumno.nombres_apellidos}</td>
+                <td>${alumno.genero}</td>
+                <td>${alumno.nacionalidad}</td>
+                <td>${alumno.fecha_nacimiento}</td>
             `;
                 });
             } else {
@@ -144,14 +150,14 @@ $apoderados_reverse = Apoderado::getAllReverse();
         const showAdd = () => {
 
             const icon = document.querySelector('.fa-plus');
-            const create_apoderado = document.querySelector('.create__apoderado');
+            const create_alumno = document.querySelector('.create__alumno');
 
             if (!show) {
-                create_apoderado.style.height = '211px';
+                create_alumno.style.height = '211px';
                 icon.style.transform = 'rotate(45deg)';
                 show = true;
             } else {
-                create_apoderado.style.height = 0
+                create_alumno.style.height = 0
                 icon.style.transform = 'rotate(0)';
                 show = false;
             }
@@ -159,7 +165,11 @@ $apoderados_reverse = Apoderado::getAllReverse();
 
         }
 
-        const addApoderado = async () => {
+        const addAlumno = async () => {
+
+            const apoderado = document.querySelector('#apoderado').value;
+            const apoderado_dni = apoderado.split(' - ')[0];
+            const nombres_apellidos = apoderado.split(' - ')[1];
 
             let isEmpty = false;
 
@@ -176,11 +186,10 @@ $apoderados_reverse = Apoderado::getAllReverse();
                 const apellidos = document.querySelector('#apellidos').value;
                 const dni = document.querySelector('#dni').value;
                 const genero = document.querySelector('#genero').value;
-                const nacionalidad = document.querySelector('#nacionalidad').value;
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
 
                 const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/controllers/actionsApoderado/add.php');
+                xhr.open('POST', '/controllers/actions/actionsAlumno.php');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status === 200) {
@@ -193,7 +202,7 @@ $apoderados_reverse = Apoderado::getAllReverse();
                 xhr.onerror = function() {
                     console.error('Error de conexión');
                 };
-                xhr.send(`createApoderado=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&nacionalidad=${nacionalidad}`);
+                xhr.send(`createAlumno=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&apoderado_dni=${apoderado_dni}`);
             } else {
                 alert('Existen uno o más campos vacío.')
             }

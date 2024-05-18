@@ -23,7 +23,7 @@ if (isset($_POST['createApoderado'])) {
             exit();
         } else {
             http_response_code(200);
-            echo json_encode('Docente agregado exitosamente');
+            echo json_encode('Apoderado agregado exitosamente');
             exit();
         }
     } catch (Error $e) {

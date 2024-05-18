@@ -91,6 +91,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 </div>
                 <button onclick="addApoderado()">Agregar</button>
             </div>
+            <?php if(!empty($apoderados_sin)) { ?>
             <div class="apo_null_container">
                 <h2>Apoderados sin hijos asignados</h2>
                 <table>
@@ -115,6 +116,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     </tbody>
                 </table>
             </div>
+            <?php } ?>
             <table id="apoderadosTable">
                 <thead>
                     <th>DNI</th>
@@ -207,7 +209,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
 
                 const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/controllers/actionsApoderado/add.php');
+                xhr.open('POST', '/controllers/actions/actionsApoderado.php');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status === 200) {
