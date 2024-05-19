@@ -26,4 +26,25 @@ class Usuarios
             return array('error' => true, 'message' => 'Error en el servidor. Por favor, inténtelo de nuevo más tarde.');
         }
     }
+
+    static function create($docente_id, $username, $password, $rol)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('insert into usuarios (docente_id,username,password,rol)
+                                            values (?,?,?,?);');
+            $query->bindValue(1, $docente_id, PDO::PARAM_INT);
+            $query->bindValue(2, $username, PDO::PARAM_STR);
+            $query->bindValue(3, $password, PDO::PARAM_STR);
+            $query->bindValue(4, $rol, PDO::PARAM_STR);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            error_log('Error in Usuarios::getAll(): ' . $e->getMessage());
+            return array('error' => true, 'message' => 'Error en el servidor. Por favor, inténtelo de nuevo más tarde.');
+        }
+    }
 }

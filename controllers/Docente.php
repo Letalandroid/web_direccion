@@ -26,6 +26,22 @@ class Docente
         }
     }
 
+    static function getAllLast()
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select * from docentes order by 1 desc;');
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAllMin()
     {
         try {

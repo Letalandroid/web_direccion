@@ -13,6 +13,11 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
 }
 
 $docentes = Docente::getAllMin();
+
+if ($docente['error']) {
+    echo $docentes['message'];
+}
+
 $cursos = Cursos::getAll();
 
 ?>
@@ -181,7 +186,7 @@ $cursos = Cursos::getAll();
             });
 
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/controllers/actionsDocente/add.php');
+            xhr.open('POST', '/controllers/actions/actionsDocente.php');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
                 if (xhr.status === 200) {
