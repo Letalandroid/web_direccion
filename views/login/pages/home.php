@@ -19,14 +19,14 @@ if (isset($_POST['login'])) {
             if ($users['username'] == $_POST['username']) {
                 $userFound = true;
 
-                if ($_POST['password'] == $users['password']) {
+                if (password_verify($_POST['password'], $users['password'])) {
 
                     session_start();
                     $_SESSION['username'] = $users['username'];
                     $_SESSION['user_id'] = $users['user_id'];
-                    $_SESSION['rol'] = $users['type'];
+                    $_SESSION['rol'] = $users['rol'];
 
-                    switch ($users['type']) {
+                    switch ($users['rol']) {
                         case 'Apoderado':
                             header('Location: /apoderado');
                             exit();
