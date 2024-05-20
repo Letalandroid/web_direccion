@@ -2,9 +2,11 @@
 
 use Letalandroid\controllers\Alumnos;
 use Letalandroid\controllers\Apoderado;
+use Letalandroid\controllers\Cursos;
 
 require_once __DIR__ . '/../../../controllers/Alumnos.php';
 require_once __DIR__ . '/../../../controllers/Apoderado.php';
+require_once __DIR__ . '/../../../controllers/Cursos.php';
 
 session_start();
 if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
@@ -14,6 +16,7 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
 
 $alumnos = Alumnos::getAllMin();
 $apoderados = Apoderado::getAllFormat();
+$cursos = Cursos::getAll();
 
 ?>
 
@@ -74,12 +77,6 @@ $apoderados = Apoderado::getAllFormat();
                                 <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="right">
-                        <div>
-                            <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
-                        </div>
                         <div>
                             <label>Apoderado</label>
                             <input list="apoderados" id="apoderado">
@@ -89,6 +86,23 @@ $apoderados = Apoderado::getAllFormat();
                                     </option>
                                 <?php } ?>
                             </datalist>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div>
+                            <label>Apellidos: </label>
+                            <input id="apellidos" class="send_data" type="text">
+                        </div>
+                        <div>
+                            <label>Cursos:</label>
+                            <div class="cursos__container">
+                                <?php foreach ($cursos as $curso) { ?>
+                                    <div>
+                                        <input class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>" type="checkbox">
+                                        <label><?= $curso['nombre'] ?></label>
+                                    </div>
+                                <?php } ?>
+                            </div>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
@@ -153,7 +167,7 @@ $apoderados = Apoderado::getAllFormat();
             const create_alumno = document.querySelector('.create__alumno');
 
             if (!show) {
-                create_alumno.style.height = '211px';
+                create_alumno.style.height = '220px';
                 icon.style.transform = 'rotate(45deg)';
                 show = true;
             } else {
@@ -188,6 +202,13 @@ $apoderados = Apoderado::getAllFormat();
                 const genero = document.querySelector('#genero').value;
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
 
+                const cursosSeleccionados = [];
+                document.querySelectorAll('.cursos_docente').forEach((curso) => {
+                    if (curso.checked) {
+                        cursosSeleccionados.push(curso.value);
+                    }
+                });
+
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', '/controllers/actions/actionsAlumno.php');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -202,7 +223,7 @@ $apoderados = Apoderado::getAllFormat();
                 xhr.onerror = function() {
                     console.error('Error de conexión');
                 };
-                xhr.send(`createAlumno=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&apoderado_dni=${apoderado_dni}`);
+                xhr.send(`createAlumno=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&apoderado_dni=${apoderado_dni}&cursos=${cursosSeleccionados}`);
             } else {
                 alert('Existen uno o más campos vacío.')
             }

@@ -88,6 +88,7 @@ main {
             .left,
             .right {
                 display: flex;
+                flex-wrap: wrap;
                 gap: 15px;
 
                 input,
@@ -97,6 +98,9 @@ main {
                 }
             }
 
+            .right {
+                justify-content: space-between;
+            }
             .cursos__container {
                 height: 60px;
                 overflow: auto;
