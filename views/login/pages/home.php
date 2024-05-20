@@ -19,8 +19,7 @@ if (isset($_POST['login'])) {
             if ($users['username'] == $_POST['username']) {
                 $userFound = true;
 
-                // if (password_verify($_POST['password'], $users['password'])) {
-                if ($_POST['password'] == $users['password']) {
+                if (password_verify($_POST['password'], $users['password'])) {
 
                     session_start();
                     $_SESSION['username'] = $users['username'];
