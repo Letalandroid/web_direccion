@@ -49,7 +49,7 @@ if (isset($_POST['createDocente'])) {
 
             $docente_id = Docente::getAllLast()[0]['docente_id'];
 
-            $create_user = Usuarios::create($docente_id, $username, $password_hash, 'Docente');
+            $create_user = Usuarios::createDocente($docente_id, $username, $password_hash, 'Docente');
 
             if (isset($create_user['error'])) {
                 http_response_code(500);
