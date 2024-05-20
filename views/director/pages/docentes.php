@@ -14,10 +14,6 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
 
 $docentes = Docente::getAllMin();
 
-if ($docente['error']) {
-    echo $docentes['message'];
-}
-
 $cursos = Cursos::getAll();
 
 ?>
