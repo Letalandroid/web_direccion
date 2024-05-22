@@ -1,11 +1,19 @@
 <?php
 
+use Letalandroid\controllers\Cursos;
+use Letalandroid\controllers\Agenda;
+
+require_once __DIR__ . '/../../../controllers/Cursos.php';
+require_once __DIR__ . '/../../../controllers/Agenda.php';
 
 session_start();
-if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
     header('Location: /');
     exit();
 }
+
+$cursos = Cursos::getForIdDoc($_SESSION['docente_id']);
+$agendas = Agenda::getAllCurso();
 
 ?>
 
@@ -39,7 +47,7 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
             <div class="search__agenda">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_agenda" type="text" placeholder="Pedrito">
+                    <input id="search_agenda" type="text" placeholder="📝 Evaluación: S1_Listas y Tablas">
                     <button onclick="buscarDocente()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
@@ -50,41 +58,25 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
                 <h3>Agregar agenda</h3>
                 <div class="container__data_agenda">
                     <div class="left">
-                        <div>
-                            <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text">
-                        </div>
-                        <div>
-                            <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text">
-                        </div>
-                        <div>
-                            <label>Género: </label>
-                            <select id="genero">
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-                            </select>
+                        <div class="container__descripcion">
+                            <label>Descripción: </label>
+                            <textarea id="descripcion" class="send_data" type="text"></textarea>
                         </div>
                     </div>
                     <div class="right">
                         <div>
-                            <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
-                        </div>
-                        <div>
                             <label>Cursos:</label>
-                            <div class="cursos__container">
-                                <select>
-                                    <?php foreach ($cursos as $curso) { ?>
-                                        <options class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>">  <?= $curso['nombre'] ?></options>
-                                </select>
-                            <?php } ?>
-                            </div>
+                            <select id="curso">
+                                <?php foreach ($cursos as $curso) { ?>
+                                    <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
+                                        <?= $curso['nombre'] ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div>
-                            <label>Fecha Nacimiento: </label>
-                            <input id="fecha_nacimiento" class="send_data" type="date">
+                            <label>Fecha Actividad: </label>
+                            <input id="fecha_actividad" class="send_data" type="date">
                         </div>
                     </div>
                 </div>
@@ -92,17 +84,15 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
             </div>
             <table id="agendasTable">
                 <thead>
-                    <th>DNI</th>
-                    <th>Nombres y Apellidos</th>
-                    <th>Género</th>
-                    <th>Fecha de nacimiento</th>
+                    <th>Curso</th>
+                    <th>Descripcion</th>
+                    <th>Fecha del evento</th>
                 </thead>
                 <?php foreach ($agendas as $agenda) { ?>
                     <tr>
-                        <td><?= $agenda['dni'] ?></td>
-                        <td><?= $agenda['nombres_apellidos'] ?></td>
-                        <td><?= $agenda['genero'] ?></td>
-                        <?php $d_agenda = explode('-', date("d-m-Y", strtotime($agenda['fecha_nacimiento']))); ?>
+                        <td><?= $agenda['curso'] ?></td>
+                        <td><?= $agenda['descripcion'] ?></td>
+                        <?php $d_agenda = explode('-', date("d-m-Y", strtotime($agenda['fecha_evento']))); ?>
                         <td><?= "$d_agenda[0] de $d_agenda[1] del $d_agenda[2]" ?></td>
                     </tr>
                 <?php } ?>
@@ -128,7 +118,7 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
                 <td>${agenda.nombres_apellidos}</td>
                 <td>${agenda.genero}</td>
                 <td>${agenda.nacionalidad}</td>
-                <td>${agenda.fecha_nacimiento}</td>
+                <td>${agenda.fecha_actividad}</td>
             `;
                 });
             } else {
@@ -159,10 +149,6 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
 
         const addAgenda = async () => {
 
-            const apoderado = document.querySelector('#apoderado').value;
-            const apoderado_dni = apoderado.split(' - ')[0];
-            const nombres_apellidos = apoderado.split(' - ')[1];
-
             let isEmpty = false;
 
             document.querySelectorAll('.send_data').forEach((data) => {
@@ -174,18 +160,9 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
 
             if (!isEmpty) {
 
-                const nombres = document.querySelector('#nombres').value;
-                const apellidos = document.querySelector('#apellidos').value;
-                const dni = document.querySelector('#dni').value;
-                const genero = document.querySelector('#genero').value;
-                const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
-
-                const cursosSeleccionados = [];
-                document.querySelectorAll('.cursos_docente').forEach((curso) => {
-                    if (curso.checked) {
-                        cursosSeleccionados.push(curso.value);
-                    }
-                });
+                const descripcion = document.querySelector('#descripcion').value;
+                const curso = document.querySelector('#curso').value;
+                const fecha_actividad = document.querySelector('#fecha_actividad').value;
 
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', '/controllers/actions/actionsAgenda.php');
@@ -201,7 +178,7 @@ if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Docente') {
                 xhr.onerror = function() {
                     console.error('Error de conexión');
                 };
-                xhr.send(`createAgenda=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&apoderado_dni=${apoderado_dni}&cursos=${cursosSeleccionados}`);
+                xhr.send(`createAgenda=true&descripcion=${descripcion}&curso_id=${curso}&fecha_actividad=${fecha_actividad}`);
             } else {
                 alert('Existen uno o más campos vacío.')
             }

@@ -60,6 +60,27 @@ class Docente
         }
     }
 
+    static function getMinId($id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select dni
+                                                -- concat(nombres,' ',apellidos) as nombres_apellidos,
+                                                -- genero, fecha_nacimiento
+                                                from docentes where docente_id=? limit 1;");
+
+            $query->bindValue(1, $id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function create($curso_id, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento)
     {
         try {

@@ -1,6 +1,6 @@
 <?php
 
-const PAGE_LIST = array('Agenda', 'Alumnos', 'Apoderados', 'Cursos', 'Docentes');
+const PAGE_LIST = array('Agenda', 'Asistencias', 'Conducta', 'Notas');
 
 function show_nav($page_name)
 {
@@ -11,7 +11,7 @@ function show_nav($page_name)
 
 		echo "<li $class>
             <i class=\"fas fa-chevron-right\"></i>
-            <a class=\"link__menu\" href=\"/director/" . strtolower($page) . "\">" . $page . "</a>
+            <a class=\"link__menu\" href=\"/docente/" . strtolower($page) . "\">" . $page . "</a>
         </li>";
 	}
 

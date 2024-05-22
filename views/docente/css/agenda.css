@@ -32,6 +32,20 @@ main {
         }
     }
 
+    .container__descripcion {
+        display: flex;
+        gap: 5px;
+
+        textarea {
+            width: 100%;
+            border: 1px solid #000;
+            padding: 5px;
+            resize: vertical;
+            width: calc(100vw - 480px);
+            max-height: 70px;
+        }
+    }
+
     .search__agenda {
         width: 97%;
         display: flex;
