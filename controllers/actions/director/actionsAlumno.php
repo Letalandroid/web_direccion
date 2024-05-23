@@ -1,7 +1,7 @@
 <?php
 
-require_once '../Alumnos.php';
-require_once '../Notas.php';
+require_once '../../Alumnos.php';
+require_once '../../Notas.php';
 
 use Letalandroid\controllers\Alumnos;
 use Letalandroid\controllers\Notas;
