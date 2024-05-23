@@ -3,6 +3,7 @@
 namespace Letalandroid\controllers;
 
 require_once __DIR__ . '/../model/db.php';
+require_once __DIR__ . '/Docente.php';
 
 use Letalandroid\model\Database;
 use Exception;
@@ -17,6 +18,30 @@ class Cursos
             $db = new Database();
 
             $query = $db->connect()->prepare("select * from cursos");
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
+    static function getForIdDoc($docente_id)
+    {
+        try {
+
+            $docente_dni = Docente::getMinId($docente_id)[0]['dni'];
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select * from cursos c
+                                            inner join docentes d
+                                            on (c.curso_id=d.curso_id)
+                                            where d.dni=?;");
+
+            $query->bindValue(1, $docente_dni, PDO::PARAM_STR);
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);

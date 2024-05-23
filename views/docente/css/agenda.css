@@ -32,7 +32,21 @@ main {
         }
     }
 
-    .search__alumno {
+    .container__descripcion {
+        display: flex;
+        gap: 5px;
+
+        textarea {
+            width: 100%;
+            border: 1px solid #000;
+            padding: 5px;
+            resize: vertical;
+            width: calc(100vw - 480px);
+            max-height: 70px;
+        }
+    }
+
+    .search__agenda {
         width: 97%;
         display: flex;
         align-items: center;
@@ -67,7 +81,7 @@ main {
         }
     }
 
-    .create__alumno {
+    .create__agenda {
         width: 97%;
         height: 0;
         overflow: hidden;
@@ -78,7 +92,7 @@ main {
         gap: 15px;
         transition: height .5s;
 
-        .container__data_alumno {
+        .container__data_agenda {
 
             display: flex;
             gap: 20px;
@@ -154,7 +168,7 @@ main {
         }
     }
 
-    #alumnosTable {
+    #agendasTable {
         thead {
             color: #fff;
             background-color: var(--blue);

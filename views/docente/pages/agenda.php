@@ -1,0 +1,189 @@
+<?php
+
+use Letalandroid\controllers\Cursos;
+use Letalandroid\controllers\Agenda;
+
+require_once __DIR__ . '/../../../controllers/Cursos.php';
+require_once __DIR__ . '/../../../controllers/Agenda.php';
+
+session_start();
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
+    header('Location: /');
+    exit();
+}
+
+$cursos = Cursos::getForIdDoc($_SESSION['docente_id']);
+$agendas = Agenda::getAllCurso();
+
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/views/docente/css/header.css" />
+    <link rel="stylesheet" href="/views/docente/css/agenda.css">
+    <link rel="shortcut icon" href="/views/docente/assets/img/logo_transparent.png" type="image/x-icon" />
+    <script defer src="/views/docente/js/header.js"></script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            closed_menu();
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
+    <title>I.E.P Los Clavelitos de SJT - Piura | Activiades</title>
+</head>
+
+<body>
+    <?php require_once __DIR__ . '/../components/header.php' ?>
+    <main>
+        <?php show_nav('Agenda'); ?>
+        <div class="container__section">
+            <div id="reload">
+                <p>Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
+            </div>
+            <div class="search__agenda">
+                <label>Buscar:</label>
+                <div>
+                    <input id="search_agenda" type="text" placeholder="📝 Evaluación: S1_Listas y Tablas">
+                    <button onclick="buscarDocente()">Buscar</button>
+                    <button onclick="showAdd()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="create__agenda">
+                <h3>Agregar agenda</h3>
+                <div class="container__data_agenda">
+                    <div class="left">
+                        <div class="container__descripcion">
+                            <label>Descripción: </label>
+                            <textarea id="descripcion" class="send_data" type="text"></textarea>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div>
+                            <label>Cursos:</label>
+                            <select id="curso">
+                                <?php foreach ($cursos as $curso) { ?>
+                                    <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
+                                        <?= $curso['nombre'] ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Fecha Actividad: </label>
+                            <input id="fecha_actividad" class="send_data" type="date">
+                        </div>
+                    </div>
+                </div>
+                <button onclick="addAgenda()">Agregar</button>
+            </div>
+            <table id="agendasTable">
+                <thead>
+                    <th>Curso</th>
+                    <th>Descripcion</th>
+                    <th>Fecha del evento</th>
+                </thead>
+                <?php foreach ($agendas as $agenda) { ?>
+                    <tr>
+                        <td><?= $agenda['curso'] ?></td>
+                        <td><?= $agenda['descripcion'] ?></td>
+                        <?php $d_agenda = explode('-', date("d-m-Y", strtotime($agenda['fecha_evento']))); ?>
+                        <td><?= "$d_agenda[0] de $d_agenda[1] del $d_agenda[2]" ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+    </main>
+    <script>
+        let show = false;
+
+        const buscarApoderado = () => {
+            const agendaName = document.getElementById('search_agenda').value;
+            const agendas = <?= json_encode($agendas) ?>;
+            const matchingagendas = agendas.filter(agenda => agenda.nombres_apellidos.toLowerCase().includes(agendaName));
+
+            const tableBody = document.getElementById('agendasTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = "";
+
+            if (matchingAgendas.length > 0) {
+                matchingAgendas.forEach(agenda => {
+                    const row = tableBody.insertRow();
+                    row.innerHTML = `
+                <td>${agenda.dni}</td>
+                <td>${agenda.nombres_apellidos}</td>
+                <td>${agenda.genero}</td>
+                <td>${agenda.nacionalidad}</td>
+                <td>${agenda.fecha_actividad}</td>
+            `;
+                });
+            } else {
+                const row = tableBody.insertRow();
+                const cell = row.insertCell();
+                cell.colSpan = 4;
+                cell.textContent = "No se encontraron resultados";
+            }
+        }
+
+        const showAdd = () => {
+
+            const icon = document.querySelector('.fa-plus');
+            const create_agenda = document.querySelector('.create__agenda');
+
+            if (!show) {
+                create_agenda.style.height = '220px';
+                icon.style.transform = 'rotate(45deg)';
+                show = true;
+            } else {
+                create_agenda.style.height = 0
+                icon.style.transform = 'rotate(0)';
+                show = false;
+            }
+
+
+        }
+
+        const addAgenda = async () => {
+
+            let isEmpty = false;
+
+            document.querySelectorAll('.send_data').forEach((data) => {
+                if (data.value.length <= 0 || data.value.startsWith(' ')) {
+                    isEmpty = true;
+                    return;
+                }
+            });
+
+            if (!isEmpty) {
+
+                const descripcion = document.querySelector('#descripcion').value;
+                const curso = document.querySelector('#curso').value;
+                const fecha_actividad = document.querySelector('#fecha_actividad').value;
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/controllers/actions/actionsAgenda.php');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        console.log(xhr.response);
+                        document.querySelector('#reload').style.display = 'block';
+                    } else {
+                        console.log(xhr.response);
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Error de conexión');
+                };
+                xhr.send(`createAgenda=true&descripcion=${descripcion}&curso_id=${curso}&fecha_actividad=${fecha_actividad}`);
+            } else {
+                alert('Existen uno o más campos vacío.')
+            }
+        }
+    </script>
+</body>
+
+</html>

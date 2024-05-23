@@ -1,0 +1,115 @@
+@import '/views/director/css/_variables.css';
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--green);
+    padding: 10px;
+}
+
+.logo__container>a {
+    img {
+        width: 50px;
+        border-radius: 50%;
+        outline: 3px solid #fff;
+    }
+}
+
+.logo__container {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+header>button {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    background-color: transparent;
+    border: 5px solid #36675E;
+    border-radius: 7px;
+    color: #fff;
+    font-size: 32px;
+    transition: background-color .2s;
+
+    &:hover {
+        background-color: #36675E;
+    }
+}
+
+nav>ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav>ul>li {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 20px 0;
+    padding-left: 20px;
+    border-bottom: 1px solid #9E9E9E;
+
+    &:hover {
+        background-color: #d14c4750;
+    }
+
+    &.selected__page {
+        color: #fff;
+        background-color: var(--red);
+
+        a {
+            color: #fff;
+        }
+    }
+}
+
+.link__menu {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container__nav {
+    position: relative;
+    width: min-content;
+    height: calc(100vh - 76.31px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #9E9E9E;
+    transition: all .2s;
+}
+
+nav {
+    width: min-content;
+}
+
+#closedSession {
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+    background-color: var(--red);
+    transition: background-color .2s;
+    text-decoration: none;
+    text-align: center;
+
+    &:hover {
+        background-color: #812e2c;
+    }
+}

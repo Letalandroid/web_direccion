@@ -5,7 +5,7 @@ use Letalandroid\controllers\Cursos;
 require_once __DIR__ . '/../../../controllers/Cursos.php';
 
 session_start();
-if (!isset($_SESSION['user_id']) && $_SESSION['rol'] != 'Director') {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
 	header('Location: /');
 	exit();
 }

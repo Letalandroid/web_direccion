@@ -5,7 +5,7 @@ use Letalandroid\controllers\Apoderado;
 require_once __DIR__ . '/../../../controllers/Apoderado.php';
 
 session_start();
-if (!isset($_SESSION['user_id']) && $_SESSION['type'] != 'Director') {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
     header('Location: /');
     exit();
 }
