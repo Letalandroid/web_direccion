@@ -21,7 +21,7 @@ if (isset($_POST['createApoderado'])) {
 
         if (isset($add['error'])) {
             http_response_code(500);
-            echo json_encode('Error al ejecutar la consulta');
+            echo json_encode('Error al ejecutar la consulta', $add['message']);
             exit();
         } else {
 
@@ -34,7 +34,8 @@ if (isset($_POST['createApoderado'])) {
             $password = $firstName . $lastName . $dni_last;
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-            $create_user = Usuarios::createApoderado($username, $password_hash, 'Apoderado');
+            $apoderado_id = Apoderado::getAllLast()[0]['apoderado_id'];
+            $create_user = Usuarios::createApoderado($apoderado_id, $username, $password_hash, 'Apoderado');
 
             if (isset($create_user['error'])) {
                 http_response_code(500);
@@ -42,7 +43,7 @@ if (isset($_POST['createApoderado'])) {
                 exit();
             } else {
                 http_response_code(200);
-                echo json_encode('Docente agregado exitosamente');
+                echo json_encode('Apoderado agregado exitosamente');
                 exit();
             }
         }

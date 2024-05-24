@@ -48,16 +48,17 @@ class Usuarios
         }
     }
 
-    static function createApoderado($username, $password, $rol)
+    static function createApoderado($apoderado_id, $username, $password, $rol)
     {
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare('insert into usuarios (username,password,rol)
-                                            values (?,?,?);');
+            $query = $db->connect()->prepare('insert into usuarios (username,password,rol,apoderado_id)
+                                            values (?,?,?,?);');
             $query->bindValue(1, $username, PDO::PARAM_STR);
             $query->bindValue(2, $password, PDO::PARAM_STR);
             $query->bindValue(3, $rol, PDO::PARAM_STR);
+            $query->bindValue(4, $apoderado_id, PDO::PARAM_STR);
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
