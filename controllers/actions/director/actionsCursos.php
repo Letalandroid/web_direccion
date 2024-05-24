@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Cursos.php';
+require_once '../../Cursos.php';
 
 use Letalandroid\controllers\Cursos;
 

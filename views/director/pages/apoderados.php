@@ -80,7 +80,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                             <input id="apellidos" class="send_data" type="text">
                         </div>
                         <div>
-                            <label>Nacionaliadd:</label>
+                            <label>Nacionalidad:</label>
                             <input id="nacionalidad" class="send_data" type="text">
                         </div>
                         <div>
@@ -91,31 +91,31 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 </div>
                 <button onclick="addApoderado()">Agregar</button>
             </div>
-            <?php if(!empty($apoderados_sin)) { ?>
-            <div class="apo_null_container">
-                <h2>Apoderados sin hijos asignados</h2>
-                <table>
-                    <thead>
-                        <th>DNI</th>
-                        <th>Nombres y Apellidos</th>
-                        <th>Género</th>
-                        <th>Nacionalidad</th>
-                        <th>Fecha de nacimiento</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($apoderados_sin as $apoderado) { ?>
-                            <tr>
-                                <td><?= $apoderado['dni'] ?></td>
-                                <td><?= $apoderado['nombres_apellidos'] ?></td>
-                                <td><?= $apoderado['genero'] ?></td>
-                                <td><?= $apoderado['nacionalidad'] ?></td>
-                                <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
-                                <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
+            <?php if (!empty($apoderados_sin)) { ?>
+                <div class="apo_null_container">
+                    <h2>Apoderados sin hijos asignados</h2>
+                    <table>
+                        <thead>
+                            <th>DNI</th>
+                            <th>Nombres y Apellidos</th>
+                            <th>Género</th>
+                            <th>Nacionalidad</th>
+                            <th>Fecha de nacimiento</th>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($apoderados_sin as $apoderado) { ?>
+                                <tr>
+                                    <td><?= $apoderado['dni'] ?></td>
+                                    <td><?= $apoderado['nombres_apellidos'] ?></td>
+                                    <td><?= $apoderado['genero'] ?></td>
+                                    <td><?= $apoderado['nacionalidad'] ?></td>
+                                    <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
+                                    <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php } ?>
             <table id="apoderadosTable">
                 <thead>
@@ -209,7 +209,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
 
                 const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/controllers/actions/actionsApoderado.php');
+                xhr.open('POST', '/controllers/actions/director/actionsApoderado.php');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status === 200) {

@@ -1,7 +1,7 @@
 <?php
 
-require_once '../Docente.php';
-require_once '../Usuarios.php';
+require_once '../../Docente.php';
+require_once '../../Usuarios.php';
 
 use Letalandroid\controllers\Docente;
 use Letalandroid\controllers\Usuarios;

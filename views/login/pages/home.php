@@ -24,15 +24,16 @@ if (isset($_POST['login'])) {
                     session_start();
                     $_SESSION['username'] = $users['username'];
                     $_SESSION['user_id'] = $users['user_id'];
-                    $_SESSION['docente_id'] = $users['docente_id'] ?? '';
                     $_SESSION['rol'] = $users['rol'];
 
                     switch ($users['rol']) {
                         case 'Apoderado':
+                            $_SESSION['apoderado_id'] = $users['apoderado_id'];
                             header('Location: /apoderado');
                             exit();
 
                         case 'Docente':
+                            $_SESSION['docente_id'] = $users['docente_id'];
                             header('Location: /docente');
                             exit();
 

@@ -1,8 +1,10 @@
 <?php
 
-require_once '../Apoderado.php';
+require_once '../../Apoderado.php';
+require_once '../../Usuarios.php';
 
 use Letalandroid\controllers\Apoderado;
+use Letalandroid\controllers\Usuarios;
 
 if (isset($_POST['createApoderado'])) {
     header('Content-Type: application/json; charset=utf-8');
@@ -22,9 +24,28 @@ if (isset($_POST['createApoderado'])) {
             echo json_encode('Error al ejecutar la consulta', $add['message']);
             exit();
         } else {
-            http_response_code(200);
-            echo json_encode('Apoderado agregado exitosamente');
-            exit();
+
+            $firstName = substr($nombres, 0, 3);
+            $lenApellidos = strlen($apellidos);
+            $lastName = substr($apellidos, $lenApellidos - 3, $lenApellidos);
+            $dni_last = substr($dni, 5, 8);
+
+            $username = $firstName . $lastName . $lenApellidos;
+            $password = $firstName . $lastName . $dni_last;
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+            $apoderado_id = Apoderado::getAllLast()[0]['apoderado_id'];
+            $create_user = Usuarios::createApoderado($apoderado_id, $username, $password_hash, 'Apoderado');
+
+            if (isset($create_user['error'])) {
+                http_response_code(500);
+                echo json_encode('Error al ejecutar la consulta', $create_user['message']);
+                exit();
+            } else {
+                http_response_code(200);
+                echo json_encode('Apoderado agregado exitosamente');
+                exit();
+            }
         }
     } catch (Error $e) {
         http_response_code(500);
