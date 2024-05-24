@@ -184,7 +184,6 @@ class Apoderado
             $query->execute();
 
             return array('success' => true, 'message' => '🎅 Apoderado agregado exitosamente');
-
         } catch (Exception $e) {
             http_response_code(500);
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);

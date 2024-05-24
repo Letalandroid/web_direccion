@@ -51,7 +51,7 @@ class Alumnos
             $db = new Database();
 
             $query = $db->connect()->prepare("select dni, concat(nombres,' ',apellidos) as nombres_apellidos,
-                                            genero, fecha_nacimiento
+                                            genero, fecha_nacimiento, alumno_id
                                             from alumnos
                                             group by dni;");
             $query->execute();
