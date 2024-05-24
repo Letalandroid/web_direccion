@@ -1,13 +1,22 @@
 <?php
 
+use Letalandroid\controllers\Cursos;
+use Letalandroid\controllers\Alumnos;
+
+require_once __DIR__ . '/../../../controllers/Cursos.php';
+require_once __DIR__ . '/../../../controllers/Alumnos.php';
+
+
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
     header('Location: /');
     exit();
 }
 
-?>
+$alumnos = Alumnos::getAllMin();
+$cursos = Cursos::getForIdDoc($_SESSION['docente_id']);
 
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,54 +40,38 @@ if (!isset($_SESSION['user_id'])) {
     <?php require_once __DIR__ . '/../components/header.php' ?>
     <main>
         <?php show_nav('Asistencias') ?>
-        <div class="container__section">
-            <div>
-                <div class="section__asistencias">
-                    <h2>Asistencias</h2>
-                    <p>100/100</p>
-                    <span>0 días de falta</span>
+            <div class="container">
+                <div class='container__courses'>
+                <select value='id_curso'>
+                <?php foreach ($cursos as $curso) { ?>
+                    <option><?= $curso['nombre'] ?></option>
+                <?php } ?>
+                </select>
                 </div>
-            </div>
-            <div class="section__table">
+                <div class='container__table'>
                 <table>
+                <thead>
                     <tr>
-                        <th>Fecha</th>
-                        <th>Estado</th>
+                    <td>Nombres y apellidos</td>
+                    <td>Asistió</td>
+                    <td>Faltó</td>
+                    <td>Justificación</td>
                     </tr>
-                    <tr>
-                        <td>Hoy</td>
-                        <td>
-                            <span class="present">Asistió</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="present">Asistió</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="not_present">Faltó</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="present">Asistió</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="not_present">Faltó</span>
-                        </td>
-                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($alumnos as $alumno) { ?>
+                <tr>
+                    <td><?= $alumno['nombres_apellidos'] ?></td>
+                    <td class="btn"></td>
+                    <td class="btn"></td>
+                    <td class="btn"></td>
+                </tr>
+                <?php } ?>
+                </tbody>
                 </table>
             </div>
-        </div>
+            </div>
     </main>
-</body>
+    </body>
 
 </html>
