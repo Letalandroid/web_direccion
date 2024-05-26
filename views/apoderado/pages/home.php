@@ -1,10 +1,16 @@
 <?php
+use Letalandroid\controllers\Apoderado;
+
+require_once __DIR__ . '/../../../controllers/Apoderado.php';
 
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
 	header('Location: /');
 	exit();
 }
+
+$apoderado = Apoderado::getAllFormatId((int) $_SESSION['apoderado_id']);
+echo $apoderado['error'];
 
 ?>
 
@@ -35,7 +41,7 @@ if (!isset($_SESSION['user_id'])) {
 		<div>
 			<div class="container__sections">
 				<div class="sections__perfil">
-					<p>Hola! Robertito Del Rosario Ramirez Ayala</p>
+					<p>Hola! <?= $apoderado['nombres_apellidos'] ?></p>
 					<div>
 						<span><b>Edad:</b> 10</span>
 						<span><b>Grado:</b> 5to</span>
