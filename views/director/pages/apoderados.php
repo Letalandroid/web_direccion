@@ -145,7 +145,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
 
         const buscarApoderado = () => {
             const apoderadoName = document.getElementById('search_apoderado').value;
-            const apoderados = <?= json_encode($apoderados) ?>;
+            const apoderados = <?= json_encode($apoderados) ?? '' ?>;
             const matchingapoderados = apoderados.filter(apoderado => apoderado.nombres_apellidos.toLowerCase().includes(apoderadoName));
 
             const tableBody = document.getElementById('apoderadosTable').getElementsByTagName('tbody')[0];
