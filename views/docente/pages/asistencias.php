@@ -42,21 +42,20 @@ $year_now = date('Y');
     <main>
         <?php show_nav('Asistencias') ?>
         <div class="container">
+            <div id="reload">
+                <p>Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
+            </div>
             <div class="top">
                 <div class='container__courses'>
-                    <select value='id_curso'>
+                    <select id="id_curso">
                         <?php foreach ($cursos as $curso) { ?>
-                            <option><?= $curso['nombre'] ?></option>
+                            <option value="<?= $curso['curso_id'] ?>"><?= $curso['nombre'] ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class='container__courses'>
-                    <select value='id_curso'>
+                    <select id="year">
                         <option value="2024"><?= $year_now ?></option>
-                        <option value="2023"><?= $year_now - 1 ?></option>
-                        <option value="2022"><?= $year_now - 2 ?></option>
-                        <option value="2021"><?= $year_now - 3 ?></option>
-                        <option value="2020"><?= $year_now - 4 ?></option>
                     </select>
 
                 </div>
@@ -77,7 +76,7 @@ $year_now = date('Y');
                                 <td hidden>
                                     <input type="number" value="<?= $alumno['alumno_id'] ?>">
                                 </td>
-                                <td><?= $alumno['nombres_apellidos'] ?></td>
+                                <td id="nombres_apellidos"><?= $alumno['nombres_apellidos'] ?></td>
                                 <td class="btn">
                                     <input class="asistencia presente" type='radio' name="asistencia">
                                 </td>
@@ -109,6 +108,9 @@ $year_now = date('Y');
         const asistencias = document.querySelectorAll('.asistencia');
         const desc_justificado = document.querySelector('#desc_justificado');
         const motivo = document.querySelector('#motivo');
+        const nombres_apellidos = document.querySelector('#nombres_apellidos');
+        const id_curso = document.querySelector('#id_curso').value;
+        const year = document.querySelector('#year').value;
 
         asistencias.forEach((a) => {
             a.addEventListener('click', () => {
@@ -125,12 +127,17 @@ $year_now = date('Y');
 
             asistenciasRows.forEach(function(row) {
                 const alumnoId = row.querySelector('input[type="number"]').value;
+                const asistencias = row.querySelectorAll('.asistencia');
 
                 const getAsistencia = () => {
                     for (const a of asistencias) {
                         if (a.checked) {
-                            if (a.classList.contains('presente')) return 'Presente';
-                            if (a.classList.contains('falta')) return 'Faltó';
+                            if (a.classList.contains('presente')) return {
+                                estado: 'Presente'
+                            };
+                            if (a.classList.contains('falta')) return {
+                                estado: 'Faltó'
+                            };
                             if (a.classList.contains('justificado')) return {
                                 estado: 'Justificado',
                                 motivo: motivo.value
@@ -139,8 +146,40 @@ $year_now = date('Y');
                     };
                 };
 
-                console.log("ID del alumno:", alumnoId);
-                console.log("Asistencia marcada:", getAsistencia());
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/controllers/actions/docente/actionsAsistencias.php');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        console.log(xhr.response);
+                        document.querySelector('#reload').style.display = 'block';
+                    } else {
+                        console.log(xhr.response);
+                    }
+                };
+                xhr.onerror = function() {
+                    console.error('Error de conexión');
+                };
+
+                const data_send = `
+                    createAsistencia=true&
+                    alumno_id=${parseInt(alumnoId)}&
+                    fecha_asistencia=${new Date().toISOString().slice(0, 10)}&
+                    estado=${getAsistencia().estado}&
+                    descripcion=${getAsistencia().motivo ?? ''}&
+                    curso_id=${parseInt(id_curso)}
+                `;
+
+                function customReplace(match) {
+                    if (match === '\n' || match === ' ') {
+                        return ' ';
+                    } else {
+                        return match;
+                    }
+                }
+
+                const replacedData = data_send.replace(/\n|\s+/g, customReplace);
+                xhr.send(replacedData);
             });
         }
     </script>

@@ -165,7 +165,7 @@ $agendas = Agenda::getAllCurso();
                 const fecha_actividad = document.querySelector('#fecha_actividad').value;
 
                 const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/controllers/actions/actionsAgenda.php');
+                xhr.open('POST', '/controllers/actions/docente/actionsAgenda.php');
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status === 200) {
