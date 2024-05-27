@@ -150,6 +150,7 @@ $agendas = Agenda::getAllCurso();
         const addAgenda = async () => {
 
             let isEmpty = false;
+            document.querySelector('#reload').style.display = 'none';
 
             document.querySelectorAll('.send_data').forEach((data) => {
                 if (data.value.length <= 0 || data.value.startsWith(' ')) {

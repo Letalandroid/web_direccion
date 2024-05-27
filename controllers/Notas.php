@@ -28,6 +28,27 @@ class Notas
         }
     }
 
+    static function getAll_Aulm($alumno_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select c.curso_id, c.nombre
+                                            from notas n
+                                            inner join cursos c
+                                            on (c.curso_id=n.curso_id)
+                                            where alumno_id=?;');
+            $query->bindValue(1, $alumno_id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function create($curso_id, $alumno_id, $bimestre, $year, $valor)
     {
         try {

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-
         * {
             margin: 0;
             padding: 0;
@@ -19,6 +18,10 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            color: #fff;
+            font-weight: bold;
+            background-color: #131311;
+            gap: 15px;
 
             img {
                 width: 50%;
@@ -30,7 +33,7 @@
 
 <body>
     <main>
-        <img src="/views/404/assets/meme.jpg" alt="meme megamente">
+        <img src="/views/404/assets/404.png" alt="meme megamente">
         <h1>Página no encontrada</h1>
         <p>¿Para donde te ibas?</p>
     </main>
