@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Agenda.php';
+require_once '../../Agenda.php';
 
 use Letalandroid\controllers\Agenda;
 
