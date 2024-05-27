@@ -1,10 +1,35 @@
 <?php
 
+use Letalandroid\controllers\Agenda;
+use Letalandroid\controllers\Alumnos;
+use Letalandroid\controllers\Notas;
+
+require_once __DIR__ . '/../../../controllers/Agenda.php';
+require_once __DIR__ . '/../../../controllers/Alumnos.php';
+require_once __DIR__ . '/../../../controllers/Notas.php';
+
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
     header('Location: /');
     exit();
 }
+
+$alumno_id = Alumnos::getAll_Apo($_SESSION['apoderado_id'])[0]['alumno_id'];
+$cursos =  Notas::getAll_Aulm($alumno_id);
+$actividades = Agenda::getAll_Alumn($cursos[0]['curso_id']);
+$eventos_por_fecha = [];
+
+foreach ($actividades as $actividad) {
+    $fecha_evento = $actividad['fecha_evento'];
+
+    if (!isset($eventos_por_fecha[$fecha_evento])) {
+        $eventos_por_fecha[$fecha_evento] = [];
+    }
+
+    $eventos_por_fecha[$fecha_evento][] = $actividad;
+}
+
+date_default_timezone_set('America/Bogota');
 
 ?>
 
@@ -33,54 +58,28 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
     <main>
         <?php show_nav('Agenda'); ?>
         <div class="container__section">
-            <h2>Próximos Eventos</h2>
-            <table>
-                <tr>
-                    <th colspan="7">Agenda</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td style="border: 1px solid var(--green);">2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                    <td>6</td>
-                    <td>7</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>12</td>
-                    <td>13</td>
-                    <td>14</td>
-                </tr>
-                <tr>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td class="event">18</td>
-                    <td>19</td>
-                    <td>20</td>
-                    <td>21</td>
-                </tr>
-                <tr>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                    <td>26</td>
-                    <td>27</td>
-                    <td>28</td>
-                </tr>
-                <tr>
-                    <td>29</td>
-                    <td class="event">30</td>
-                    <td>31</td>
-                </tr>
-            </table>
-            <div id="container_event">
+            <div class="head">
+                <select id="">
+                    <?php foreach ($cursos as $curso) { ?>
+                        <option value="<?= $curso['curso_id'] ?>"><?= $curso['nombre'] ?></option>
+                    <?php } ?>
+                </select>
+                <h2>Agenda</h2>
+            </div>
+            <div class="container__eventos">
+                <?php foreach ($eventos_por_fecha as $evento) { ?>
+                    <div class="eventos">
+                        <h3>
+                            <?= $evento[0]['fecha_evento'] == date('Y-m-d') ? 'Hoy' : $evento[0]['fecha_evento'] ?>
+                        </h3>
+                        <?php foreach ($evento as $actividad) { ?>
+                            <div class="evento">
+                                <p><?= $actividad['descripcion'] ?></p>
+                                <input type="checkbox">
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </main>

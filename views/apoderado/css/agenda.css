@@ -5,44 +5,65 @@ main {
 .container__section {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin: 20px;
     gap: 20px;
 
-    table {
-
-        width: 60vw;
-        border: 1px solid #000;
-        border-collapse: collapse;
-
-        tr th {
-            padding: 10px 0;
-            font-size: 20px;
-            text-align: center;
-            border-bottom: 1px solid #000;
-        }
-
-        tr td {
-            text-align: center;
-            padding: 20px;
-            transition: background-color .3s;
-        }
-
-        .event {
-            cursor: pointer;
-            background-color: #ffccca;
-        }
-
-    }
-
-    #container_event {
+    .container__eventos {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 25px;
+        width: calc(100vw - 221px - 40px);
+        font-size: 20px;
 
-        .element__container {
+        .eventos {
             display: flex;
-            gap: 10px;
             flex-direction: column;
+            align-items: center;
+            gap: 15px;
+
+            h3 {
+                border: 1px solid #000;
+                padding: 5px 50px;
+                box-shadow: 0 4px 4px #0004;
+                border-radius: 10px;
+            }
+
+            .evento {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                width: calc(100vw - 221px - 40px);
+                border: 1px solid #000;
+                box-shadow: 0 4px 4px #0004;
+                border-radius: 10px;
+
+                p {
+                    width: calc(100vw - 500px);
+                    text-align: center;
+                    padding: 15px;
+                }
+
+                input[type='checkbox'] {
+                    position: absolute;
+                    right: 15px;
+                    top: calc(55.56px - 55.56px/2 - 34.93px/2);
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+
+                    &::before {
+                        content: '☑️';
+                        font-size: 28px;
+                    }
+
+                    &:checked::before {
+                        content: '✅';
+                    }
+                }
+            }
+
         }
     }
+
 }

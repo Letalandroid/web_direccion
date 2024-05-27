@@ -28,6 +28,23 @@ class Agenda
         }
     }
 
+    static function getAll_Alumn($curso_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select * from actividad where curso_id=? order by fecha_evento desc;');
+            $query->bindValue(1, $curso_id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAllCurso()
     {
         try {
