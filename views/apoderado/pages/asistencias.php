@@ -56,7 +56,9 @@ foreach ($asistencias as $asistencia) {
             <div>
                 <div class="section__asistencias">
                     <h2>Asistencias</h2>
-                    <p><?= $asist ?> / <?= sizeof($asistencias) ?></p>
+                    <p class="<?= $faltas > $asist ? 'red' : 'green' ?>">
+                        <?= $asist ?> / <?= sizeof($asistencias) ?>
+                    </p>
                     <span><?= $faltas ?> días de falta</span>
                 </div>
             </div>

@@ -33,8 +33,16 @@ main {
             text-align: center;
             padding: 10px 0;
             color: #fff;
-            background-color: #39E379;
+            background-color: orange;
             border-radius: 100px
+        }
+
+        .green {
+            background-color: #39E379;
+        }
+
+        .red {
+            background-color: #E33939;
         }
 
         span {
