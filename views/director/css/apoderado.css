@@ -131,6 +131,8 @@ main {
 
     .apo_null_container {
         width: 100%;
+        height: 250px;
+        overflow: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -151,6 +153,8 @@ main {
     }
 
     #apoderadosTable {
+        height: 300px;
+        overflow: auto;
         thead {
             color: #fff;
             background-color: var(--blue);
