@@ -27,6 +27,8 @@ foreach ($asistencias as $asistencia) {
     }
 }
 
+date_default_timezone_set('America/Bogota')
+
 ?>
 
 <!DOCTYPE html>
