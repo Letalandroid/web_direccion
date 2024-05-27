@@ -54,10 +54,7 @@ $year_now = date('Y');
                     </select>
                 </div>
                 <div class='container__courses'>
-                    <select id="year">
-                        <option value="2024"><?= $year_now ?></option>
-                    </select>
-
+                    <input type="date" id="year">
                 </div>
             </div>
             <div class='container__table'>
@@ -110,7 +107,16 @@ $year_now = date('Y');
         const motivo = document.querySelector('#motivo');
         const nombres_apellidos = document.querySelector('#nombres_apellidos');
         const id_curso = document.querySelector('#id_curso').value;
-        const year = document.querySelector('#year').value;
+        const year = document.querySelector('#year');
+
+        var fechaActual = new Date();
+
+        // Formatear la fecha en el formato YYYY-MM-DD
+        var formatoFecha = fechaActual.getFullYear() + '-' +
+            ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + fechaActual.getDate()).slice(-2);
+
+        year.value = formatoFecha;
 
         asistencias.forEach((a) => {
             a.addEventListener('click', () => {
@@ -164,7 +170,7 @@ $year_now = date('Y');
                 const data_send = `
                     createAsistencia=true&
                     alumno_id=${parseInt(alumnoId)}&
-                    fecha_asistencia=${new Date().toISOString().slice(0, 10)}&
+                    fecha_asistencia=${year.value}&
                     estado=${getAsistencia().estado}&
                     descripcion=${getAsistencia().motivo ?? ''}&
                     curso_id=${parseInt(id_curso)}
