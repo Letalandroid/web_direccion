@@ -27,6 +27,23 @@ class Asistencias
         }
     }
 
+    static function getAll_Alumn($alumno_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select * from asistencias where alumno_id=? order by fecha_asistencia desc;');
+            $query->bindValue(1, $alumno_id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function create($alumno_id, $fecha_asistencia, $estado, $descripcion, $curso_id)
     {
         try {

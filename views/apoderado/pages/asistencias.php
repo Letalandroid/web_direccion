@@ -1,9 +1,30 @@
 <?php
 
+use Letalandroid\controllers\Asistencias;
+use Letalandroid\controllers\Alumnos;
+
+require_once __DIR__ . '/../../../controllers/Asistencias.php';
+require_once __DIR__ . '/../../../controllers/Alumnos.php';
+
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
     header('Location: /');
     exit();
+}
+
+$alumno_id = Alumnos::getAll_Apo((int) $_SESSION['apoderado_id'])[0]['alumno_id'];
+$asistencias = Asistencias::getAll_Alumn($alumno_id);
+$asist = 0;
+$no_asist = 0;
+$faltas = 0;
+
+foreach ($asistencias as $asistencia) {
+    if ($asistencia['estado'] == 'Presente') {
+        $asist++;
+    } else {
+        if ($asistencia['estado'] == 'Faltó') $faltas ++;
+        $no_asist++;
+    }
 }
 
 ?>
@@ -35,46 +56,32 @@ if (!isset($_SESSION['user_id'])) {
             <div>
                 <div class="section__asistencias">
                     <h2>Asistencias</h2>
-                    <p>100/100</p>
-                    <span>0 días de falta</span>
+                    <p><?= $asist ?> / <?= sizeof($asistencias) ?></p>
+                    <span><?= $faltas ?> días de falta</span>
                 </div>
             </div>
             <div class="section__table">
                 <table>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Estado</th>
-                    </tr>
-                    <tr>
-                        <td>Hoy</td>
-                        <td>
-                            <span class="present">Asistió</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="present">Asistió</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="not_present">Faltó</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="present">Asistió</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12/04/2024</td>
-                        <td>
-                            <span class="not_present">Faltó</span>
-                        </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($asistencias as $asistencia) { ?>
+                            <tr>
+                                <td><?= $asistencia['fecha_asistencia'] == date('Y-m-d') ?
+                                'Hoy' : $asistencia['fecha_asistencia'] ?></td>
+                                <td>
+                                    <span class="<?= substr($asistencia['estado'], 0, 1) ?>"><?= $asistencia['estado'] ?></span>
+                                    <?php if ($asistencia['descripcion'] != '') { ?>
+                                        <button onclick="alert('<?= $asistencia['descripcion'] ?>')">Ver</button>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
                 </table>
             </div>
         </div>

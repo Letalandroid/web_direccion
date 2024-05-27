@@ -76,12 +76,23 @@ main {
                 border-radius: 100px;
             }
 
-            td span.present {
+            td span.P {
                 background-color: #39E379;
             }
 
-            td span.not_present {
+            td span.F {
                 background-color: #E33939;
+            }
+
+            td span.J {
+                background-color: #ffa500;
+            }
+
+            td button {
+                padding: 5px;
+                border-radius: 5px;
+                background-color: aqua;
+                font-size: 15px;
             }
         }
     }

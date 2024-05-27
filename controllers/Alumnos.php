@@ -29,6 +29,23 @@ class Alumnos
         }
     }
 
+    static function getAll_Apo($apoderado_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select alumno_id from alumnos where apoderado_id=?;');
+            $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAllReverse()
     {
         try {
