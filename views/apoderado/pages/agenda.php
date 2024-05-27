@@ -41,7 +41,7 @@ date_default_timezone_set('America/Bogota');
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/views/apoderado/css/header.css" />
     <link rel="stylesheet" href="/views/apoderado/css/agenda.css" />
-    <link rel="shortcut icon" href="views/apoderado/assets/img/logo_transparent.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/views/apoderado/assets/img/logo_transparent.png" type="image/x-icon" />
     <script defer src="/views/apoderado/js/header.js"></script>
     <script defer src="/views/apoderado/js/agenda.js"></script>
     <script defer>
