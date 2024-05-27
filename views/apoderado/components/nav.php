@@ -16,8 +16,8 @@ function show_nav($page_name)
 	}
 
 	echo '</ul></nav>
-			<button id="closedSession">
+			<a href="/controllers/utils/closedSession.php?closed=true" id="closedSession">
 				<i class="fas fa-door-open"></i>
 				Cerrar sesión
-			</button></div>';
+			</a></div>';
 }

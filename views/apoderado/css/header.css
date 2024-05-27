@@ -1,4 +1,4 @@
-@import '/views/apoderado/css/_variables.css';
+@import '/views/director/css/_variables.css';
 
 * {
     margin: 0;
@@ -49,6 +49,11 @@ header>button {
     }
 }
 
+nav>ul {
+    margin: 0;
+    padding: 0;
+}
+
 nav>ul>li {
     width: 200px;
     display: flex;
@@ -81,7 +86,7 @@ nav>ul>li {
 .container__nav {
     position: relative;
     width: min-content;
-    height: calc(100vh - 76.5px);
+    height: calc(100vh - 76.31px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,6 +106,8 @@ nav {
     padding: 12px;
     background-color: var(--red);
     transition: background-color .2s;
+    text-decoration: none;
+    text-align: center;
 
     &:hover {
         background-color: #812e2c;

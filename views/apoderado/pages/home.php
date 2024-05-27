@@ -10,7 +10,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
 }
 
 $apoderado = Apoderado::getAllFormatId((int) $_SESSION['apoderado_id']);
-echo $apoderado['error'];
 
 ?>
 
@@ -41,29 +40,7 @@ echo $apoderado['error'];
 		<div>
 			<div class="container__sections">
 				<div class="sections__perfil">
-					<p>Hola! <?= $apoderado['nombres_apellidos'] ?></p>
-					<div>
-						<span><b>Edad:</b> 10</span>
-						<span><b>Grado:</b> 5to</span>
-					</div>
-				</div>
-				<div class="sections__top">
-					<div class="section__asistencias">
-						<h2><a href="asistencias/">Asistencias</a></h2>
-						<p>100/100</p>
-						<span>0 días de falta</span>
-					</div>
-					<div class="section__agenda">
-						<h2><a href="/agenda/">Próximos eventos:</a></h2>
-						<div class="agenda__items">
-							<b>Hoy:</b>
-							<p>📝Evaluación: S2_Frameworks de CSS</p>
-						</div>
-						<div class="agenda__items">
-							<b>16/04:</b>
-							<p>📝Evaluación: S1_Listas y Tablas</p>
-						</div>
-					</div>
+					<p>Hola! <?= $apoderado[0]['nombres_apellidos'] ?></p>
 				</div>
 				<div class="container__section__notas">
 					<h2><a href="/notas/">Mis notas:</a></h2>
