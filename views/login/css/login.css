@@ -94,51 +94,52 @@ input {
     font-size: 14px;
     font-weight: 300;
 }
+form a{
+    margin: 15px;
+    text-align: center;
+    font-size: 12px;
+    color: #000000;
+}
 
 ::placeholder {
     font-weight: bold;
 }
 
-/* Original button styles (adjust as needed) */
 .btn-grow-ellipse {
     margin-top: 30px;
     width: 100%;
     background-color: #204033;
     color: #ffffff;
     padding: 15px 0;
+    align-items: center;
     font-size: 13px;
     font-weight: 600;
     border-radius: 30px;
     cursor: pointer;
+    display: flex;
 }
 
-/* Styles for the grow ellipse animation (adapted) */
 .btn-grow-ellipse {
     margin-top: 15px;
-    background: #fff;
-    /* color de fondo */
+    background: #ffffff;
     color: #204033;
-    /* color de fuente */
     border: 2px solid #204033;
-    /* tamaño y color de borde */
     padding: 16px 20px;
     border-radius: 30px;
-    /* redondear bordes */
     position: relative;
     z-index: 1;
     overflow: hidden;
     display: inline-block;
+    justify-content: center;
 }
 
 .btn-grow-ellipse:hover {
-    color: #fff;
-    /* color de fuente hover */
+    color: #ffffff;
+    background-color: #204033;
 }
 
 .btn-grow-ellipse::after {
-    content: "";
     background: #204033;
-    /* color de fondo hover */
     position: absolute;
     z-index: -1;
     padding: 16px 20px;
@@ -150,9 +151,56 @@ input {
     bottom: -150%;
     transform: scale(0, 0);
     transition: all 0.4s ease;
+    
 }
 
 .btn-grow-ellipse:hover::after {
     transition: all 0.6s ease-out;
     transform: scale(1, 1);
+}
+
+.frcontac {
+    position: fixed;
+    bottom: 20px; 
+    right: 15px;  
+    background-color: rgba(217, 217, 217, 0.712);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 200px; 
+    text-align: center;
+    z-index: 1000;
+}
+
+.ds1 {
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.imgwsp img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+}
+
+.contacto {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+.contacto label{
+    margin: 0px;
+}
+.btn-grow-ellipse-contac {
+    background-color: rgba(217, 217, 217, 0.404);
+    color: #000000; 
+    border: 2px solid #c2060600; 
+    padding: 10px 20px; 
+    border-radius: 5px;  
+    font-size: 16px; 
+    cursor: pointer; 
+    text-align: center; 
+    display: inline-block;
 }
