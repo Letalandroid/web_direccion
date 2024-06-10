@@ -91,6 +91,15 @@ if (isset($_POST['login'])) {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php } ?>
+    <div class="frcontac">
+    <h5 class="ds1"><B>CONTACTANOS</B></h5>   
+    <div class="imgwsp">
+        <img src="/views/login/assets/img/whatsappicon.png" alt="">
+    </div> 
+    <div class="contacto">
+    <input type="submit" class="btn-grow-ellipse-contac" value="XXX XXX XXX">
+    </div>
+    </div>
     <form action="/login" method="post" class="fr1">
         <div class="img">
             <img src="/views/login/assets/img/icon.png" alt="">
@@ -106,10 +115,10 @@ if (isset($_POST['login'])) {
         <input hidden name="login" type="text" value="true">
 
         <input type="submit" class="btn-grow-ellipse" value="Iniciar sesión">
+        <p><a href="">Olvide mi contraseña</a></p>
     </form>
-    <div class="contacto">
-
-    </div>
+    
+    
 </body>
 
 </html>
