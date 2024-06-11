@@ -65,9 +65,9 @@ class Docente
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select dni
-                                                -- concat(nombres,' ',apellidos) as nombres_apellidos,
-                                                -- genero, fecha_nacimiento
+            $query = $db->connect()->prepare("select dni,
+                                                concat(nombres,' ',apellidos) as nombres_apellidos,
+                                                genero, fecha_nacimiento
                                                 from docentes where docente_id=? limit 1;");
 
             $query->bindValue(1, $id, PDO::PARAM_INT);
