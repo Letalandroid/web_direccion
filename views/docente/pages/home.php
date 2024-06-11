@@ -1,10 +1,19 @@
 <?php
 
+use Letalandroid\controllers\Docente;
+use Letalandroid\controllers\Cursos;
+
+require_once __DIR__ . '/../../../controllers/Docente.php';
+require_once __DIR__ . '/../../../controllers/Cursos.php';
+
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
 	header('Location: /');
 	exit();
 }
+
+$docente = Docente::getMinId($_SESSION['docente_id'])[0];
+$cursos = Cursos::getForIdDoc($_SESSION['docente_id']);
 
 ?>
 
@@ -16,6 +25,9 @@ if (!isset($_SESSION['user_id'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="/views/docente/css/header.css" />
 	<link rel="stylesheet" href="/views/docente/css/home.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="/views/docente/assets/img/logo_transparent.png" type="image/x-icon" />
 	<script defer src="/views/docente/js/home.js"></script>
 	<script defer src="/views/docente/js/header.js"></script>
@@ -34,81 +46,23 @@ if (!isset($_SESSION['user_id'])) {
 		<?php show_nav('Home') ?>
 		<div>
 			<div class="container__sections">
-				<div class="sections__perfil">
-					<p>Hola! Robertito Del Rosario Ramirez Ayala</p>
-					<div>
-						<span><b>Edad:</b> 10</span>
-						<span><b>Grado:</b> 5to</span>
+				<div class="profile__container">
+					<div class="image__profile">
+						<img class="bg_profile" src="/views/docente/assets/svg/bg_profile.svg" alt="background docente colors">
+						<img class="profile_image" src="/views/docente/assets/svg/profile_image.svg" alt="profile image">
 					</div>
-				</div>
-				<div class="sections__top">
-					<div class="section__asistencias">
-						<h2><a href="asistencias/">Asistencias</a></h2>
-						<p>100/100</p>
-						<span>0 días de falta</span>
+					<div class="courses__asignated">
+						<h3><?= $docente['nombres_apellidos'] ?></h3>
+						<h4>Cursos asignados:</h4>
+						<ul>
+							<?php foreach ($cursos as $curso) { ?>
+								<li>
+									<a href="/docente/curso/<?= $curso['curso_id'] ?>"><?= $curso['nombre'] ?></a>
+									<i class="fas fa-chevron-right"></i>
+								</li>
+							<?php } ?>
+						</ul>
 					</div>
-					<div class="section__agenda">
-						<h2><a href="/agenda/">Próximos eventos:</a></h2>
-						<div class="agenda__items">
-							<b>Hoy:</b>
-							<p>📝Evaluación: S2_Frameworks de CSS</p>
-						</div>
-						<div class="agenda__items">
-							<b>16/04:</b>
-							<p>📝Evaluación: S1_Listas y Tablas</p>
-						</div>
-					</div>
-				</div>
-				<div class="container__section__notas">
-					<h2><a href="/notas/">Mis notas:</a></h2>
-					<button id="btn_left">
-						<i class="fas fa-chevron-left"></i>
-					</button>
-					<div class="container__notas">
-						<div class="section__notas">
-							<div>
-								<i class="fas fa-book-open"></i>
-								<h3>Comunicación</h3>
-							</div>
-							<div>
-								<p>Promedio:</p>
-								<span>17.5</span>
-							</div>
-						</div>
-						<div class="section__notas">
-							<div>
-								<i class="fas fa-book-open"></i>
-								<h3>Ciencias:</h3>
-							</div>
-							<div style="background-color: #e2a300">
-								<p>Promedio:</p>
-								<span>11.3</span>
-							</div>
-						</div>
-						<div class="section__notas">
-							<div>
-								<i class="fas fa-book-open"></i>
-								<h3>Matemáticas:</h3>
-							</div>
-							<div style="background-color: #e20900">
-								<p>Promedio:</p>
-								<span>6.8</span>
-							</div>
-						</div>
-						<div class="section__notas">
-							<div>
-								<i class="fas fa-book-open"></i>
-								<h3>Geografía:</h3>
-							</div>
-							<div style="background-color: #e20900">
-								<p>Promedio:</p>
-								<span>8.2</span>
-							</div>
-						</div>
-					</div>
-					<button id="btn_right">
-						<i class="fas fa-chevron-right"></i>
-					</button>
 				</div>
 			</div>
 		</div>
