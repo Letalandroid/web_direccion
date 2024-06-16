@@ -27,6 +27,9 @@ $year_now = date('Y');
     <link rel="stylesheet" href="/views/docente/css/header.css" />
     <link rel="stylesheet" href="/views/docente/css/asistencias.css" />
     <link rel="shortcut icon" href="/views/docente/assets/img/logo_transparent.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <script defer src="/views/docente/js/header.js"></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", () => {
@@ -53,142 +56,71 @@ $year_now = date('Y');
                         <?php } ?>
                     </select>
                 </div>
-                <div class='container__courses'>
-                    <input type="date" id="year">
+            </div>
+            <div class="asist_top">
+                <h1>Asistencia</h1>
+                <div class="date_container">
+                    <div class='date_input'>
+                        <label>Fecha:</label>
+                        <input onchange="cargarData(this.value)" type="date" id="year">
+                    </div>
+                    <div class="save_container">
+                        <p>Guardar:</p>
+                        <button class="save" onclick="enviarAsistencia()">
+                            <img src="/views/docente/assets/svg/down.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="checked_container">
+                    <button onclick="marcarAsistencia()">Marcar asistencia</button>
+                    <button onclick="marcarFalta()">Marcar falta</button>
                 </div>
             </div>
             <div class='container__table'>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Nombres y apellidos</td>
-                            <td>Asistió</td>
-                            <td>Faltó</td>
-                            <td>Justificación</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($alumnos as $alumno) { ?>
-                            <tr class="asistencias">
-                                <td hidden>
-                                    <input type="number" value="<?= $alumno['alumno_id'] ?>">
-                                </td>
-                                <td id="nombres_apellidos"><?= $alumno['nombres_apellidos'] ?></td>
-                                <td class="btn">
-                                    <input class="asistencia presente" type='radio' name="asistencia">
-                                </td>
-                                <td class="btn">
-                                    <input class="asistencia falta" type='radio' name="asistencia">
-                                </td>
-                                <td class="btn">
-                                    <input class="asistencia justificado" type='radio' name="asistencia">
-                                </td>
+                <div class="subcontainer__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td rowspan="2">Alumno</td>
+                                <td colspan="4">Asistencia</td>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                    <tbody id="desc_justificado" hidden>
-                        <tr>
-                            <td colspan="4">
-                                <label>Justificación:</label>
-                                <input id="motivo" type="text">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button onclick="enviarAsistencia()">
-                    Enviar asistencia
-                </button>
+                            <tr>
+                                <td>A</td>
+                                <td>F</td>
+                                <td>J</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($alumnos as $alumno) { ?>
+                                <tr class="asistencias">
+                                    <td hidden>
+                                        <input type="number" value="<?= $alumno['alumno_id'] ?>">
+                                    </td>
+                                    <td id="nombres_apellidos"><?= $alumno['nombres_apellidos'] ?></td>
+                                    <td class="btn">
+                                        <input class="asistencia presente <?= $alumno['alumno_id'] ?>" type='radio' name="asistencia_<?= $alumno['alumno_id'] ?>">
+                                    </td>
+                                    <td class="btn">
+                                        <input class="asistencia falta <?= $alumno['alumno_id'] ?>" type='radio' name="asistencia_<?= $alumno['alumno_id'] ?>">
+                                    </td>
+                                    <td class="btn">
+                                        <input class="asistencia justificado <?= $alumno['alumno_id'] ?>" type='radio' name="asistencia_<?= $alumno['alumno_id'] ?>">
+                                    </td>
+                                </tr>
+                                <tr id="desc_justificado_<?= $alumno['alumno_id'] ?>" class="desc_justificacion" hidden>
+                                    <td colspan="4">
+                                        <label>Justificación:</label>
+                                        <input class="motivo" type="text">
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </main>
-    <script>
-        const asistencias = document.querySelectorAll('.asistencia');
-        const desc_justificado = document.querySelector('#desc_justificado');
-        const motivo = document.querySelector('#motivo');
-        const nombres_apellidos = document.querySelector('#nombres_apellidos');
-        const id_curso = document.querySelector('#id_curso').value;
-        const year = document.querySelector('#year');
-
-        var fechaActual = new Date();
-
-        // Formatear la fecha en el formato YYYY-MM-DD
-        var formatoFecha = fechaActual.getFullYear() + '-' +
-            ('0' + (fechaActual.getMonth() + 1)).slice(-2) + '-' +
-            ('0' + fechaActual.getDate()).slice(-2);
-
-        year.value = formatoFecha;
-
-        asistencias.forEach((a) => {
-            a.addEventListener('click', () => {
-                if (a.classList.contains('justificado')) {
-                    desc_justificado.hidden = false;
-                } else {
-                    desc_justificado.hidden = true;
-                }
-            });
-        });
-
-        const enviarAsistencia = () => {
-            const asistenciasRows = document.querySelectorAll('tr.asistencias');
-
-            asistenciasRows.forEach(function(row) {
-                const alumnoId = row.querySelector('input[type="number"]').value;
-                const asistencias = row.querySelectorAll('.asistencia');
-
-                const getAsistencia = () => {
-                    for (const a of asistencias) {
-                        if (a.checked) {
-                            if (a.classList.contains('presente')) return {
-                                estado: 'Presente'
-                            };
-                            if (a.classList.contains('falta')) return {
-                                estado: 'Faltó'
-                            };
-                            if (a.classList.contains('justificado')) return {
-                                estado: 'Justificado',
-                                motivo: motivo.value
-                            }
-                        }
-                    };
-                };
-
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/controllers/actions/docente/actionsAsistencias.php');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        console.log(xhr.response);
-                        document.querySelector('#reload').style.display = 'block';
-                    } else {
-                        console.log(xhr.response);
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Error de conexión');
-                };
-
-                const data_send = `
-                    createAsistencia=true&
-                    alumno_id=${parseInt(alumnoId)}&
-                    fecha_asistencia=${year.value}&
-                    estado=${getAsistencia().estado}&
-                    descripcion=${getAsistencia().motivo ?? ''}&
-                    curso_id=${parseInt(id_curso)}
-                `;
-
-                function customReplace(match) {
-                    if (match === '\n' || match === ' ') {
-                        return ' ';
-                    } else {
-                        return match;
-                    }
-                }
-
-                const replacedData = data_send.replace(/\n|\s+/g, customReplace);
-                xhr.send(replacedData);
-            });
-        }
-    </script>
+    <script src="/views/docente/js/asistencias.js"></script>
 </body>
 
 </html>

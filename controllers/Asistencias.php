@@ -27,6 +27,30 @@ class Asistencias
         }
     }
 
+    static function getWithDate($fecha)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select concat(al.nombres,' ',al.apellidos) as nombres_apellidos,
+                                            a.*
+                                            from asistencias a
+                                            inner join alumnos al
+                                            on (a.alumno_id=al.alumno_id)
+                                            where fecha_asistencia=?
+                                            group by alumno_id;");
+
+            $query->bindValue(1, $fecha, PDO::PARAM_STR);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAll_Alumn($alumno_id)
     {
         try {

@@ -4,7 +4,30 @@ require_once '../../Asistencias.php';
 
 use Letalandroid\controllers\Asistencias;
 
-if (isset($_POST['createAsistencia'])) {
+if (isset($_POST['getAsistencia'])) {
+    header('Content-Type: application/json; charset=utf-8');
+
+    try {
+
+        $fecha = $_POST['fecha'];
+
+        $get = Asistencias::getWithDate($fecha);
+
+        if (isset($get['error'])) {
+            http_response_code(500);
+            echo json_encode('Error al ejecutar la consulta', $get['message']);
+            exit();
+        } else {
+            http_response_code(200);
+            echo json_encode($get);
+            exit();
+        }
+    } catch (Error $e) {
+        http_response_code(500);
+        echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+        exit();
+    }
+} else if (isset($_POST['createAsistencia'])) {
     header('Content-Type: application/json; charset=utf-8');
 
     try {
@@ -32,4 +55,5 @@ if (isset($_POST['createAsistencia'])) {
     }
 } else {
     http_response_code(500);
+    echo json_encode(['error' => true, 'message' => 'Error en el servidor']);
 }
