@@ -28,6 +28,7 @@ if (isset($_POST['login'])) {
 
                     switch ($users['rol']) {
                         case 'Apoderado':
+                            $_SESSION['apoderado_id'] = $users['apoderado_id'];
                             header('Location: /apoderado');
                             exit();
 
