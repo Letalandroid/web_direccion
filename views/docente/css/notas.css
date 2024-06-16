@@ -1,128 +1,171 @@
-main {
-    display: flex;
-
-    h2 {
-        margin: 20px
-    }
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
 
-.container__notas {
-    width: calc(100vw - 221px - 40px);
-    margin: 20px;
-    scroll-behavior: smooth;
+.container__section {
+    width: 100%;
+    max-width: 1200px; /* Ajusta este valor según tu preferencia */
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
+    margin: 0 auto; /* Centra horizontalmente */
+}
 
-    .section__notas {
+.header {
+    width: 100%;
+    max-width: 1200px; /* Ajusta este valor según tu preferencia */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 20 auto; /* Centra horizontalmente */
+}
 
-        height: 80px;
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        border: 1px solid #000;
-        box-shadow: 5px 5px 5px #0004;
-        padding: 0 20px;
-        transition: margin .5s;
+.header h2 {
+    margin-bottom: 10px;
+}
 
-        .notas__contain {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
+.form-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+}
 
-            div:nth-child(1) {
-                display: flex;
-                justify-content: center;
-                font-size: 24px;
-                align-items: center;
-                gap: 10px;
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 150px;
+}
 
-                i {
-                    font-size: 26px;
-                }
-            }
+.form-group label {
+    margin-bottom: 5px;
+}
 
-            div:nth-child(2) {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                font-weight: bold;
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
 
-                span {
-                    color: #fff;
-                    padding: 7px 20px;
-                    border-radius: 100px;
-                }
-            }
-        }
+#buscar, #guardar {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    font-size: 16px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
 
-        .notas__bim {
-            position: absolute;
-            left: -1px;
-            bottom: 0;
-            opacity: 0;
-            width: calc(100vw - 221px - 40px);
-            height: 0;
-            overflow: hidden;
-            display: flex;
-            justify-content: space-evenly;
-            background-color: #eee;
-            box-shadow: 5px 5px 5px #0004;
-            transition: all .5s;
+#buscar {
+    background-color: #28a745;
+    color: white;
+}
 
-            div {
-                display: flex;
-                flex-direction: column;
-                gap: 3px;
+#guardar {
+    background-color: #ffc107;
+    color: white;
+}
 
-                h3 {
-                    margin-bottom: 3px;
-                }
-            }
-        }
+.notas-table {
+    width: 100%;
+    max-width: 1200px; /* Ajusta este valor según tu preferencia */
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto; /* Centra horizontalmente */
+}
 
-        .activate {
-            height: auto;
-            padding: 20px 0;
-            bottom: -130px;
-            opacity: 1;
-        }
+.notas-table th, .notas-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+}
 
-        .activate_btn {
+.notas-table th {
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #000000;
+    background-color: #ffffff;
+}
 
-            bottom: -160px;
+.notas-table td {
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
 
-            i {
-                transform: rotate(270deg);
-            }
-        }
+.nota-input {
+    width: 80px;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: #e0e0e0;
+    font-size: 16px;
+}
 
-        button {
-            cursor: pointer;
-            width: 80px;
-            height: 30px;
-            position: absolute;
-            bottom: -30px;
-            right: -1px;
-            border: 1px solid #000;
-            background-color: #fff;
-            transition: background-color .2s, bottom .5s;
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-            &:hover {
-                background-color: #f0f0f0;
-            }
+.delete-btn i {
+    pointer-events: none;
+}
 
-            i {
-                transform: rotate(90deg);
-                font-size: 22px;
-                transition: transform .2s;
-            }
-        }
-
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
     }
 
-    .sparcing {
-        margin-bottom: 140px;
+    .form-group {
+        width: 100%;
+    }
+
+    #buscar, #guardar {
+        width: 100%;
+        padding: 16px;
+        font-size: 14px;
+    }
+
+    .notas-table th, .notas-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .nota-input {
+        width: 100%;
+        padding: 5px;
     }
 }
