@@ -32,32 +32,46 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
     <main>
         <?php show_nav('Conducta') ?>
         <div class="container__section">
-            <h2>Conducta</h2>
+            <h2>CONDUCTA</h2>
+            <div class="controls">
+                <div class="dropdown">
+                    <label for="unidad">Unidad:</label>
+                    <select id="unidad">
+                        <option>Seleccionar unidad</option>
+                        
+                    </select>
+                </div>
+                <div class="dropdown">
+                    <label for="alumno">Alumno:</label>
+                    <select id="alumno">
+                        <option>Seleccionar alumno</option>
+                        
+                    </select>
+                </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn buscar"><i class="fas fa-search"></i> Buscar</button>
+                    <button class="btn guardar"><i class="fas fa-save"></i> Guardar</button>
+                </div>
+            
             <div class="section__table">
-                <table>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Estado</th>
-                    </tr>
-                    <tr>
-                        <td>Hoy</td>
-                        <td>
-                            El alumno responde de manera grosera a compañeros. Segundo aviso
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>22/04/2024</td>
-                        <td>
-                            El alumno responde de manera grosera a compañeros. Primer Aviso aviso
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>19/04/2024</td>
-                        <td>
-                            El alumno le pegó a Juanito sin motivo algno además de agredirlo verbalmente usando expresiones groseras.
-                        </td>
-                    </tr>
-                </table>
+            <form>
+                <div class="form-group">
+                    <label>Bimestre </label>
+                    <label>Nota</label>
+                    <label>Limpiar</label>
+                </div>
+                <div class="form-group">
+                    <label for="calificacion">Calificación</label>
+                    <input type="text" id="calificacion">
+                    <button class="btn eliminar"><i class="fa fa-trash"></i></button>
+                </div>
+                <div class="form-group">
+                    <label for="nota">Nota:</label>
+                    <textarea id="nota"></textarea>
+                    <button class="btn eliminar"><i class="fa fa-trash"></i></button>
+                </div>
+            </form>
             </div>
         </div>
     </main>

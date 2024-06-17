@@ -1,79 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
 main {
     display: flex;
+    padding-top: 0px;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .container__section {
-    width: 100%;
-    height: calc(100vh - 76.5px);
+    width: calc(100vw - 221px - 40px);
+    margin: 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 20px;
+    align-items: center;
+}
 
-    .section__asistencias {
-        width: 50vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid #000;
-        padding: 10px;
-        box-shadow: 5px 5px 5px #0004;
+.section__table{
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
 
-        h2 {
-            width: 100%;
-            text-align: left;
-        }
+    display: flex;
+    flex-direction: row;
+}
 
-        p {
-            width: 100%;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            padding: 10px 0;
-            color: #fff;
-            background-color: #39E379;
-            border-radius: 100px
-        }
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        span {
-            font-size: 14px;
-        }
-    }
+.controls {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   width: 100%;
+   margin-bottom: 20px;
+   max-width: 1000px;
+   gap: 20px;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+   padding: 20px;
+   box-sizing: border-box;
+   margin: 20 auto;
+}
 
-    .section__table {
-        height: 310px;
-        overflow: auto;
+.dropdown {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+}
 
-        &::-webkit-scrollbar {
-            width: 3px;
-        }
+.dropdown label {
+    margin-bottom: 5px;
+}
 
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--red);
-            border-radius: 100px;
-        }
+.dropdown select {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;  
+}
 
-        table {
-            border-collapse: collapse;
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 10px;
+}
 
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
 
-            th {
-                border-bottom: 1px solid;
-            }
+.btn.buscar {
+    background-color: #28a745;
+    color: white;
+}
 
-            th, td {
-                text-align: center;
-                width: 350px;
-                height: 20px;
-            }
+.btn.guardar {
+    background-color: #ff9800;
+    color: white;
+}
 
-            td {
-                padding: 18px 12px;
-                color: #000;
-                border-radius: 100px;
-            }
-        }
-    }
+form {
+
+    width:  calc(88vw - 218px - 34px);;
+    overflow: auto;
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    
+}
+
+.form-group {
+    width:  calc(50vw - 10px - 20px);;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+.form-group label {
+    width: 15%;
+    min-width: 150px;
+    align-content: center;
+}
+
+.form-group input[type="text"], .form-group textarea {
+    width: 25%;  
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    
+}
+
+.form-group textarea {
+    height: 70px;
+    resize: none;
+
+}
+
+.btn.eliminar {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn.eliminar i {
+    pointer-events: none;
 }
