@@ -1,4 +1,7 @@
 <?php
+// Mostrar mensajes
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 $apoderado = true;
 $docente = false;
