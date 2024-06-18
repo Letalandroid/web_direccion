@@ -2,78 +2,128 @@ main {
     display: flex;
 }
 
-.container__section {
-    width: 100%;
-    height: calc(100vh - 76.5px);
+h2 {
+    margin: 20px;
+}
+
+.container__section h2 {
+    text-align: center;
+}
+
+.container__conductas {
+    width: calc(100vw - 221px - 40px);
+    margin: 20px;
+    scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-
-    .section__asistencias {
-        width: 50vw;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid #000;
-        padding: 10px;
-        box-shadow: 5px 5px 5px #0004;
-
-        h2 {
-            width: 100%;
-            text-align: left;
-        }
-
-        p {
-            width: 100%;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            padding: 10px 0;
-            color: #fff;
-            background-color: #39E379;
-            border-radius: 100px
-        }
-
-        span {
-            font-size: 14px;
-        }
-    }
-
-    .section__table {
-        height: 310px;
-        overflow: auto;
-
-        &::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--red);
-            border-radius: 100px;
-        }
-
-        table {
-            border-collapse: collapse;
-
-
-            th {
-                border-bottom: 1px solid;
-            }
-
-            th, td {
-                text-align: center;
-                width: 350px;
-                height: 20px;
-            }
-
-            td {
-                padding: 18px 12px;
-                color: #000;
-                border-radius: 100px;
-            }
-        }
-    }
+    gap: 40px;
 }
+
+.section_conductas_bimestre1 {
+    height: 80px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #000;
+    box-shadow: 5px 5px 5px #0004;
+    padding: 0 20px;
+    transition: margin 0.5s;
+}
+
+.conductas_contain {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.conductas_contain div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    align-items: center;
+    gap: 10px;
+}
+
+.conductas_contain div:nth-child(1) i {
+    font-size: 26px;
+}
+
+.conductas_contain div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.conductas_contain div:nth-child(2) span {
+    color: #fff;
+    padding: 7px 20px;
+    border-radius: 100px;
+}
+
+.notas__bim {
+    position: absolute;
+    left: -1px;
+    bottom: 0;
+    opacity: 0;
+    width: calc(100vw - 222px - 40px);
+    height: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #eee;
+    box-shadow: 5px 5px 5px #0004;
+    transition: all 0.5s;
+}
+
+.notas__bim div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.notas__bim div h3 {
+    margin-bottom: 3px;
+}
+
+.activate {
+    height: auto;
+    padding: 20px 0;
+    bottom: -130px;
+    opacity: 1;
+}
+
+.activate_btn {
+    bottom: -140px;
+}
+
+.activate_btn i {
+    transform: rotate(270deg);
+}
+
+button {
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    bottom: -30px;
+    right: -1px;
+    border: 1px solid #000;
+    background-color: #fff;
+    transition: background-color 0.2s, bottom 0.5s;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+
+button i {
+    transform: rotate(90deg);
+    font-size: 22px;
+    transition: transform 0.2s;
+}
+
+.sparcing {
+    margin-bottom: 140px;
+}
+    
