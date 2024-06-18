@@ -44,13 +44,14 @@ $year_now = date('Y');
     <?php require_once __DIR__ . '/../components/header.php' ?>
     <main>
         <?php show_nav('Asistencias') ?>
+        <?php require_once __DIR__ . '/../components/loader.php' ?>
         <div class="container">
             <div id="reload">
                 <p>Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
             </div>
             <div class="top">
                 <div class='container__courses'>
-                    <select id="id_curso">
+                    <select onchange="cargarData(obtenerFecha())" id="id_curso">
                         <?php foreach ($cursos as $curso) { ?>
                             <option value="<?= $curso['curso_id'] ?>"><?= $curso['nombre'] ?></option>
                         <?php } ?>
@@ -90,31 +91,7 @@ $year_now = date('Y');
                                 <td>J</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php foreach ($alumnos as $alumno) { ?>
-                                <tr class="asistencias">
-                                    <td hidden>
-                                        <input type="number" value="<?= $alumno['alumno_id'] ?>">
-                                    </td>
-                                    <td id="nombres_apellidos"><?= $alumno['nombres_apellidos'] ?></td>
-                                    <td class="btn">
-                                        <input class="asistencia presente <?= $alumno['alumno_id'] ?>" type='radio' name="asistencia_<?= $alumno['alumno_id'] ?>">
-                                    </td>
-                                    <td class="btn">
-                                        <input class="asistencia falta <?= $alumno['alumno_id'] ?>" type='radio' name="asistencia_<?= $alumno['alumno_id'] ?>">
-                                    </td>
-                                    <td class="btn">
-                                        <input class="asistencia justificado <?= $alumno['alumno_id'] ?>" type='radio' name="asistencia_<?= $alumno['alumno_id'] ?>">
-                                    </td>
-                                </tr>
-                                <tr id="desc_justificado_<?= $alumno['alumno_id'] ?>" class="desc_justificacion" hidden>
-                                    <td colspan="4">
-                                        <label>Justificación:</label>
-                                        <input class="motivo" type="text">
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
