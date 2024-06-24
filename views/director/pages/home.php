@@ -35,13 +35,32 @@ $username = $_SESSION['username'];
 	<?php require_once __DIR__ . '/../components/header.php' ?>
 	<main>
 		<?php show_nav('Home') ?>
-		<div>
-			<div class="container__sections">
-				<div class="sections__perfil">
-					<p>Hola! <?= $username ?></p>
-				</div>
-			</div>
-		</div>
+		<div class="container">
+        <div class="header">
+            <img src="/views/director/assets/img/usuario.png" alt="Imagen de Persona" class="profile-img">
+            <div class="user-info">
+                <h2>NOMBRES COMPLETOS</h2>
+                <p>Directora - Admin</p>
+            </div>
+        </div>
+        <div class="cards">
+            <div class="card">
+			<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
+                <h3>Lista Docentes</h3>
+                <button class="btn btn-red">→</button>
+            </div>
+            <div class="card">
+			<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
+                <h3>Lista Alumnos</h3>
+                <button class="btn btn-blue">→</button>
+            </div>
+            <div class="card">
+			<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
+                <h3>Administración</h3>
+				<button class="btn btn-orange">→</button>
+            </div>
+        </div>
+    </div>
 	</main>
 </body>
 

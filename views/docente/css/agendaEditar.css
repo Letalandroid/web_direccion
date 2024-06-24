@@ -1,4 +1,4 @@
-
+/* Reset general y estilos base */
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -6,9 +6,9 @@ body {
     padding: 0;
 }
 
+/* Estilos para el layout principal */
 main {
     display: flex;
-
 }
 
 .container__section {
@@ -27,7 +27,6 @@ main {
 .create__agenda {
     width: 100%;
     max-width: 900px;
-    overflow-y: auto;
     background-color: #ffffff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.0);
     padding: 10px;
@@ -66,23 +65,18 @@ main {
     margin-bottom: 5px;
 }
 
-input[type="date"], select {
+input[type="date"], select, textarea, .form-control {
     width: 100%;
     padding: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
+    border: 1px solid #ccc;
 }
 
 textarea {
     height: 80px;
-    width: 100%;
-    padding: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-    border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box;
 }
 
 #button-container {
@@ -92,7 +86,7 @@ textarea {
     margin-top: 20px;
 }
 
-button {
+button, .btn {
     cursor: pointer;
     padding: 10px 20px;
     border: none;
@@ -100,73 +94,46 @@ button {
     font-size: 16px;
 }
 
-button#add-button {
+.btn-primary {
     background-color: #4CAF50;
     color: white;
+    width: auto; /* Ajusta el ancho según sea necesario */
 }
 
-button#clear-button {
-    background-color: #f44336;
-    color: white;
-}
-
-#reload {
-    display: none;
-    color: #777;
-    background-color: #ffe600;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    padding: 10px;
-    box-shadow: 5px 5px 5px #0004;
-}
-
-.table-container {
+.alert {
     width: 100%;
-    max-width: 1200px;
-    overflow-y: auto; /* Desplazamiento vertical */
-    max-height: 450px; /* Altura máxima de la tabla */
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-}
-
-#agendasTable {
-    width: 100%;
-    max-width: 1200px;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    overflow: hidden; /* Mantener el desplazamiento vertical si es necesario */
-}
-
-#agendasTable th, #agendasTable td {
-    border: 1px solid #ffffff;
-    padding: 10px;
+    max-width: 900px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
     text-align: center;
-    font-size: 16px;
 }
 
-#agendasTable th {
-    border-top: 1px solid #ffffff;
-    border-bottom: 1px solid rgb(0, 0, 0);
-    background-color: #ffffff;
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
 }
 
-.edit-button, .delete-button {
-    background-color: #023dff;
-    color: #ffffff;
+/* Estilos para el botón de cancelar */
+.btn.btn-danger{
+    background-color: red;
+    color: white;
     border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
-    border-radius: 5px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
-.delete-button {
-    background-color: #ff0019;
+.btn.btn-danger:hover {
+    background-color: darkred;
 }
-
 
 /* Media queries para pantallas más pequeñas */
 @media (max-width: 768px) {
@@ -179,12 +146,7 @@ button#clear-button {
         width: 100%;
     }
 
-    button {
+    #button-container button, #button-container .btn {
         width: 100%;
-    }
-
-    #agendasTable th, #agendasTable td {
-        padding: 10px;
-        font-size: 14px;
     }
 }
