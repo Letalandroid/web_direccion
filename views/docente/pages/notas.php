@@ -55,7 +55,7 @@ foreach ($cursos as $curso) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Curso:</label>
-                        <select onchange="cargarAlumnos()" id="curso" name="curso">
+                        <select id="curso" name="curso">
                             <?php foreach ($cursos as $curso) { ?>
                                 <option value="<?= $curso['curso_id'] ?>"><?= $curso['nombre'] ?></option>
                             <?php } ?>
@@ -63,7 +63,7 @@ foreach ($cursos as $curso) {
                     </div>
                     <div class="form-group">
                         <label>Unidad:</label>
-                        <select onchange="cargarAlumnos()" id="unidad" name="unidad">
+                        <select id="unidad" name="unidad">
                             <option value="1">Primer bimestre</option>
                             <option value="2">Segundo bimestre</option>
                             <option value="3">Tercer bimestre</option>
@@ -72,7 +72,7 @@ foreach ($cursos as $curso) {
                     </div>
                     <div class="form-group">
                         <label>Año:</label>
-                        <select onchange="cargarAlumnos()" id="year" name="año">
+                        <select id="year" name="año">
                             <option value="2024">2024</option>
                             <option value="2023">2023</option>
                             <option value="2022">2022</option>
@@ -82,10 +82,10 @@ foreach ($cursos as $curso) {
                 <div class="form-row">
                     <div class="form-group">
                         <label>Alumno:</label>
-                        <select onchange="cargarAlumnos()" id="alumno" name="alumno"></select>
+                        <select id="alumno" name="alumno"></select>
                     </div>
-                    <button id="buscar">Buscar</button>
-                    <button onclick="enviarNota()" id="guardar"><i class="fas fa-download"></i> Guardar</button>
+                    <button onclick="realizarBusqueda()" id="buscar">Buscar</button>
+                    <button onclick="enviarNota()" id="guardar"><i class="fas fa-download"></i>Guardar</button>
                 </div>
             </div>
             <style>
@@ -147,33 +147,112 @@ foreach ($cursos as $curso) {
         function cargarAlumnos() {
             const cursoSeleccionado = document.getElementById('curso').value;
             const listaAlumnos = document.getElementById('alumno');
+            const loader = document.getElementById('loader');
 
+            loader.style.display = 'flex';
             listaAlumnos.innerHTML = '';
 
-            const alumnosFiltrados = alumnos.filter(alumno => alumno.curso_id == cursoSeleccionado);
-            loader.style.display = 'flex';
+            const alumnosFiltrados = alumnos.reduce((acc, alumno) => {
+                const existingAlumno = acc.find(a => a.alumno_id === alumno.alumno_id);
+
+                if (existingAlumno) {
+                    existingAlumno.notas.push({
+                        nota_id: alumno.nota_id,
+                        tipo: alumno.tipo,
+                        valor: alumno.valor
+                    });
+                } else {
+                    acc.push({
+                        alumno_id: alumno.alumno_id,
+                        nombres_apellidos: alumno.nombres_apellidos,
+                        curso_id: alumno.curso_id,
+                        bimestre: alumno.bimestre,
+                        notas: [{
+                            nota_id: alumno.nota_id,
+                            tipo: alumno.tipo,
+                            valor: alumno.valor
+                        }]
+                    });
+                }
+
+                return acc;
+            }, []);
 
             alumnosFiltrados.forEach(alumno => {
                 const optionAlumno = document.createElement('option');
                 optionAlumno.value = alumno.alumno_id;
                 optionAlumno.textContent = alumno.nombres_apellidos;
                 listaAlumnos.appendChild(optionAlumno);
-                switch (alumno.tipo) {
-                    case 'Practica':
-                        n_pc.value = alumno.valor;
-                    case 'Participacion':
-                        n_participacion.value = alumno.valor;
-                    case 'Examen':
-                        n_examen.value = alumno.valor;
-                    default:
-                        break;
-                }
+
+                alumno.notas.forEach(nota => {
+                    switch (nota.tipo) {
+                        case 'Practica':
+                            n_pc.value = nota.valor;
+                            break;
+                        case 'Participacion':
+                            n_participacion.value = nota.valor;
+                            break;
+                        case 'Examen':
+                            n_examen.value = nota.valor;
+                            break;
+                        default:
+                            break;
+                    }
+                });
             });
 
             loader.style.display = 'none';
         }
-
         cargarAlumnos();
+
+        function searchAlumno(cursoSeleccionado, unidadSeleccionada, yearSeleccionado) {
+            const alumnosFiltrados = alumnos.filter(a => {
+                return a.curso_id == cursoSeleccionado &&
+                    a.bimestre == unidadSeleccionada &&
+                    a.year == yearSeleccionado &&
+                    a.alumno_id == alumno.value;
+            });
+
+            return alumnosFiltrados;
+        }
+
+        function realizarBusqueda() {
+            const cursoSeleccionado = document.getElementById('curso').value;
+            const unidadSeleccionada = document.getElementById('unidad').value;
+            const yearSeleccionado = document.getElementById('year').value;
+
+            const alumnosFiltrados = searchAlumno(cursoSeleccionado, unidadSeleccionada, yearSeleccionado);
+
+            if (alumnosFiltrados.length > 0) {
+                mostrarNotas(alumnosFiltrados);
+            } else {
+                limpiarNotas();
+            }
+        }
+
+        function mostrarNotas(alumno) {
+            limpiarNotas();
+
+            if (alumno) {
+                alumno.forEach((a) => {
+                    if (a.tipo === 'Practica') {
+                        n_pc.value = a.valor;
+                    }
+                    if (a.tipo === 'Participacion') {
+                        n_participacion.value = a.valor;
+                    }
+                    if (a.tipo === 'Examen') {
+                        n_examen.value = a.valor;
+                    }
+                })
+            }
+        }
+
+        function limpiarNotas() {
+            n_pc.value = 0;
+            n_participacion.value = 0;
+            n_examen.value = 0;
+        }
 
         const enviarNota = () => {
 
