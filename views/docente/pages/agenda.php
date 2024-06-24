@@ -6,6 +6,7 @@ use Letalandroid\controllers\Agenda;
 require_once __DIR__ . '/../../../controllers/Cursos.php';
 require_once __DIR__ . '/../../../controllers/Agenda.php';
 
+
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
     header('Location: /');
@@ -44,29 +45,18 @@ $agendas = Agenda::getAllCurso();
             <div id="reload">
                 <p>Parece que hay nuevos cambios, se sugiere <button onclick="location.reload();">recargar</button></p>
             </div>
-            <div class="search__agenda">
-                <label>Buscar:</label>
-                <div>
-                    <input id="search_agenda" type="text" placeholder="📝 Evaluación: S1_Listas y Tablas">
-                    <button onclick="buscarDocente()">Buscar</button>
-                    <button onclick="showAdd()">
-                        <i class="fa fa-plus"></i>
-                    </button>
-                </div>
-            </div>
             <div class="create__agenda">
-                <h3>Agregar agenda</h3>
+                <h3>AGREGAR AGENDA</h3>
                 <div class="container__data_agenda">
-                    <div class="left">
-                        <div class="container__descripcion">
-                            <label>Descripción: </label>
-                            <textarea id="descripcion" class="send_data" type="text"></textarea>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Fecha:</label>
+                            <input id="fecha_actividad" class="send_data" type="date">
                         </div>
-                    </div>
-                    <div class="right">
-                        <div>
-                            <label>Cursos:</label>
+                        <div class="form-group">
+                            <label>Secciones:</label>
                             <select id="curso">
+                                <option value="">Seleccionar Curso</option>
                                 <?php foreach ($cursos as $curso) { ?>
                                     <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
                                         <?= $curso['nombre'] ?>
@@ -74,32 +64,48 @@ $agendas = Agenda::getAllCurso();
                                 <?php } ?>
                             </select>
                         </div>
-                        <div>
-                            <label>Fecha Actividad: </label>
-                            <input id="fecha_actividad" class="send_data" type="date">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descripción:</label>
+                            <textarea id="descripcion" class="send_data" type="text"></textarea>
                         </div>
                     </div>
+                    <div class="form-row" id="button-container">
+                        <button id="add-button" onclick="addAgenda()"><i class="fas fa-plus-square"></i>  Añadir</button>
+                        <button id="clear-button" onclick="clearForm()"><i class="fas fa-trash-alt"></i>  Limpiar</button>
+                    </div>
                 </div>
-                <button onclick="addAgenda()">Agregar</button>
             </div>
-            <table id="agendasTable">
-                <thead>
-                    <th>Curso</th>
-                    <th>Descripcion</th>
-                    <th>Fecha del evento</th>
-                </thead>
-                <?php foreach ($agendas as $agenda) { ?>
-                    <tr>
-                        <td><?= $agenda['curso'] ?></td>
-                        <td><?= $agenda['descripcion'] ?></td>
-                        <?php $d_agenda = explode('-', date("d-m-Y", strtotime($agenda['fecha_evento']))); ?>
-                        <td><?= "$d_agenda[0] de $d_agenda[1] del $d_agenda[2]" ?></td>
-                    </tr>
-                <?php } ?>
-            </table>
+
+            <div class="table-container">
+                <table id="agendasTable">
+                    <thead>
+                        <th>Curso</th>
+                        <th>Descripcion</th>
+                        <th>Fecha</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </thead>
+                    <?php foreach ($agendas as $agenda) { ?>
+                        <tr>
+                        <td>
+                            <?= htmlspecialchars($agenda['curso']) ?></td>
+                            <td><?= htmlspecialchars($agenda['descripcion']) ?></td>
+                            <?php $d_agenda = explode('-', date("d-m-Y", strtotime($agenda['fecha_evento']))); ?>
+                            <td><?= htmlspecialchars("$d_agenda[0] de $d_agenda[1] del $d_agenda[2]") ?></td>
+                            <td><button class="edit-button" onclick="window.location.href='/views/docente/pages/ageEditar.php?id=<?= $agenda['evento_id'] ?>'"><i class="fa fa-edit"></button></td>
+                            <td><button class="delete-button" onclick="eliminarAgenda(<?= $agenda['evento_id'] ?>)"><i class="fa fa-trash"></i></button></td>
+                            
+                        </tr>
+                    <?php } ?>
+                </table>
+            </div>
         </div>
     </main>
     <script>
+
+        //Para Agregar datos a la tabla
         let show = false;
 
         const buscarApoderado = () => {
@@ -147,6 +153,7 @@ $agendas = Agenda::getAllCurso();
 
         }
 
+
         const addAgenda = async () => {
 
             let isEmpty = false;
@@ -184,6 +191,45 @@ $agendas = Agenda::getAllCurso();
                 alert('Existen uno o más campos vacío.')
             }
         }
+
+        // Para Limpiar Fecha, Curso y descripcion
+        const clearForm = () => {
+        document.getElementById('fecha_actividad').value = '';
+        document.getElementById('curso').selectedIndex = 0;
+        document.getElementById('descripcion').value = '';
+        };
+
+
+        // Eliminar
+        const eliminarAgenda = (evento_id) => {
+    console.log(`Intentando eliminar el evento con ID: ${evento_id}`); 
+    if (confirm('¿Estás seguro de que deseas eliminar esta actividad?')) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/controllers/actions/docente/actionsAgenda.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Estado del servidor: ', xhr.status); // Registro de depuración
+            console.log('Respuesta del servidor: ', xhr.response); // Registro de depuración
+            if (xhr.status === 200) {
+                alert('Actividad eliminada exitosamente');
+                location.reload(); // Recargar la página para ver los cambios
+            } else {
+                alert('Error al eliminar la actividad');
+                console.error(xhr.response);
+            }
+        };
+        xhr.onerror = function() {
+            alert('Error de conexión');
+            console.error('Error de conexión');
+        };
+        xhr.send(`deleteAgenda=true&evento_id=${evento_id}`);
+    }
+}
+
+
+
+        
+
     </script>
 </body>
 
