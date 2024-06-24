@@ -199,5 +199,4 @@ $cursos = Cursos::getAll();
         }
     </script>
 </body>
-
 </html>

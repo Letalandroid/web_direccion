@@ -2,147 +2,179 @@
 
 main {
     display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.container__section {
-    width: calc(100% - 221px);
-    height: calc(100vh - 76.31px);
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.search-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-container {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    align-items: flex-start;
+    margin: 10px;
+    width: 100%;
+    max-width: 240px;
+}
+
+.input-container label {
+    margin-bottom: 5px;
+}
+
+.input-container input,
+.input-container select {
+    width: 100%;
+    padding: 10px 0;
+    border: 1px solid #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
     align-items: center;
+    width: 100%;
+    margin: 10px;
+    overflow: hidden;
+}
 
-    #reload {
-        display: none;
-        color: #777;
-        background-color: #ffe600;
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
+.button-container .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 14px;
+    margin: 5px;
+}
+
+.button-container .btn.search {
+    background-color: #4caf50;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.button-container .btn.clear {
+    background-color: #ffc107;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    max-width: 1200px;
+    max-height: 450px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ffffff;
+    text-align: center;
+}
+
+table th {
+    background-color: #f2f2f2;
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+table .btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    background-size: contain;
+}
+
+table .btn_edit{
+    background-color: #023dff;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+table .btn.delete {
+    background-color: #ff0202;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .input-container,
+    .button-container {
+        width: 100%;
+        max-width: none;
+        margin: 5px 0;
+    }
+
+    .input-container input,
+    .input-container select {
+        width: 100%;
+    }
+
+    .button-container .btn {
+        width: 100%;
         padding: 10px;
-        box-shadow: 5px 5px 5px #0004;
-
-        button {
-            background-color: transparent;
-            font-weight: bold;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    .search__docente {
-        width: 97%;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 15px 0;
-
-        div {
-            width: 100%;
-            display: flex;
-        }
-
-        input {
-            width: 100%;
-            border: 1px solid #000;
-            padding: 5px 8px;
-            font-size: 14px;
-        }
-
-        button {
-            background-color: var(--green);
-            color: #fff;
-            padding: 10px 20px;
-            font-weight: bold;
-
-            &:hover {
-                background-color: #31635a;
-            }
-
-            i {
-                transition: .2s transform;
-            }
-        }
-    }
-
-    .create__docente {
-        width: 97%;
-        height: 0;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 15px;
-        gap: 15px;
-        transition: height .5s;
-
-        .container__data_docente {
-
-            display: flex;
-            gap: 20px;
-            flex-direction: column;
-            justify-content: space-around;
-
-            .left,
-            .right {
-                display: flex;
-                gap: 15px;
-
-                input,
-                select {
-                    padding: 3px 8px;
-                    border: 1px solid #000;
-                }
-            }
-
-            .cursos__container {
-                height: 60px;
-                overflow: auto;
-                padding: 0 5px;
-
-                &::-webkit-scrollbar {
-                    width: 1px;
-                }
-
-                &::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-
-                &::-webkit-scrollbar-thumb {
-                    background: var(--red);
-                }
-            }
-        }
-
-        button {
-            color: #fff;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 10px 20px;
-            background-color: var(--green);
-
-            &:hover {
-                background-color: #31635a;
-            }
-        }
+        margin: 5px 0;
     }
 
     table {
-        width: 97%;
-
-        td {
-            text-align: center;
-            padding: 10px 0;
-        }
-    }
-
-    table,
-    th,
-    td {
-        border: 1px solid #000;
-        border-collapse: collapse;
-        padding: 5px 0;
+        min-width: 100%; /* Ensure table adjusts for smaller screens */
     }
 }

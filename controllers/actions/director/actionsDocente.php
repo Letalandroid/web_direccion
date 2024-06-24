@@ -6,23 +6,27 @@ require_once '../../Usuarios.php';
 use Letalandroid\controllers\Docente;
 use Letalandroid\controllers\Usuarios;
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_POST['createDocente'])) {
     header('Content-Type: application/json; charset=utf-8');
 
     try {
+        
+        $dni = $_POST['dni'];
         $nombres = $_POST['nombres'];
         $apellidos = $_POST['apellidos'];
-        $dni = $_POST['dni'];
-        $genero = $_POST['genero'];
+        $rol = $_POST['rol'];
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
-        $cursos_string = $_POST['cursos'];
+        $curso_id = $_POST['curso_id'];
+        $genero = $_POST['genero'];
+       
         $cursos = explode(',', $cursos_string);
 
         $resultados = [];
 
         if (is_array($cursos)) {
             foreach ($cursos as $curso_id) {
-                $add = Docente::create((int) $curso_id, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento);
+                $add = Docente::create((int) $dni, $nombres, $apellidos, $rol, $fecha_nacimiento, $curso_id, $genero);
 
                 if (!isset($add['error'])) {
                     array_push($resultados, 1);
@@ -68,4 +72,5 @@ if (isset($_POST['createDocente'])) {
     }
 } else {
     http_response_code(500);
+}
 }
