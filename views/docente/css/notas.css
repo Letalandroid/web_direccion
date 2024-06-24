@@ -21,6 +21,30 @@ main {
     gap: 20px;
     box-sizing: border-box;
     margin: 0 auto; /* Centra horizontalmente */
+
+    #reload {
+        display: none;
+        color: #777;
+        background-color: #ffe600;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        box-shadow: 5px 5px 5px #0004;
+
+        b {
+            font-weight: bold;
+        }
+
+        button {
+            background-color: transparent;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 .header {
@@ -127,6 +151,7 @@ main {
     box-sizing: border-box;
     background-color: #e0e0e0;
     font-size: 16px;
+    text-align: center;
 }
 
 .delete-btn {
