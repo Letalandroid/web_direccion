@@ -51,7 +51,7 @@ $cursos = Cursos::getAll();
                 <label>Buscar:</label>
                 <div>
                     <input id="search_alumno" type="text" placeholder="Pedrito">
-                    <button onclick="buscarDocente()">Buscar</button>
+                    <button onclick="buscarAlumno()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
                     </button>
@@ -115,9 +115,11 @@ $cursos = Cursos::getAll();
             <table id="alumnosTable">
                 <thead>
                     <th>DNI</th>
-                    <th>Nombres y Apellidos</th>
-                    <th>Género</th>
-                    <th>Fecha de nacimiento</th>
+                    <th>NOMBRES Y APELLIDOS</th>
+                    <th>GENERO</th>
+                    <th>FECHA DE NACIMIENTO</th>
+                    <th>EDITAR</th>
+                    <th>ELIMINAR</th>
                 </thead>
                 <?php foreach ($alumnos as $alumno) { ?>
                     <tr>
@@ -126,6 +128,8 @@ $cursos = Cursos::getAll();
                         <td><?= $alumno['genero'] ?></td>
                         <?php $d_alumno = explode('-', date("d-m-Y", strtotime($alumno['fecha_nacimiento']))); ?>
                         <td><?= "$d_alumno[0] de $d_alumno[1] del $d_alumno[2]" ?></td>
+                        <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $alumno['dni'] ?>'"><i class="fa fa-edit"></button></td>                         
+                            <td><a href="/views/director/pages/alumnos.php?id=<?php echo $alumno['alumno_id'] ?>" class="btn btn-danger">X</a></td>
                     </tr>
                 <?php } ?>
             </table>
@@ -227,6 +231,27 @@ $cursos = Cursos::getAll();
             } else {
                 alert('Existen uno o más campos vacío.')
             }
+        }
+        const buscarAlumno = () => {
+            const dni = document.getElementById('search_alumno').value.toLowerCase();
+            const rows = document.querySelectorAll('#alumnosTable tbody tr');
+
+            rows.forEach(row => {
+                const dniValue = row.cells[0].textContent.toLowerCase();
+                if (dniValue.includes(dni)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        const limpiarBusqueda = () => {
+            document.getElementById('search_alumno').value = '';
+            const rows = document.querySelectorAll('#alumnosTable tbody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
         }
     </script>
 </body>

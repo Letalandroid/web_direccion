@@ -127,7 +127,7 @@ class Apoderado
             $db = new Database();
 
             $query = $db->connect()->prepare("select a.alumno_id, ap.dni,
-                                            concat(ap.nombres,' ',ap.apellidos) as    nombres_apellidos,
+                                            ap.nombres,ap.apellidos,
                                             ap.fecha_nacimiento, ap.genero, ap.nacionalidad
                                             from alumnos a
                                             right join apoderados ap
