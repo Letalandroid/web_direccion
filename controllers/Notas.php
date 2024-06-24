@@ -28,6 +28,28 @@ class Notas
         }
     }
 
+    static function searchAll($alumno_id, $year, $unidad, $curso_id, $tipo)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select * from notas
+            where curso_id=? and alumno_id=? and bimestre=? and tipo=? and year=?;');
+            $query->bindValue(1, $curso_id, PDO::PARAM_INT);
+            $query->bindValue(2, $alumno_id, PDO::PARAM_INT);
+            $query->bindValue(3, $unidad, PDO::PARAM_INT);
+            $query->bindValue(4, $tipo, PDO::PARAM_INT);
+            $query->bindValue(5, $year, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAll_Course($curso_id)
     {
         try {
@@ -69,18 +91,37 @@ class Notas
         }
     }
 
-    static function create($curso_id, $alumno_id, $bimestre, $year, $valor)
+    static function create($alumno_id, $year, $bimestre, $curso_id, $tipo, $valor)
     {
         try {
             $db = new Database();
-            $query = $db->connect()->prepare('insert into notas (curso_id,alumno_id,bimestre,year,valor)
-                                                values (?,?,?,?,?);');
+            $query = $db->connect()->prepare('insert into notas (curso_id,alumno_id,bimestre,year,valor,tipo)
+                                                values (?,?,?,?,?,?);');
 
             $query->bindValue(1, $curso_id, PDO::PARAM_INT);
             $query->bindValue(2, $alumno_id, PDO::PARAM_INT);
             $query->bindValue(3, $bimestre, PDO::PARAM_INT);
             $query->bindValue(4, $year, PDO::PARAM_INT);
             $query->bindValue(5, $valor, PDO::PARAM_INT);
+            $query->bindValue(6, $tipo, PDO::PARAM_STR);
+            $query->execute();
+
+            return array('success' => true, 'message' => '✍️ Notas agregadas exitosamente');
+        } catch (PDOException $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+            exit();
+        }
+    }
+
+    static function edit($valor, $nota_id)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare('update notas set valor=? where nota_id=?;');
+
+            $query->bindValue(1, $valor, PDO::PARAM_INT);
+            $query->bindValue(2, $nota_id, PDO::PARAM_INT);
             $query->execute();
 
             return array('success' => true, 'message' => '✍️ Notas agregadas exitosamente');
