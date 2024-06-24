@@ -47,7 +47,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 <label>Buscar:</label>
                 <div>
                     <input id="search_apoderado" type="text" placeholder="<?= $apoderados_reverse[0]['nombres_apellidos'] ?>">
-                    <button onclick="buscarDocente()">Buscar</button>
+                    <button onclick="buscarApoderado()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
                     </button>
@@ -158,9 +158,12 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
         let show = false;
 
         const buscarApoderado = () => {
-            const apoderadoName = document.getElementById('search_apoderado').value;
-            const apoderados = <?= json_encode($apoderados ?? []) ?>;
-            const matchingapoderados = apoderados.filter(apoderado => apoderado.nombres_apellidos.toLowerCase().includes(apoderadoName));
+            const apoderadoName = document.getElementById('search_apoderado').value.toLowerCase();
+            const apoderados = <?= json_encode($apoderados_con ?? []) ?>;
+            const matchingApoderados = apoderados.filter(apoderado => 
+            apoderado.nombres_apellidos.toLowerCase().includes(apoderadoName.toLowerCase()) || 
+            apoderado.dni.includes(apoderadoName)
+            );
 
             const tableBody = document.getElementById('apoderadosTable').getElementsByTagName('tbody')[0];
             tableBody.innerHTML = "";
@@ -169,28 +172,27 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 matchingApoderados.forEach(apoderado => {
                     const row = tableBody.insertRow();
                     row.innerHTML = `
-                <td>${apoderado.dni}</td>
-                <td>${apoderado.nombres_apellidos}</td>
-                <td>${apoderado.genero}</td>
-                <td>${apoderado.nacionalidad}</td>
-                <td>${apoderado.fecha_nacimiento}</td>
-            `;
+                        <td>${apoderado.dni}</td>
+                        <td>${apoderado.nombres_apellidos}</td>
+                        <td>${apoderado.genero}</td>
+                        <td>${apoderado.nacionalidad}</td>
+                        <td>${apoderado.fecha_nacimiento}</td>
+                    `;
                 });
             } else {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 4;
+                cell.colSpan = 5;
                 cell.textContent = "No se encontraron resultados";
             }
         }
 
         const showAdd = () => {
-
             const icon = document.querySelector('.fa-plus');
             const create_apoderado = document.querySelector('.create__apoderado');
 
             if (!show) {
-                create_apoderado.style.height = '211px';
+                create_apoderado.style.height = 'auto';
                 icon.style.transform = 'rotate(45deg)';
                 show = true;
             } else {
@@ -198,12 +200,9 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 icon.style.transform = 'rotate(0)';
                 show = false;
             }
-
-
         }
 
         const addApoderado = async () => {
-
             let isEmpty = false;
 
             document.querySelectorAll('.send_data').forEach((data) => {
@@ -214,7 +213,6 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             });
 
             if (!isEmpty) {
-
                 const nombres = document.querySelector('#nombres').value;
                 const apellidos = document.querySelector('#apellidos').value;
                 const dni = document.querySelector('#dni').value;
@@ -238,7 +236,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 };
                 xhr.send(`createApoderado=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&nacionalidad=${nacionalidad}`);
             } else {
-                alert('Existen uno o más campos vacío.')
+                alert('Existen uno o más campos vacíos.');
             }
         }
         const limpiarBusqueda = () => {
