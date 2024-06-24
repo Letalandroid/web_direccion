@@ -69,3 +69,4 @@ if (isset($_POST['createDocente'])) {
 } else {
     http_response_code(500);
 }
+
