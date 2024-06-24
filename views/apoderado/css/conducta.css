@@ -1,15 +1,18 @@
 main {
     display: flex;
-}
 
-h2 {
+    h2 {
     margin: 20px;
+    }
 }
-
 .container__section h2 {
-    text-align: center;
-}
+    text-align:center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 
+}
 .container__conductas {
     width: calc(100vw - 221px - 40px);
     margin: 20px;
@@ -17,8 +20,9 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 40px;
-}
+    
 
+}
 .section_conductas_bimestre1 {
     height: 80px;
     position: relative;
@@ -27,7 +31,8 @@ h2 {
     border: 1px solid #000;
     box-shadow: 5px 5px 5px #0004;
     padding: 0 20px;
-    transition: margin 0.5s;
+    transition: height 0.5s, margin 0.5s;
+    
 }
 
 .conductas_contain {
@@ -88,20 +93,18 @@ h2 {
 
 .activate {
     height: auto;
-    padding: 20px 0;
-    bottom: -130px;
+    padding: 32px 0;
     opacity: 1;
+    bottom: -135px;
 }
 
 .activate_btn {
-    bottom: -140px;
-}
+    bottom: -160px;
+    transform: rotate(180deg);
+} 
 
-.activate_btn i {
-    transform: rotate(270deg);
-}
 
-button {
+#btn_1, #btn_2, #btn_3, #btn_4{
     cursor: pointer;
     width: 80px;
     height: 30px;
@@ -113,17 +116,24 @@ button {
     transition: background-color 0.2s, bottom 0.5s;
 }
 
-button:hover {
+#btn_1:hover, #btn_2:hover, #btn_3:hover,#btn_4:hover {
     background-color: #f0f0f0;
 }
 
-button i {
+#btn_1.activate_btn, #btn_2.activate_btn, #btn_3.activate_btn, #btn_4.activate_btn {
+    bottom: -170px; /* Ajustar según sea necesario para el despliegue hacia abajo */
+}
+
+#btn_1 i, #btn_2 i, #btn_3 i, #btn_4 i {
     transform: rotate(90deg);
     font-size: 22px;
-    transition: transform 0.2s;
+    transition: transform 0.5s;
+    i {
+        transform: rotate(270deg);
+    }
 }
+
 
 .sparcing {
     margin-bottom: 140px;
 }
-    
