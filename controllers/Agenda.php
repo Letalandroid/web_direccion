@@ -11,7 +11,6 @@ use PDOException;
 
 class Agenda
 {
-
     static function getAll()
     {
         try {
@@ -50,10 +49,9 @@ class Agenda
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare('select c.nombre as curso, a.fecha_evento, a.descripcion
-                                            from actividad a
-                                            inner join cursos c
-                                            on (c.curso_id=a.curso_id);');
+            $query = $db->connect()->prepare('SELECT c.nombre AS curso, a.evento_id, a.fecha_evento, a.descripcion
+                                            FROM actividad a
+                                            INNER JOIN cursos c ON (c.curso_id=a.curso_id);');
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -63,7 +61,57 @@ class Agenda
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
         }
     }
+    //Actualizar
+    public static function getById($evento_id)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare('SELECT * FROM actividad WHERE evento_id = ?');
+            $query->bindValue(1, $evento_id, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+        }
+    }
+    
+    public static function actualizar($evento_id, $curso_id, $descripcion, $fecha_evento)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare('UPDATE actividad SET curso_id = ?, descripcion = ?, fecha_evento = ? WHERE evento_id = ?');
 
+            $query->bindValue(1, $curso_id, PDO::PARAM_INT);
+            $query->bindValue(2, $descripcion, PDO::PARAM_STR);
+            $query->bindValue(3, $fecha_evento, PDO::PARAM_STR);
+            $query->bindValue(4, $evento_id, PDO::PARAM_INT);
+
+            $query->execute();
+
+
+            return array('error' => false);
+        } catch (Exception $e) {
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+        }
+    }
+    //eliminar
+    public static function eliminar($evento_id)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare("DELETE FROM actividad WHERE evento_id = ?");
+            $query->bindValue(1, $evento_id, PDO::PARAM_INT); 
+            $query->execute();
+            return array('error' => false);
+        } catch (Exception $e) {
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+        }
+    }
+
+    
+    //
     static function create($curso_id, $descripcion, $fecha_evento)
     {
         try {
@@ -84,4 +132,6 @@ class Agenda
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
         }
     }
+    
+
 }
