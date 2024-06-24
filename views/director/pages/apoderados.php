@@ -89,7 +89,10 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                         </div>
                     </div>
                 </div>
+                <div class="botones">
                 <button onclick="addApoderado()">Agregar</button>
+                <button onclick="limpiarBusqueda()" class="btn btn-orange">Limpiar</button>
+                </div>
             </div>
             <?php if (!empty($apoderados_sin)) { ?>
                 <div class="apo_null_container">
@@ -97,10 +100,14 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <table>
                         <thead>
                             <th>DNI</th>
-                            <th>Nombres y Apellidos</th>
-                            <th>Género</th>
-                            <th>Nacionalidad</th>
-                            <th>Fecha de nacimiento</th>
+                            <th>NOMBRES</th>
+                            <th>APELLIDOS</th>
+                            <th>GENERO</th>
+                            <th>NACIONALIDAD</th>
+                            <th>FECHA DE NACIMIENTO</th>
+                            <th>ALUMNOS</th>
+                            <th>EDITAR</th>
+                            <th>ELIMINAR</th>
                         </thead>
                         <tbody>
                             <?php foreach ($apoderados_sin as $apoderado) { ?>
@@ -111,6 +118,8 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                                     <td><?= $apoderado['nacionalidad'] ?></td>
                                     <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
                                     <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
+                                    <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $apoderado_id['apoderado_id'] ?>'"><i class="fa fa-edit"></button></td>                         
+                                     <td><a href="/views/director/pages/alumnos.php?id=<?php echo $apoderado_id['apoderado_id'] ?>" class="btn btn-danger">X</a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -119,17 +128,22 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             <?php } ?>
             <table id="apoderadosTable">
                 <thead>
-                    <th>DNI</th>
-                    <th>Nombres y Apellidos</th>
-                    <th>Género</th>
-                    <th>Nacionalidad</th>
-                    <th>Fecha de nacimiento</th>
+                            <th>DNI</th>
+                            <th>NOMBRES</th>
+                            <th>APELLIDOS</th>
+                            <th>GENERO</th>
+                            <th>NACIONALIDAD</th>
+                            <th>FECHA DE NACIMIENTO</th>
+                            <th>ALUMNOS</th>
+                            <th>EDITAR</th>
+                            <th>ELIMINAR</th>
                 </thead>
                 <tbody>
                     <?php foreach ($apoderados_con as $apoderado) { ?>
                         <tr>
                             <td><?= $apoderado['dni'] ?></td>
-                            <td><?= $apoderado['nombres_apellidos'] ?></td>
+                            <td><?= $apoderado['nombres'] ?></td>
+                            <td><?= $apoderado['apellidos'] ?></td>
                             <td><?= $apoderado['genero'] ?></td>
                             <td><?= $apoderado['nacionalidad'] ?></td>
                             <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
@@ -226,6 +240,13 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             } else {
                 alert('Existen uno o más campos vacío.')
             }
+        }
+        const limpiarBusqueda = () => {
+            document.getElementById('search_apoderado').value = '';
+            const rows = document.querySelectorAll('#apoderadosTable tbody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
         }
     </script>
 </body>
