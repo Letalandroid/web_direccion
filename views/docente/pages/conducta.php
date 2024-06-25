@@ -128,11 +128,7 @@ foreach ($cursos as $curso) {
                         curso_id: alumno.curso_id,
                         bimestre: alumno.bimestre
                         // Agrega aquí las demás propiedades que necesites
-                    });
-                } else {
-                    // Busca si ya existe un alumno con el mismo alumno_id en acc
-                    const existingAlumno = acc.find(a => a.alumno_id === alumno.alumno_id);
-
+                    });sadsadasd
                     if (existingAlumno) {
                         // Si existe, agrega las propiedades que no están aún en el registro existente
                         Object.keys(alumno).forEach(key => {
@@ -140,41 +136,14 @@ foreach ($cursos as $curso) {
                                 existingAlumno[key] = alumno[key];
                             }
                         });
-                    } else {
-                        // Si no existe, agrega el alumno completo a acc
-                        acc.push({
-                            alumno_id: alumno.alumno_id,
-                            nombres_apellidos: alumno.nombres_apellidos,
-                            curso_id: alumno.curso_id,
-                            bimestre: alumno.bimestre
-                            // Agrega aquí las demás propiedades que necesites
-                        });
-                    }
-                }
-
-                return acc;
-            }, []);
-            console.log(alumnosFiltrados);
-
-                const optionAlumno = document.createElement('option');
-                optionAlumno.value = alumnosFiltrados[0].alumno_id;
-                optionAlumno.textContent = alumnosFiltrados[0].nombres_apellidos;
-                listaAlumnos.appendChild(optionAlumno);
-                calificacion.value = alumnosFiltrados[0].calificacion ?? 'Sin calificación';
-                nota.value = alumnosFiltrados[0].descripcion ?? '';
+                    } else {dad].descripcion ?? '';
         }
 
         cargarAlumnos();
 
         const enviarNota = () => {
 
-            let success = 0;
-            let error = 0;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/controllers/actions/docente/actionsConducta.php');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function() {
+            let succesdsa{
                 if (xhr.status === 200) {
                     console.log(xhr.response);
                     success += 1;
@@ -184,16 +153,7 @@ foreach ($cursos as $curso) {
                 }
 
                 document.querySelector('#reload').innerHTML = `
-				<b>(${success})</b> Notas, <b>(${error})</b> Errores
-			`;
-                document.querySelector('#reload').style.display = 'block';
-            };
-            xhr.onerror = function() {
-                console.error('Error de conexión');
-            };
-            const data_send = `
-                createConducta=true&
-                curso_id=${curso_id.value}&
+				<b>($d
                 unidad=${unidad.value}&
                 alumno_id=${alumno.value}&
                 calificacion=${calificacion.value}&
@@ -203,14 +163,7 @@ foreach ($cursos as $curso) {
             function customReplace(match) {
                 if (match === '\n' || match === ' ') {
                     return ' ';
-                } else {
-                    return match;
-                }
-            }
-
-            const replacedData = data_send.replace(/\n|\s+/g, customReplace);
-            xhr.send(replacedData);
-
+             dsadas
         }
     </script>
 </body>
