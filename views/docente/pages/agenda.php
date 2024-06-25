@@ -6,7 +6,7 @@ use Letalandroid\controllers\Agenda;
 require_once __DIR__ . '/../../../controllers/Cursos.php';
 require_once __DIR__ . '/../../../controllers/Agenda.php';
 
-
+// Test change
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Docente') {
     header('Location: /');
