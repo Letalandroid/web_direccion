@@ -1,10 +1,20 @@
 <?php
 
+use Letalandroid\controllers\Conducta;
+use Letalandroid\controllers\Alumnos;
+
+require_once __DIR__ . '/../../../controllers/Conducta.php';
+require_once __DIR__ . '/../../../controllers/Alumnos.php';
+
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
     header('Location: /');
     exit();
+
 }
+echo $_SESSION['apoderado_id'];
+$alumno_id = Alumnos::getAll_Apo($_SESSION['apoderado_id'])[0]['alumno_id'];
+$all_descripcion = Conducta::getByBimestre($alumno_id, '2024-06-25');
 
 ?>
 
@@ -24,6 +34,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
         });
     </script>
     <script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
+    <script>console.log(<?= json_encode($all_descripcion) ?>)</script>
     <title>I.E.P Los Clavelitos de SJT - Piura | Asistencias</title>
 </head>
 <body>
@@ -74,7 +85,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
         <div class="notas__bim n__1">
             <div>
                 <h3>Comentario:</h3>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore earum esse laborum rem est laboriosam cupiditate dolorem sapiente? Facilis ea aut dolores numquam quaerat magni vitae reprehenderit laboriosam nostrum fugit.</span>
+                <?php foreach($all_descripcion as $descripcion) { ?>
+                    <div class="descripcion"><span><?= $descripcion['descripcion']?></span>
+                    </div>
+                <?php }?>
             </div>
         </div>
     </div>
@@ -94,7 +108,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
         <div class="notas__bim n__2">
             <div>
                 <h3>Comentario:</h3>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore earum esse laborum rem est laboriosam cupiditate dolorem sapiente? Facilis ea aut dolores numquam quaerat magni vitae reprehenderit laboriosam nostrum fugit.</span>
             </div>
         </div>
     </div>
@@ -114,7 +127,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
         <div class="notas__bim n__3">
             <div>
                 <h3>Comentario:</h3>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore earum esse laborum rem est laboriosam cupiditate dolorem sapiente? Facilis ea aut dolores numquam quaerat magni vitae reprehenderit laboriosam nostrum fugit.</span>
             </div>
         </div>
     </div>
@@ -134,7 +146,6 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Apoderado') {
         <div class="notas__bim n__4">
             <div>
                 <h3>Comentario:</h3>
-                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore earum esse laborum rem est laboriosam cupiditate dolorem sapiente? Facilis ea aut dolores numquam quaerat magni vitae reprehenderit laboriosam nostrum fugit.</span>
             </div>
         </div>
     </div>
