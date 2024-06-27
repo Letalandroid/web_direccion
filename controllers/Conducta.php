@@ -102,8 +102,8 @@ class Conducta
             
             // Asigna los valores de las fechas a la consulta
             $query->bindValue(1, $alumno_id, PDO::PARAM_INT);
-            $query->bindValue(2, '2024-01-01', PDO::PARAM_STR);
-            $query->bindValue(3, $year, PDO::PARAM_STR);
+            // $query->bindValue(2, '2024-01-01', PDO::PARAM_STR);
+            // $query->bindValue(3, $year, PDO::PARAM_STR);
             $query->execute();
             
             // Obtiene los resultados de la consulta
