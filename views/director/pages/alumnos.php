@@ -63,7 +63,7 @@ $cursos = Cursos::getAll();
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
+                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
                             <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
@@ -93,7 +93,7 @@ $cursos = Cursos::getAll();
                     <div class="right">
                         <div>
                             <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
                             <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
