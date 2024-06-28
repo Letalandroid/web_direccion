@@ -1,0 +1,105 @@
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: -1000;
+    padding: 0;
+}
+
+main {
+    display: flex;
+
+}
+
+
+.container__section {
+    width: 100%;
+    max-width: 1200px; /* Ajustar el ancho máximo */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    overflow: auto; /* Evitar el desplazamiento horizontal */
+}
+
+.title__container h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 20px;
+}
+
+.add__aula {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.add__aula label,
+.add__aula input,
+.add__aula select,
+.add__aula button {
+    margin: 0 10px;
+    max-width: 100%;
+}
+
+.add__aula button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    max-width: 100%;
+}
+
+#btnAddAula {
+    background-color: #4CAF50;
+    color: white;
+}
+#btnAddAula:hover {
+    background-color: #078651;
+}
+
+.btn.btn-danger {
+    background-color: #ff1100;
+    color: white;
+}
+
+.btn.btn-danger:hover {
+    background-color: #910d4b;
+}
+
+.container__notas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px; /* Ajustar el ancho máximo */
+}
+
+.course {
+    width: 300px;
+    height: 150px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    transition: background-color 0.3s;
+}
+
+.course:hover {
+    background-color: #f1a1a1;
+}

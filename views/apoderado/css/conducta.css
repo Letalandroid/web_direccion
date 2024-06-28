@@ -5,12 +5,24 @@ main {
     margin: 20px;
     }
 }
+
 .container__section h2 {
     text-align:center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.container__general{
+    width: 100%;
+    max-width: 100%; /* Ajusta este valor según tu preferencia */
+    max-height: 675px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px;
+    overflow: auto; /* Permite el scroll si el contenido excede el alto máximo */
+    margin: 0 auto; /* Centra horizontalmente */
 
 }
 .container__conductas {
@@ -20,9 +32,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    
-
 }
+
 .section_conductas_bimestre1 {
     height: 80px;
     position: relative;
@@ -122,6 +133,7 @@ main {
 
 #btn_1.activate_btn, #btn_2.activate_btn, #btn_3.activate_btn, #btn_4.activate_btn {
     bottom: -170px; /* Ajustar según sea necesario para el despliegue hacia abajo */
+
 }
 
 #btn_1 i, #btn_2 i, #btn_3 i, #btn_4 i {

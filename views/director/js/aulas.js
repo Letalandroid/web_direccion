@@ -55,6 +55,7 @@ btnAdd.addEventListener('click', () => {
     }
 });
 
+// para que solo permita letras A B C 
 function soloLetras(event){
     var letra = event.keyCode;
     
