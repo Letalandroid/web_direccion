@@ -154,4 +154,33 @@ class Notas
             exit();
         }
     }
+    
+    static function getAverageByApoderado($apoderado_id, $alumno_id)
+{
+    try {
+        $db = new Database();
+
+        // Consulta para obtener las notas del alumno asociado al apoderado
+        $query = $db->connect()->prepare('SELECT AVG(valor) AS promedio FROM notas n
+                                          INNER JOIN alumnos a ON a.alumno_id = n.alumno_id
+                                          INNER JOIN apoderados_alumnos aa ON a.alumno_id = aa.alumno_id
+                                          WHERE aa.apoderado_id = ? AND a.alumno_id = ?;');
+        $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
+        $query->bindValue(2, $alumno_id, PDO::PARAM_INT);
+        $query->execute();
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        
+        if ($result && isset($result['promedio'])) {
+            return array('success' => true, 'promedio' => $result['promedio']);
+        } else {
+            return array('error' => true, 'message' => 'No se encontraron notas para el alumno asociado al apoderado.');
+        }
+    } catch (PDOException $e) {
+        http_response_code(500);
+        return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+    }
 }
+
+}
+
