@@ -63,11 +63,13 @@ $cursos = Cursos::getAll();
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text">
+                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text">
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Género: </label>
@@ -91,7 +93,8 @@ $cursos = Cursos::getAll();
                     <div class="right">
                         <div>
                             <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Cursos:</label>
