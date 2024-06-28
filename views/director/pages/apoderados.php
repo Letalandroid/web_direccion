@@ -59,11 +59,13 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text">
+                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text">
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Género: </label>
@@ -77,15 +79,16 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <div class="right">
                         <div>
                             <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Nacionalidad:</label>
-                            <input id="nacionalidad" class="send_data" type="text">
+                            <input id="nacionalidad" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
-                            <input id="fecha_nacimiento" class="send_data" type="date">
+                            <input id="fecha_nacimiento" class="send_data" type="date" required>
                         </div>
                     </div>
                 </div>
