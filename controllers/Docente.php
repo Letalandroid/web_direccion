@@ -66,7 +66,7 @@ class Docente
             $db = new Database();
 
             $query = $db->connect()->prepare("select dni,
-                                                concat(nombres,' ',apellidos) as dni, nombres, apellidos, rol,
+                                                concat(nombres,' ',apellidos) as nombres_apellidos,
                                                 fecha_nacimiento, curso_id, genero
                                                 from docentes where docente_id=? limit 1;");
 
@@ -86,18 +86,17 @@ class Docente
         try {
             $db = new Database();
             $query = $db->connect()->prepare('insert into docentes
-                                                (docente_id, dni, nombres, apellidos, rol,
+                                                (dni, nombres, apellidos, rol,
                                                 fecha_nacimiento, curso_id, genero) values
                                                 (?,?,?,?,?,?,?,?);');
 
-            $query->bindValue(1, $docente_id, PDO::PARAM_INT);
-            $query->bindValue(2, $dni, PDO::PARAM_STR);
-            $query->bindValue(3, $nombres, PDO::PARAM_STR);
-            $query->bindValue(4, $apellidos, PDO::PARAM_STR);
-            $query->bindValue(5, $rol, PDO::PARAM_STR);
-            $query->bindValue(6, $fecha_nacimiento, PDO::PARAM_STR);
-            $query->bindValue(7, $curso_id, PDO::PARAM_STR);
-            $query->bindValue(8, $genero, PDO::PARAM_STR);
+            $query->bindValue(1, $dni, PDO::PARAM_STR);
+            $query->bindValue(2, $nombres, PDO::PARAM_STR);
+            $query->bindValue(3, $apellidos, PDO::PARAM_STR);
+            $query->bindValue(4, $rol, PDO::PARAM_STR);
+            $query->bindValue(5, $fecha_nacimiento, PDO::PARAM_STR);
+            $query->bindValue(6, $curso_id, PDO::PARAM_STR);
+            $query->bindValue(7, $genero, PDO::PARAM_STR);
             $query->execute();
 
             return array('success' => true, 'message' => '🧑‍🏫 Docente agregado exitosamente');
