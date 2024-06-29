@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_aula'])) {
                     <script src="/views/director/js/grados.js"></script>
                     <label>Nivel:</label>
                     <select id="new_nivel" name="nivel" required>
+                        <option value="" disabled selected>Seleccionar Nivel</option>
                         <option value="Inicial">Inicial</option>
                         <option value="Primaria">Primaria</option>
                     </select>
