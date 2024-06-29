@@ -93,16 +93,16 @@ $cursos = Cursos::getAll();
                             <label>Apellidos: </label>
                             <input id="apellidos" class="send_data" type="text">
                         </div>
-                        <div>
-                            <label>Cursos:</label>
-                            <div class="cursos__container">
+                        <div class="cursos__container"> 
+                            <label>Curso:</label>
+                            <select id="curso">
+                                <option value="">Seleccionar Curso</option>
                                 <?php foreach ($cursos as $curso) { ?>
-                                    <div>
-                                        <input class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>" type="checkbox">
-                                        <label><?= $curso['nombre'] ?></label>
-                                    </div>
+                                <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
+                                <label><?= $curso['nombre'] ?></label>
+                                </option>
                                 <?php } ?>
-                            </div>
+                            </select>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
@@ -252,6 +252,8 @@ $cursos = Cursos::getAll();
             rows.forEach(row => {
                 row.style.display = '';
             });
+
+            
         }
     </script>
 </body>
