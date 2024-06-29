@@ -194,3 +194,21 @@ main {
         
     }
 }
+.edit-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.delete-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff1f1f;
+    color: #fff;
+    cursor: pointer;
+}
+

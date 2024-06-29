@@ -15,10 +15,35 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
 }
 
 
+if (isset($_GET['id'])) {
+    $alumno_id = $_GET['id'];
+    $alumnos = Alumnos::getById($alumno_id);
 
-$alumnos = Alumnos::getAllMin();
-$apoderados = Apoderado::getAllFormat();
-$cursos = Cursos::getAll();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $apoderado_id = $_POST['apoderado_id'];
+        $dni = $_POST['dni'];
+        $nombres = $_POST['nombres'];
+        $apellidos = $_POST['apellidos'];
+        $genero = $_POST['genero'];
+        $fecha_nacimiento = $_POST['fecha_nacimiento'];
+        $aula_id = $_POST['aula_id'];
+        $grado = $_POST['grado'];
+        $seccion = $_POST['seccion'];
+        $nivel = $_POST['nivel'];
+
+        $result = Alumnos::update($alumno_id, $apoderado_id, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento, $aula_id, $grado, $seccion, $nivel);
+
+        if (isset($result['success'])) {
+            header('Location: /views/director/pages/alumnos.php?update=success');
+            exit();
+        } else {
+            $error_message = $result['message'];
+        }
+    }
+} else {
+    header('Location: /views/director/pages/alumnos.php');
+    exit();
+}
 
 ?>
 
@@ -45,48 +70,62 @@ $cursos = Cursos::getAll();
     <?php require_once __DIR__ . '/../components/header.php' ?>
     <main>
         <?php show_nav('Alumnos'); ?>
-        
-    <div class="form-container">
-        <h1>EDIT ALUMNOS</h1>
-        <form>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="dni">DNI:</label>
-                    <input type="text" id="dni" name="dni" value="<?php echo $alumnos[0]['dni'] ?>">
+        <div class="container">
+            <h1>Editar Datos de Alumno</h1>
+            <?php if (isset($error_message)): ?>
+                <div class="alert alert-danger">
+                    <?= htmlspecialchars($error_message) ?>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nombres">Nombres</label>
-                    <input type="text" id="nombres" name="nombres" value="<?php echo $alumnos[0]['nombres'] ?>"">
+            <?php endif; ?>
+            <form action="" method="POST" class="form__container">
+                <div class="form__contrataciones">
+                    <div class="form-group">
+                        <label for="curso_id">Apoderado ID:</label>
+                        <input type="number" id="apoderado_id" name="apoderado_id" value="<?= htmlspecialchars($alumnos['apoderado_id']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI:</label>
+                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombres">Nombres:</label>
+                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Género:</label>
+                        <input type="text" id="genero" name="genero" value="<?= htmlspecialchars($alumnos['genero']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= htmlspecialchars($alumnos['fecha_nacimiento']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="aula_id">Aula ID:</label>
+                        <input type="number" id="aula_id" name="aula_id" value="<?= htmlspecialchars($alumnos['aula_id']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="grado">Grado:</label>
+                        <input type="text" id="grado" name="grado" value="<?= htmlspecialchars($alumnos['grado']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="seccion">Sección:</label>
+                        <input type="text" id="seccion" name="seccion" value="<?= htmlspecialchars($alumnos['seccion']) ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nivel">Nivel:</label>
+                        <input type="text" id="nivel" name="nivel" value="<?= htmlspecialchars($alumnos['nivel']) ?>" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="genero">Género:</label>
-                    <select id="genero" name="genero">
-                        <option value="">Seleccionar Género</option>
-                        <option value="Masculino" <?php echo ($alumnos[0]['genero'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                        <option value="Femenino" <?php echo ($alumnos[0]['genero'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
-                        <option value="otro" <?php echo ($alumnos[0]['genero'] == 'otro') ? 'selected' : ''; ?>>Otro</option>
-                    </select>
+                <div class="form-buttons">
+                    <input type="submit" name="update" class="btn agregar" value="Actualizar">
+                    <button type="button" class="btn limpiar" onclick="window.location.href='/views/director/pages/alumnos.php'">Cancelar</button>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="apellidos">Apellidos</label>
-                    <input type="text" id="apellidos" name="apellidos" value="<?= $alumnos[0]['apellidos'] ?>">
-                </div>
-                <div class="form-group">
-                    <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= $alumnos[0]['fecha_nacimiento'] ?>">
-                </div>
-            </div>
-            <div class="button-group">
-                <button type="submit" class="btn btn-save">Guardar</button>
-                <button type="reset" class="btn btn-clear">Limpiar</button>
-                <button type="button" class="btn btn-back" onclick="window.location.href='/views/director/pages/alumnos.php'">Regresar</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     </main>
 </body>
 

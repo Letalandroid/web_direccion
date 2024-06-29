@@ -16,9 +16,9 @@ if (isset($_POST['createAlumno'])) {
         $dni = $_POST['dni'];
         $genero = $_POST['genero'];
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
-        $cursos = $_POST['cursos'];
+        $aulas = $_POST['aula_id'];
 
-        $add = Alumnos::create($apoderado_dni, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento);
+        $add = Alumnos::create($apoderado_dni, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento,$aulas);
 
         if (isset($add['error'])) {
             http_response_code(500);
@@ -53,3 +53,34 @@ if (isset($_POST['createAlumno'])) {
 } else {
     http_response_code(500);
 }
+
+if (isset($_POST['deleteAlumno'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    try {
+        $alumno_id = $_POST['alumno_id'];
+        error_log('Eliminar alumno_id: ' . $alumno_id); 
+        $delete = Alumnos::eliminar($alumno_id);
+
+        if ($delete['error']) {
+            http_response_code(500);
+            error_log('Error al eliminar la actividad: ' . $delete['message']); 
+            echo json_encode(array('error' => true, 'message' => 'Error al eliminar la actividad: ' . $delete['message']));
+            exit();
+        } else {
+            http_response_code(200);
+            echo json_encode(array('success' => true, 'message' => 'Alumno eliminado exitosamente'));
+            exit();
+        }
+    } catch (Error $e) {
+        http_response_code(500);
+        error_log('Error de servidor: ' . $e->getMessage()); 
+        echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+        exit();
+    }
+} else {
+    error_log('No se recibió deleteAlumno');
+    echo json_encode(array('error' => true, 'message' => 'No se recibió deleteAlumno'));
+    http_response_code(400);
+    exit();
+}
+ 
