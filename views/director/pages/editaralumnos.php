@@ -65,7 +65,7 @@ $cursos = Cursos::getAll();
                 <div class="form-group">
                     <label for="genero">Género:</label>
                     <select id="genero" name="genero">
-                        <option value="" required>Seleccionar Género</option>
+                        <option value="" disabled selected>Seleccionar Género</option>
                         <option value="Masculino" <?php echo ($alumnos[0]['genero'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
                         <option value="Femenino" <?php echo ($alumnos[0]['genero'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
                         <option value="otro" <?php echo ($alumnos[0]['genero'] == 'otro') ? 'selected' : ''; ?>>Otro</option>

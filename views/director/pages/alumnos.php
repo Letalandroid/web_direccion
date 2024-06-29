@@ -74,6 +74,7 @@ $cursos = Cursos::getAll();
                         <div>
                             <label>Género: </label>
                             <select id="genero">
+                                <option value="" disabled selected>Seleccionar género</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
                                 <option value="Prefiero no decirlo">Prefiero no decirlo</option>
@@ -81,7 +82,7 @@ $cursos = Cursos::getAll();
                         </div>
                         <div>
                             <label>Apoderado</label>
-                            <input list="apoderados" id="apoderado">
+                            <input list="apoderados" id="apoderado" required>
                             <datalist id="apoderados">
                                 <?php foreach ($apoderados as $apoderado) { ?>
                                     <option value="<?= $apoderado['dni'] . ' - ' . $apoderado['nombres_apellidos'] ?>">
