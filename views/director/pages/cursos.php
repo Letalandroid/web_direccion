@@ -65,7 +65,7 @@ if (isset($all_courses['error'])) {
 			</div>
 			<div class="add__course">
 				<label>Nombre del curso:</label>
-				<input id="new_course" type="text" placeholder="<?= $all_courses[0]['curso'] ?>">
+				<input id="new_course" type="text" maxlength="100" placeholder="<?= $all_courses[0]['curso'] ?>">
 				<button id="btnAdd">Agregar</button>
 			</div>
 			<div class="container__notas">

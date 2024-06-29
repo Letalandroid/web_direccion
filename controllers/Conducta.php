@@ -65,7 +65,6 @@ class Conducta
             $query->execute();
 
             return array('success' => true, 'message' => '📅 Actividad agregado exitosamente');
-
         } catch (PDOException $e) {
             http_response_code(500);
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
@@ -109,7 +108,30 @@ class Conducta
             $query->bindValue(1, $alumno_id, PDO::PARAM_INT);
             $query->bindValue(2, $apoderado_id, PDO::PARAM_INT);
             $query->execute();
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
 
+
+    static function getByBimestre($alumno_id, $year)
+    {
+        try {
+            $db = new Database();
+
+            // Prepara la consulta para obtener los datos del bimestre especificado
+            $query = $db->connect()->prepare('SELECT * FROM conducta WHERE alumno_id=?;');
+
+            // Asigna los valores de las fechas a la consulta
+            $query->bindValue(1, $alumno_id, PDO::PARAM_INT);
+            // $query->bindValue(2, '2024-01-01', PDO::PARAM_STR);
+            // $query->bindValue(3, $year, PDO::PARAM_STR);
+            $query->execute();
+
+            // Obtiene los resultados de la consulta
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
             return $results;
         } catch (Exception $e) {

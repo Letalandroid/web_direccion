@@ -176,7 +176,6 @@ const setNewData = (data) => {
 
 			notas.forEach((nota) => {
 				const asist = asistencias.find((a) => a.alumno_id === nota.alumno_id);
-				console.log(data);
 				tbody.innerHTML += `
                     <tr class="asistencias">
                         <td hidden>
