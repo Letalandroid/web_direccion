@@ -50,7 +50,7 @@ $cursos = Cursos::getAll();
             <div class="search__alumno">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_alumno" type="text" placeholder="Pedrito">
+                    <input id="search_alumno" type="text" placeholder="Pedrito" maxlength="100" >
                     <button onclick="buscarAlumno()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
@@ -102,7 +102,7 @@ $cursos = Cursos::getAll();
                             <div class="cursos__container">
                                 <?php foreach ($cursos as $curso) { ?>
                                     <div>
-                                        <input class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>" type="checkbox">
+                                        <input class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>" type="checkbox" required>
                                         <label><?= $curso['nombre'] ?></label>
                                     </div>
                                 <?php } ?>

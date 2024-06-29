@@ -46,7 +46,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             <div class="search__apoderado">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_apoderado" type="text" placeholder="<?= $apoderados_reverse[0]['nombres_apellidos'] ?>">
+                    <input id="search_apoderado" type="text" placeholder="<?= $apoderados_reverse[0]['nombres_apellidos'] ?>" maxlength="100">
                     <button onclick="buscarApoderado()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
