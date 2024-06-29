@@ -42,10 +42,11 @@ $docentes = Docente::getAllMin();
             <div class="search-container">
                 <div class="input-container">
                     <label for="dni">DNI:</label>
-                    <input type="text" id="dni" name="dni">
+                    <input type="text" id="dni" name="dni" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                    <script src="/views/director/js/home.js"></script>
                 </div>
                 <div class="input-container">
-                    <label for="curso_id">Curso:</label>
+                    <label for="curso_id" >Curso:</label>
                     <select id="curso_id" name="curso_id">
                         <option value="">Seleccionar Curso</option>
                         <option value="">Seleccionar Curso</option>

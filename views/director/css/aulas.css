@@ -14,7 +14,6 @@ main {
 
 .container__section {
     width: 100%;
-    max-width: 1200px; /* Ajustar el ancho máximo */
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -22,7 +21,8 @@ main {
     gap: 20px;
     box-sizing: border-box;
     margin: 0 auto;
-    overflow: auto; /* Evitar el desplazamiento horizontal */
+    overflow-y:auto; /* Evitar el desplazamiento horizontal */
+    max-height: 880px;
 }
 
 .title__container h2 {
@@ -38,7 +38,7 @@ main {
     align-items: center;
     gap: 20px;
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
 }
 
 .add__aula label,

@@ -52,18 +52,20 @@ $cursos = Cursos::getAll();
             <div class="form-row">
                 <div class="form-group">
                     <label for="dni">DNI:</label>
-                    <input type="text" id="dni" name="dni" value="<?php echo $alumnos[0]['dni'] ?>">
+                    <input type="text" id="dni" name="dni"  value="<?php echo $alumnos[0]['dni'] ?> " onkeydown="return soloNumeros(event)" maxlength="8" required>
+                    <script src="/views/director/js/home.js"></script>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="nombres">Nombres</label>
-                    <input type="text" id="nombres" name="nombres" value="<?php echo $alumnos[0]['nombres'] ?>"">
+                    <input type="text" id="nombres" name="nombres" value="<?php echo $alumnos[0]['nombres'] ?>"onkeydown="return soloLetras(event)" maxlength="50" required>
+                    <script src="/views/director/js/home.js"></script>
                 </div>
                 <div class="form-group">
                     <label for="genero">Género:</label>
                     <select id="genero" name="genero">
-                        <option value="">Seleccionar Género</option>
+                        <option value="" required>Seleccionar Género</option>
                         <option value="Masculino" <?php echo ($alumnos[0]['genero'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
                         <option value="Femenino" <?php echo ($alumnos[0]['genero'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
                         <option value="otro" <?php echo ($alumnos[0]['genero'] == 'otro') ? 'selected' : ''; ?>>Otro</option>
@@ -73,11 +75,12 @@ $cursos = Cursos::getAll();
             <div class="form-row">
                 <div class="form-group">
                     <label for="apellidos">Apellidos</label>
-                    <input type="text" id="apellidos" name="apellidos" value="<?= $alumnos[0]['apellidos'] ?>">
+                    <input type="text" id="apellidos" name="apellidos" value="<?= $alumnos[0]['apellidos'] ?>" onkeydown="return soloLetras(event)" maxlength="50" required>
+                    <script src="/views/director/js/home.js"></script>
                 </div>
                 <div class="form-group">
                     <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= $alumnos[0]['fecha_nacimiento'] ?>">
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= $alumnos[0]['fecha_nacimiento'] ?>" required>
                 </div>
             </div>
             <div class="button-group">
