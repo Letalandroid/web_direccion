@@ -98,7 +98,7 @@ class Notas
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare('select c.curso_id, c.nombre
+            $query = $db->connect()->prepare('select c.curso_id, c.nombre, n.*
                                             from notas n
                                             inner join cursos c
                                             on (c.curso_id=n.curso_id)
