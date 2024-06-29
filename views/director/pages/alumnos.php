@@ -50,7 +50,7 @@ $cursos = Cursos::getAll();
             <div class="search__alumno">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_alumno" type="text" placeholder="Pedrito">
+                    <input id="search_alumno" type="text" placeholder="Pedrito" maxlength="100" >
                     <button onclick="buscarAlumno()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
@@ -63,15 +63,18 @@ $cursos = Cursos::getAll();
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text">
+                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text">
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Género: </label>
                             <select id="genero">
+                                <option value="" disabled selected>Seleccionar género</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
                                 <option value="Prefiero no decirlo">Prefiero no decirlo</option>
@@ -79,7 +82,7 @@ $cursos = Cursos::getAll();
                         </div>
                         <div>
                             <label>Apoderado</label>
-                            <input list="apoderados" id="apoderado">
+                            <input list="apoderados" id="apoderado" required>
                             <datalist id="apoderados">
                                 <?php foreach ($apoderados as $apoderado) { ?>
                                     <option value="<?= $apoderado['dni'] . ' - ' . $apoderado['nombres_apellidos'] ?>">
@@ -91,18 +94,19 @@ $cursos = Cursos::getAll();
                     <div class="right">
                         <div>
                             <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
-                        <div>
-                            <label>Cursos:</label>
-                            <div class="cursos__container">
+                        <div class="cursos__container"> 
+                            <label>Curso:</label>
+                            <select id="curso">
+                                <option value="">Seleccionar Curso</option>
                                 <?php foreach ($cursos as $curso) { ?>
-                                    <div>
-                                        <input class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>" type="checkbox">
-                                        <label><?= $curso['nombre'] ?></label>
-                                    </div>
+                                <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
+                                <label><?= $curso['nombre'] ?></label>
+                                </option>
                                 <?php } ?>
-                            </div>
+                            </select>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>

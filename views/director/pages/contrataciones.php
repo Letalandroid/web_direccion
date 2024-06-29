@@ -47,22 +47,24 @@ $cursos = Cursos::getAll();
                 <div class="row">
                     <div class="column">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni">
+                        <input type="text" id="dni" name="dni" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
                         <label for="fecha_nacimiento">FECHA DE NACIMIENTO:</label>
-                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="column">
                         <label for="nombres">NOMBRES:</label>
-                        <input type="text" id="nombres" name="nombres">
+                        <input type="text" id="nombres" name="nombres" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
                         <label for="cursos">CURSOS:</label>
-                        <select id="curso_id" name="curso_id">
-                            <option value="">Seleccionar cursos</option>
+                        <select id="curso_id" name="curso_id" required>
+                            <option value="" disabled selected>Seleccionar cursos</option>
                             <?php foreach ($cursos as $curso): ?>
                                 <option value="<?= htmlspecialchars($curso['curso_id'] ?? '') ?>"><?= htmlspecialchars($curso['nombre'] ?? '') ?></option>
                             <?php endforeach; ?>
@@ -72,12 +74,13 @@ $cursos = Cursos::getAll();
                 <div class="row">
                     <div class="column">
                         <label for="apellidos">APELLIDOS:</label>
-                        <input type="text" id="apellidos" name="apellidos">
+                        <input type="text" id="apellidos" name="apellidos" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
-                        <label for="genero">GENERO:</label>
+                        <label for="genero" required>GENERO:</label>
                         <select id="genero" name="genero">
-                            <option value="">Seleccionar género</option>
+                            <option value="" disabled selected>Seleccionar género</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
                         </select>
@@ -87,7 +90,7 @@ $cursos = Cursos::getAll();
                     <div class="column">
                         <label for="rol">ROL:</label>
                         <select id="rol" name="rol">
-                            <option value="">Seleccionar rol</option>
+                            <option value="" disabled selected>Seleccionar rol</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Docente">Docente</option>
                         </select>

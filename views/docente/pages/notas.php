@@ -113,17 +113,17 @@ foreach ($cursos as $curso) {
                 <tbody>
                     <tr>
                         <td>Practica</td>
-                        <td><input id="n_pc" type="number" class="nota-input"></td>
+                        <td><input id="n_pc" type="number" class="nota-input" min="1" max="20" required></td>
                         <td><button onclick="limpiar('n_pc')" class="delete-btn"><i class="fas fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Participacion</td>
-                        <td><input id="n_participacion" type="number" class="nota-input"></td>
+                        <td><input id="n_participacion" type="number" class="nota-input" min="1" max="20" required></td>
                         <td><button onclick="limpiar('n_participacion')" class="delete-btn"><i class="fas fa-trash"></i></button></td>
                     </tr>
                     <tr>
                         <td>Examen</td>
-                        <td><input id="n_examen" type="number" class="nota-input"></td>
+                        <td><input id="n_examen" type="number" class="nota-input" min="1" max="20" required></td>
                         <td><button onclick="limpiar('n_examen')" class="delete-btn"><i class="fas fa-trash"></i></button></td>
                     </tr>
                 </tbody>
