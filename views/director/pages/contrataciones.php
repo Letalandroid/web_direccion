@@ -66,7 +66,7 @@ $cursos = Cursos::getAll();
                         <select id="curso_id" name="curso_id" required>
                             <option value="" disabled selected>Seleccionar cursos</option>
                             <?php foreach ($cursos as $curso): ?>
-                                <option value="<?= htmlspecialchars($curso['id'] ?? '') ?>" required><?= htmlspecialchars($curso['nombre'] ?? '') ?></option>
+                                <option value="<?= htmlspecialchars($curso['curso_id'] ?? '') ?>"><?= htmlspecialchars($curso['nombre'] ?? '') ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -143,27 +143,34 @@ $cursos = Cursos::getAll();
         document.getElementById('addButton').addEventListener('click', addDocente);
 
         async function addDocente() {
-            const dni = document.getElementById('dni').value.trim();
-            const nombres = document.getElementById('nombres').value.trim();
-            const apellidos = document.getElementById('apellidos').value.trim();
+            const dni = document.getElementById('dni').value;
+            const nombres = document.getElementById('nombres').value;
+            const apellidos = document.getElementById('apellidos').value;
             const rol = document.getElementById('rol').value;
             const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
             const curso_id = document.getElementById('curso_id').value;
             const genero = document.getElementById('genero').value;
+            console.log(dni,
+                        nombres,
+                        apellidos,
+                        rol,
+                        fecha_nacimiento,
+                        curso_id,
+                        genero);
 
-            if (!dni || !nombres || !apellidos || !rol || !fecha_nacimiento || !curso_id || !genero) {
+            if (dni == '' || nombres == '' || apellidos == '') {
                 alert('Por favor, complete todos los campos.');
                 return;
             }
 
             try {
-                const response = await fetch('/controllers/actions/docente/actionsDocente.php', {
+                const response = await fetch('/controllers/actions/director/actionsDocente.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     body: new URLSearchParams({
-                        action: 'create',
+                        createDocente: 'true',
                         dni,
                         nombres,
                         apellidos,
@@ -180,7 +187,9 @@ $cursos = Cursos::getAll();
                     location.reload();
                 } else {
                     alert('Error al añadir docente: ' + result.message);
+                    console.error(result);
                 }
+            
             } catch (error) {
                 console.error('Error de conexión', error);
                 alert('Error de conexión');
@@ -189,7 +198,7 @@ $cursos = Cursos::getAll();
 
         async function editDocente(docenteId) {
             try {
-                const response = await fetch('/controllers/actions/docente/actionsDocente.php', {
+                const response = await fetch('/controllers/actions/director/actionsDocente.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'

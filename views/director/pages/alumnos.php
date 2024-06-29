@@ -122,6 +122,8 @@ $cursos = Cursos::getAll();
                     <th>NOMBRES Y APELLIDOS</th>
                     <th>GENERO</th>
                     <th>FECHA DE NACIMIENTO</th>
+                    <th>GRADO Y SECCION</th>
+                    <th>NIVEL</th>
                     <th>EDITAR</th>
                     <th>ELIMINAR</th>
                 </thead>
@@ -131,12 +133,14 @@ $cursos = Cursos::getAll();
                         <td><?= $alumno['nombres_apellidos'] ?></td>
                         <td><?= $alumno['genero'] ?></td>
                         <?php $d_alumno = explode('-', date("d-m-Y", strtotime($alumno['fecha_nacimiento']))); ?>
-                        <td><?= "$d_alumno[0] de $d_alumno[1] del $d_alumno[2]" ?></td>
-                        <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $alumno['dni'] ?>'"><i class="fa fa-edit"></button></td>                         
-                            <td><a href="/views/director/pages/alumnos.php?id=<?php echo $alumno['alumno_id'] ?>" class="btn btn-danger">X</a></td>
+                        <td><?= "$d_alumno[0] de $d_alumno[1] del $d_alumno[2]" ?></td> 
+                        <td><?= $alumno['grado_seccion'] ?></td>
+                        <td><?= $alumno['nivel'] ?></td>
+                        <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $alumno['alumno_id'] ?>'"><i class="fa fa-edit"></button></td>                         
+                        <td><button class="delete-button" onclick="eliminarAlumno(<?= $alumno['alumno_id'] ?>)"><i class="fa fa-trash"></i></button></td>                 
                     </tr>
                 <?php } ?>
-            </table>
+            </table>    
         </div>
     </main>
     <script>
@@ -159,6 +163,7 @@ $cursos = Cursos::getAll();
                 <td>${alumno.genero}</td>
                 <td>${alumno.nacionalidad}</td>
                 <td>${alumno.fecha_nacimiento}</td>
+                <td>${alumno.aula_id}</td>
             `;
                 });
             } else {
@@ -209,6 +214,7 @@ $cursos = Cursos::getAll();
                 const dni = document.querySelector('#dni').value;
                 const genero = document.querySelector('#genero').value;
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
+                const grado = document.querySelector('#aula_id').value;
 
                 const cursosSeleccionados = [];
                 document.querySelectorAll('.cursos_docente').forEach((curso) => {
@@ -250,15 +256,33 @@ $cursos = Cursos::getAll();
             });
         }
 
-        const limpiarBusqueda = () => {
-            document.getElementById('search_alumno').value = '';
-            const rows = document.querySelectorAll('#alumnosTable tbody tr');
-            rows.forEach(row => {
-                row.style.display = '';
-            });
 
-            
-        }
+        // Eliminar
+        const eliminarAlumno = (alumno_id) => {
+    console.log(`Intentando eliminar el alumno con ID: ${alumno_id}`); 
+    if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/controllers/actions/director/actionsAlumno.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Estado del servidor: ', xhr.status); // Registro de depuración
+            console.log('Respuesta del servidor: ', xhr.response); // Registro de depuración
+            if (xhr.status === 200) {
+                alert('Alumno eliminado exitosamente');
+                location.reload(); // Recargar la página para ver los cambios
+            } else {
+                alert('Error al eliminar al alumno');
+                console.error(xhr.response);
+            }
+        };
+        xhr.onerror = function() {
+            alert('Error de conexión');
+            console.error('Error de conexión');
+        };
+        xhr.send(`deleteAlumno=true&alumno_id=${alumno_id}`);
+    }
+}
+        
     </script>
 </body>
 

@@ -88,7 +88,7 @@ class Docente
             $query = $db->connect()->prepare('insert into docentes
                                                 (dni, nombres, apellidos, rol,
                                                 fecha_nacimiento, curso_id, genero) values
-                                                (?,?,?,?,?,?,?,?);');
+                                                (?,?,?,?,?,?,?);');
 
             $query->bindValue(1, $dni, PDO::PARAM_STR);
             $query->bindValue(2, $nombres, PDO::PARAM_STR);
