@@ -22,10 +22,15 @@ foreach ($asistencias as $asistencia) {
     if ($asistencia['estado'] == 'Presente') {
         $asist++;
     } else {
-        if ($asistencia['estado'] == 'Faltó') $faltas ++;
+        if ($asistencia['estado'] == 'Faltó') $faltas++;
         $no_asist++;
     }
 }
+
+$meses = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+];
 
 date_default_timezone_set('America/Bogota');
 
@@ -55,6 +60,15 @@ date_default_timezone_set('America/Bogota');
     <main>
         <?php show_nav('Asistencias') ?>
         <div class="container__section">
+            <div class="desc__container">
+                <div class="desc__modal">
+                    <h3>Justificación</h3>
+                    <p></p>
+                    <div class="closed_msg">
+                        <button onclick="closed()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div class="section__asistencias">
                     <h2>Asistencias</h2>
@@ -63,6 +77,14 @@ date_default_timezone_set('America/Bogota');
                     </p>
                     <span><?= $faltas ?> días de falta</span>
                 </div>
+            </div>
+            <div>
+                <select id="selectMes">
+                    <option value="">Todos</option>
+                    <?php foreach ($meses as $index => $mes) { ?>
+                        <option value="<?= $index + 1 ?>"><?= $mes ?></option>
+                    <?php } ?>
+                </select>
             </div>
             <div class="section__table">
                 <table>
@@ -75,12 +97,17 @@ date_default_timezone_set('America/Bogota');
                     <tbody>
                         <?php foreach ($asistencias as $asistencia) { ?>
                             <tr>
-                                <td><?= $asistencia['fecha_asistencia'] == date('Y-m-d') ?
-                                'Hoy' : $asistencia['fecha_asistencia'] ?></td>
+                                <td id="date_<?= $asistencia['asistencia_id'] ?>">
+                                    <?= $asistencia['fecha_asistencia'] == date('Y-m-d') ?
+                                        'Hoy' : $asistencia['fecha_asistencia'] ?></td>
                                 <td>
-                                    <span class="<?= substr($asistencia['estado'], 0, 1) ?>"><?= $asistencia['estado'] ?></span>
+                                    <span onclick="showJustify('a_<?= $asistencia['asistencia_id'] ?>')" class="<?= substr($asistencia['estado'], 0, 1) ?>">
+                                        <?= $asistencia['estado'] ?>
+                                    </span>
                                     <?php if ($asistencia['descripcion'] != '') { ?>
-                                        <button onclick="alert('<?= $asistencia['descripcion'] ?>')">Ver</button>
+                                        <span id="desc_<?= $asistencia['asistencia_id'] ?>" hidden class="asistencia__desc">
+                                            <?= $asistencia['descripcion'] ?>
+                                        </span>
                                     <?php } ?>
                                 </td>
                             </tr>
@@ -90,6 +117,45 @@ date_default_timezone_set('America/Bogota');
             </div>
         </div>
     </main>
+    <script>
+        const selectMes = document.getElementById('selectMes');
+        const desc__container = document.querySelector('.desc__container');
+
+        selectMes.addEventListener('change', function() {
+            const mesSeleccionado = selectMes.value;
+
+            const filasAsistencias = document.querySelectorAll('.section__table tbody tr');
+
+            filasAsistencias.forEach(function(fila) {
+                const fechaAsistencia = fila.querySelector('td:first-child').innerText.trim();
+
+                const fecha = new Date(fechaAsistencia);
+                const mes = fecha.getMonth() + 1;
+
+                if (mesSeleccionado === '' || parseInt(mesSeleccionado) === mes) {
+                    fila.style.display = 'table-row';
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+        });
+
+        const showJustify = (j) => {
+            const desc = document.querySelector(`#desc_${j.split('a_')[1]}`).innerHTML;
+            const date = document.querySelector(`#date_${j.split('a_')[1]}`).innerHTML;;
+            setJustify(desc, date);
+        }
+
+        const setJustify = (desc, date) => {
+            desc__container.querySelector('h3').innerHTML = `Justificación - ${date}`;
+            desc__container.querySelector('p').innerHTML = desc;
+            desc__container.style.display = 'flex';
+        }
+
+        const closed = () => {
+            desc__container.style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>
