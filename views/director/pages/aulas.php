@@ -1,6 +1,6 @@
 <?php
 
-use Letalandroid\controllers\Cursos;
+use Letalandroid\controllers\Aulas;
 
 require_once __DIR__ . '/../../../controllers/Aulas.php';
 
@@ -15,7 +15,8 @@ $error = [
     'message' => ''
 ];
 
-$all_courses = Cursos::getAllAulasDocentes();
+
+$all_courses = Aulas::getAllAulasDocentes();
 
 if (isset($all_courses['error'])) {
     $error['status'] = true;
@@ -32,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_aula'])) {
         $error['status'] = true;
         $error['message'] = 'La sección debe ser una de las siguientes letras: A, B, C, F';
     } else {
-        $result = Cursos::addAula($grado, $seccion, $nivel);
+        $result = Aulas::addAula($grado, $seccion, $nivel);
 
         if (isset($result['error']) && $result['error'] === true) {
             $error['status'] = true;
@@ -87,24 +88,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_aula'])) {
             </div>
             <form method="POST">
                 <div class="add__aula">
-                    <label>Grado:</label>
-                    <input id="new_grado" name="grado" type="number" min="1" max="6" placeholder="Grado" required>
-                    <label for="new_seccion">Sección:</label>
-                    <input id="new_seccion" name="seccion" type="text" onkeydown="return soloLetras(event)" maxlength="50" placeholder="Sección" required oninput="validarLetras(this)">
-                    <script src="/views/director/js/grados.js"></script>
                     <label>Nivel:</label>
-                    <select id="new_nivel" name="nivel" required>
+                    <select id="new_nivel" name="nivel" required onchange="updateGrades()">
+                        <option value="" disabled selected>Seleccionar Nivel</option>
                         <option value="Inicial">Inicial</option>
                         <option value="Primaria">Primaria</option>
                     </select>
+                    <label>Grado:</label>
+                    <select id="new_grado" name="grado" required>
+                        <option value="" disabled selected>Seleccionar Grado</option>
+                    </select>
+                    <label for="new_seccion">Sección:</label>
+                    <input id="new_seccion" name="seccion" type="text" onkeydown="return soloLetras(event)" maxlength="50" placeholder="Sección" required oninput="validarLetras(this)">
+                    <script src="/views/director/js/grados.js"></script>
                     <button id="btnAddAula" name="add_aula" type="submit">Agregar Aula</button>
                     <button type="button" class="btn btn-danger" onclick="window.location.href='/views/pdf/pages/director/pdfAulas.php';">Reporte PDF</button>
                 </div>
             </form>
             <div class="container__notas">
-                <?php foreach ($all_courses as $course) { ?>
+            <?php foreach ($all_courses as $course) { ?>
                     <div class="course">
-                        <span><?= $course['grado'] ?>º <?= $course['seccion'] ?> de <?= $course['nivel'] ?></span>
+                        <span><a href="/views/director/pages/detalleAula.php?grado=<?= $course['grado'] ?>&seccion=<?= $course['seccion'] ?>&nivel=<?= $course['nivel'] ?>"><?= $course['grado'] ?>º <?= $course['seccion'] ?> de <?= $course['nivel'] ?></a></span>
                         <span><?= $course['docente'] ?? '<b>[Docente no asignado]</b>' ?></span>
                     </div>
                 <?php } ?>
@@ -115,6 +119,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_aula'])) {
     <script>
         function showReloadMessage() {
             document.getElementById('reload').style.display = 'block';
+        }
+
+        function updateGrades() {
+            const gradoSelect = document.getElementById('new_grado');
+            const nivelSelect = document.getElementById('new_nivel');
+            const nivel = nivelSelect.value;
+
+            // Limpiar las opciones actuales
+            gradoSelect.innerHTML = '<option value="" disabled selected>Seleccionar Grado</option>';
+
+            let options = [];
+            if (nivel === 'Inicial') {
+                options = [3, 4, 5];
+            } else if (nivel === 'Primaria') {
+                options = [1, 2, 3, 4, 5, 6];
+            }
+
+            // Añadir las nuevas opciones
+            options.forEach(grado => {
+                const option = document.createElement('option');
+                option.value = grado;
+                option.textContent = grado;
+                gradoSelect.appendChild(option);
+            });
         }
     </script>
 </body>

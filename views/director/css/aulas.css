@@ -41,12 +41,16 @@ main {
     max-width: 900px;
 }
 
-.add__aula label,
 .add__aula input,
 .add__aula select,
 .add__aula button {
     margin: 0 10px;
     max-width: 100%;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
 .add__aula button {

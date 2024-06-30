@@ -3,7 +3,7 @@ require('fpdf.php');
 require_once __DIR__ . '/../../../../controllers/Aulas.php'; 
 
 
-use Letalandroid\controllers\Cursos;
+use Letalandroid\controllers\Aulas;
 
 class PDF extends FPDF {
     // Cabecera de página
@@ -22,7 +22,7 @@ class PDF extends FPDF {
     }
 }
 
-$all_data = Cursos::getAulasDocentesAlumnos();
+$all_data = Aulas::getAulasDocentesAlumnos();
 
 if (isset($all_data['error'])) {
     die('Error: ' . utf8_decode($all_data['message']));
