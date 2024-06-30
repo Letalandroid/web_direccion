@@ -93,9 +93,11 @@ $cursos = Cursos::getAll();
                         </select>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="button-container">
                         <div class="buttons-right">
+                        <button onclick="window.open('/views/pdf/pages/director/imprimirDocentes.php', '_blank')"  class="pdf"><i class="fas fa-file-pdf"></i> Generar PDF</button>
                             <button type="reset" class="limpiar">LIMPIAR</button>
                             <button type="button" class="agregar" id="addButton"><i class="fas fa-plus-square"></i> Añadir</button>
                         </div>

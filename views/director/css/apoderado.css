@@ -32,6 +32,26 @@ main {
         }
     }
 
+    .container_Boton {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+    
+    .container_Boton button {
+        background-color: #822b2b;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
     .search__apoderado {
         width: 97%;
         display: flex;

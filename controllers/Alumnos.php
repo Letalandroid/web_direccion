@@ -106,4 +106,37 @@ class Alumnos
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
         }
     }
+
+    static function getReporteAlumnos() {
+        try {
+            $db = new Database();
+    
+            $query = $db->connect()->prepare("
+                SELECT a.dni AS alumno_dni,
+                       a.nombres AS alumno_nombres,
+                       a.apellidos AS alumno_apellidos,
+                       a.fecha_nacimiento AS alumno_fecha_nacimiento,
+                       CONCAT(au.grado, ' ', au.seccion) AS grado_y_seccion,
+                       au.nivel AS nivel,
+                       ap.nombres AS apoderado_nombres,
+                       ap.apellidos AS apoderado_apellidos,
+                       ap.dni AS apoderado_dni,
+                       ap.telefono AS apoderado_telefono,
+                       ap.correo AS apoderado_correo,
+                       ap.nacionalidad AS apoderado_nacionalidad
+                FROM alumnos a
+                LEFT JOIN apoderados ap ON a.apoderado_id = ap.apoderado_id
+                LEFT JOIN aulas au ON a.aula_id = au.aula_id;
+            ");
+            $query->execute();
+    
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+        }
+    }
+    
+    
 }

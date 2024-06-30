@@ -1,5 +1,4 @@
 <?php
-
 use Letalandroid\controllers\Apoderado;
 
 require_once __DIR__ . '/../../../controllers/Apoderado.php';
@@ -124,8 +123,16 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                             <?php } ?>
                         </tbody>
                     </table>
+                    
                 </div>
+
+                <div class="container_Boton">
+    <button onclick="window.open('/views/pdf/pages/director/imprimirApoderado.php', '_blank')">
+        <i class="fas fa-file-pdf"></i> Generar PDF
+    </button>
+</div>
             <?php } ?>
+
             <table id="apoderadosTable">
                 <thead>
                             <th>DNI</th>
@@ -152,6 +159,8 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <?php } ?>
                 </tbody>
             </table>
+            
+        </div>
         </div>
     </main>
     <script>
