@@ -155,42 +155,41 @@ $agendas = Agenda::getAllCurso();
 
 
         const addAgenda = async () => {
+    let isEmpty = false;
+    document.querySelector('#reload').style.display = 'none';
 
-            let isEmpty = false;
-            document.querySelector('#reload').style.display = 'none';
-
-            document.querySelectorAll('.send_data').forEach((data) => {
-                if (data.value.length <= 0 || data.value.startsWith(' ')) {
-                    isEmpty = true;
-                    return;
-                }
-            });
-
-            if (!isEmpty) {
-
-                const descripcion = document.querySelector('#descripcion').value;
-                const curso = document.querySelector('#curso').value;
-                const fecha_actividad = document.querySelector('#fecha_actividad').value;
-
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', '/controllers/actions/docente/actionsAgenda.php');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        console.log(xhr.response);
-                        document.querySelector('#reload').style.display = 'block';
-                    } else {
-                        console.log(xhr.response);
-                    }
-                };
-                xhr.onerror = function() {
-                    console.error('Error de conexión');
-                };
-                xhr.send(`createAgenda=true&descripcion=${descripcion}&curso_id=${curso}&fecha_actividad=${fecha_actividad}`);
-            } else {
-                alert('Existen uno o más campos vacío.')
-            }
+    document.querySelectorAll('.send_data').forEach((data) => {
+        if (data.value.length <= 0 || data.value.startsWith(' ')) {
+            isEmpty = true;
+            return;
         }
+    });
+
+    if (!isEmpty) {
+        const descripcion = document.querySelector('#descripcion').value;
+        const curso = document.querySelector('#curso').value;
+        const fecha_actividad = document.querySelector('#fecha_actividad').value;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/../../../controllers/actions/docente/actionsAgenda.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log(xhr.response);
+                document.querySelector('#reload').style.display = 'block';
+                location.reload(); // Recargar la página para ver los cambios
+            } else {
+                console.log(xhr.response);
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Error de conexión');
+        };
+        xhr.send(`createAgenda=true&descripcion=${descripcion}&curso_id=${curso}&fecha_actividad=${fecha_actividad}`);
+    } else {
+        alert('Existen uno o más campos vacío.');
+    }
+}
 
         // Para Limpiar Fecha, Curso y descripcion
         const clearForm = () => {
