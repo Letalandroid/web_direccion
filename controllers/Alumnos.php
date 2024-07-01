@@ -127,7 +127,7 @@ class Alumnos
     }
 }
 
-    public static function update($alumno_id, $apoderado_id, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento, $aula_id) {
+    public static function update($alumno_id, $apoderado_id, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento, $aula_id,$grado,$seccion,$nivel) {
         try {
             $db = new Database();
             $query = $db->connect()->prepare("UPDATE alumnos SET apoderado_id = ?, dni = ?, nombres = ?, apellidos = ?, genero = ?, fecha_nacimiento = ?, aula_id = ? WHERE alumno_id = ?");
