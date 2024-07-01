@@ -78,7 +78,6 @@ $apoderados_hijos = Apoderado::getAllhijos();
                             <select id="genero">
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
-                                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
                             </select>
                         </div>
                     </div>
@@ -86,6 +85,7 @@ $apoderados_hijos = Apoderado::getAllhijos();
                         <div>
                             <label>Nacionalidad:</label>
                             <input id="nacionalidad" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
@@ -93,11 +93,12 @@ $apoderados_hijos = Apoderado::getAllhijos();
                         </div>
                         <div>
                             <label>Telefono: </label>
-                            <input id="telefono" class="send_data" type="text" required>
+                            <input id="telefono" class="send_data" type="text" onkeydown="return soloNumeros(event)" minlength="9" maxlength="9" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Correo: </label>
-                            <input id="correo" class="send_data" type="text" required>
+                            <input id="correo" class="send_data" type="text" maxlength="100" required>
                         </div>
                     </div>
                 </div>

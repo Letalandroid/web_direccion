@@ -81,23 +81,27 @@ if (isset($_GET['id'])) {
                 <div class="form__contrataciones">
                     <div class="form-group">
                         <label for="curso_id">Apoderado ID:</label>
-                        <input type="number" id="apoderado_id" name="apoderado_id" value="<?= htmlspecialchars($alumnos['apoderado_id']) ?>" required>
+                        <input disabled selected type="number" id="apoderado_id" name="apoderado_id" value="<?= htmlspecialchars($alumnos['apoderado_id']) ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" minlength="8" maxlength="8" required>
+                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="nombres">Nombres:</label>
-                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" maxlength="50" required>
+                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="apellidos">Apellidos:</label>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" maxlength="50" required>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="genero">Género:</label>
-                        <input type="text" id="genero" name="genero" value="<?= htmlspecialchars($alumnos['genero']) ?>" required>
+                        <input type="text" id="genero" name="genero" value="<?= htmlspecialchars($alumnos['genero']) ?>" onkeydown="return soloLetras(event)" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
@@ -105,19 +109,23 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="form-group">
                         <label for="aula_id">Aula ID:</label>
-                        <input type="number" id="aula_id" name="aula_id" value="<?= htmlspecialchars($alumnos['aula_id']) ?>" required>
+                        <input disabled selected type="number" id="aula_id" name="aula_id" value="<?= htmlspecialchars($alumnos['aula_id']) ?>" onkeydown="return soloNumeros(event)" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="grado">Grado:</label>
-                        <input type="text" id="grado" name="grado" value="<?= htmlspecialchars($alumnos['grado']) ?>" required>
+                        <input type="text" id="grado" name="grado" value="<?= htmlspecialchars($alumnos['grado']) ?>" onkeydown="return soloNumeros(event)" min="1" max="6" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="seccion">Sección:</label>
-                        <input type="text" id="seccion" name="seccion" value="<?= htmlspecialchars($alumnos['seccion']) ?>" required>
+                        <input type="text" id="seccion" name="seccion" value="<?= htmlspecialchars($alumnos['seccion']) ?>" onkeydown="return soloLetras(event)" maxlength="1" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="nivel">Nivel:</label>
-                        <input type="text" id="nivel" name="nivel" value="<?= htmlspecialchars($alumnos['nivel']) ?>" required>
+                        <input type="text" id="nivel" name="nivel" value="<?= htmlspecialchars($alumnos['nivel']) ?>" onkeydown="return soloLetras(event)" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                 </div>
                 <div class="form-buttons">
