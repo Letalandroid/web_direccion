@@ -144,59 +144,51 @@ $cursos = Cursos::getAll();
     <script>
         document.getElementById('addButton').addEventListener('click', addDocente);
 
-        async function addDocente() {
-            const dni = document.getElementById('dni').value;
-            const nombres = document.getElementById('nombres').value;
-            const apellidos = document.getElementById('apellidos').value;
-            const rol = document.getElementById('rol').value;
-            const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
-            const curso_id = document.getElementById('curso_id').value;
-            const genero = document.getElementById('genero').value;
-            console.log(dni,
-                        nombres,
-                        apellidos,
-                        rol,
-                        fecha_nacimiento,
-                        curso_id,
-                        genero);
+async function addDocente() {
+    const dni = document.getElementById('dni').value;
+    const nombres = document.getElementById('nombres').value;
+    const apellidos = document.getElementById('apellidos').value;
+    const rol = document.getElementById('rol').value;
+    const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
+    const curso_id = document.getElementById('curso_id').value;
+    const genero = document.getElementById('genero').value;
 
-            if (dni == '' || nombres == '' || apellidos == '') {
-                alert('Por favor, complete todos los campos.');
-                return;
-            }
+    if (dni == '' || nombres == '' || apellidos == '') {
+        alert('Por favor, complete todos los campos.');
+        return;
+    }
 
-            try {
-                const response = await fetch('/controllers/actions/director/actionsDocente.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        createDocente: 'true',
-                        dni,
-                        nombres,
-                        apellidos,
-                        rol,
-                        fecha_nacimiento,
-                        curso_id,
-                        genero
-                    })
-                });
+    try {
+        const response = await fetch('/controllers/actions/director/actionsDocente.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                createDocente: 'true',
+                dni,
+                nombres,
+                apellidos,
+                rol,
+                fecha_nacimiento,
+                curso_id,
+                genero
+            })
+        });
 
-                const result = await response.json();
-                if (result.success) {
-                    alert('Docente añadido exitosamente');
-                    location.reload();
-                } else {
-                    alert('Error al añadir docente: ' + result.message);
-                    console.error(result);
-                }
-            
-            } catch (error) {
-                console.error('Error de conexión', error);
-                alert('Error de conexión');
-            }
+        const result = await response.json();
+        if (result.success) {
+            alert('Docente añadido exitosamente');
+            location.reload();
+        } else {
+            alert('Error al añadir docente: ' + result.message);
         }
+    } catch (error) {
+        console.error('Error de conexión', error);
+        alert('Error de conexión');
+    }
+}
+
 
         async function editDocente(docenteId) {
             try {
