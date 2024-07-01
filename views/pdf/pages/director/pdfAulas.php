@@ -2,12 +2,14 @@
 require('fpdf.php');
 require_once __DIR__ . '/../../../../controllers/Aulas.php'; 
 
+
 use Letalandroid\controllers\Aulas;
 
 class PDF extends FPDF {
     // Cabecera de página
     function Header() {
         $this->SetFont('Arial', 'B', 13);
+        $this->Image('icon.png', 170, 6, 20);
         $this->Cell(60);
         $this->Cell(70, 10, mb_convert_encoding('Reporte de Aulas', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
         $this->Ln(20);
@@ -17,7 +19,7 @@ class PDF extends FPDF {
     function Footer() {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, mb_convert_encoding('Page ' . $this->PageNo() . '/{nb}', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
     }
 }
 
