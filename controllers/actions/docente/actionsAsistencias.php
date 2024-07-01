@@ -14,7 +14,7 @@ if (isset($_POST['getAsistencia'])) {
 
     try {
 
-        $alumnos = Notas::getAll_Course($curso_id);
+        $alumnos = Notas::getAllFilter_Course($curso_id);
 
         if (isset($alumnos['error'])) {
             http_response_code(500);

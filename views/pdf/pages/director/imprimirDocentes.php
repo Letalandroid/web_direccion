@@ -5,20 +5,20 @@ require_once __DIR__ . '/../../../../controllers/Docente.php';
 use Letalandroid\controllers\Docente;
 
 class PDF extends FPDF {
-    // Cabecera de página
+    
     function Header() {
-        $this->Image('icon.png', 175, 4, 20);  // Logo de la empresa (ajustar posición según sea necesario)
+        $this->Image('icon.png', 175, 4, 20); 
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(0, 20, utf8_decode('REPORTE DE DOCENTES'), 0, 0, 'C'); // Celda con ancho 0 para que se ajuste al ancho de la página y centrado
+        $this->Cell(0, 20, mb_convert_encoding('REPORTE DE DOCENTES', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C'); 
         $this->Ln(30);
         $this->SetFont('Arial', 'B', 9);
-        $this->Cell(20, 10, utf8_decode('DNI'), 1, 0, 'C');
-        $this->Cell(50, 10, utf8_decode('Nombres y apellidos'), 1, 0, 'C');
-        $this->Cell(25, 10, utf8_decode('Fecha Nac.'), 1, 0, 'C');
-        $this->Cell(30, 10, utf8_decode('Curso asig.'), 1, 0, 'C');
-        $this->Cell(20, 10, utf8_decode('Grado asig.'), 1, 0, 'C');
-        $this->Cell(23, 10, utf8_decode('Sección asig.'), 1, 0, 'C');
-        $this->Cell(25, 10, utf8_decode('Nivel asig.'), 1, 0, 'C');
+        $this->Cell(20, 10, mb_convert_encoding('DNI', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(50, 10, mb_convert_encoding('Nombres y apellidos', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(25, 10, mb_convert_encoding('Fecha Nac.', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(30, 10, mb_convert_encoding('Curso asig.', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(20, 10, mb_convert_encoding('Grado asig.', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(23, 10, mb_convert_encoding('Sección asig.', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(25, 10, mb_convert_encoding('Nivel asig.', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
         $this->Ln();
     }
 
@@ -38,20 +38,20 @@ if (isset($docente_info['error'])) {
     exit();
 }
 
-$pdf = new PDF('P'); // 'L' indica orientación horizontal
+$pdf = new PDF('P');
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 9);
 $pdf->SetY(50);
 
 foreach ($docente_info as $row) {
-    $pdf->Cell(20, 10, utf8_decode($row['dni']), 1, 0, 'C');
-    $pdf->Cell(50, 10, utf8_decode($row['nombres']. ' ' .$row['apellidos']), 1, 0, 'C');
-    $pdf->Cell(25, 10, utf8_decode($row['fecha_nacimiento']), 1, 0, 'C');
-    $pdf->Cell(30, 10, utf8_decode($row['curso']), 1, 0, 'C');
-    $pdf->Cell(20, 10, utf8_decode($row['grado']), 1, 0, 'C');
-    $pdf->Cell(23, 10, utf8_decode($row['seccion']), 1, 0, 'C');
-    $pdf->Cell(25, 10, utf8_decode($row['nivel']), 1, 0, 'C');
+    $pdf->Cell(20, 10, mb_convert_encoding($row['dni'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(50, 10, mb_convert_encoding($row['nombres']. ' ' .$row['apellidos'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(25, 10, mb_convert_encoding($row['fecha_nacimiento'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(30, 10, mb_convert_encoding($row['curso'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(20, 10, mb_convert_encoding($row['grado'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(23, 10, mb_convert_encoding($row['seccion'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(25, 10, mb_convert_encoding($row['nivel'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
     $pdf->Ln();
 }
 
