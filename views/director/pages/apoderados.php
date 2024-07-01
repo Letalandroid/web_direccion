@@ -64,7 +64,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
                             <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>

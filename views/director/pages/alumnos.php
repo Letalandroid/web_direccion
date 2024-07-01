@@ -68,7 +68,7 @@ $cursos = Cursos::getAll();
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
                             <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
@@ -82,7 +82,7 @@ $cursos = Cursos::getAll();
                         </div>
                         <div>
                             <label>Apoderado</label>
-                            <input list="apoderados" id="apoderado" required>
+                            <input  list="apoderados" id="apoderado" required>
                             <datalist id="apoderados">
                                 <?php foreach ($apoderados as $apoderado) { ?>
                                     <option value="<?= $apoderado['dni'] . ' - ' . $apoderado['nombres_apellidos'] ?>">
@@ -100,7 +100,7 @@ $cursos = Cursos::getAll();
                         <div class="cursos__container"> 
                             <label>Curso:</label>
                             <select id="curso">
-                                <option value="">Seleccionar Curso</option>
+                                <option value="" disabled selected>Seleccionar Curso</option>
                                 <?php foreach ($cursos as $curso) { ?>
                                 <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
                                 <label><?= $curso['nombre'] ?></label>

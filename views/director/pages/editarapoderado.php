@@ -84,15 +84,15 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="form-group">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" required>
+                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" minlength="8" maxlength="8" required>
                     </div>
                     <div class="form-group">
                         <label for="nombres">Nombres:</label>
-                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" required>
+                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" maxlength="50" required>
                     </div>
                     <div class="form-group">
                         <label for="apellidos">Apellidos:</label>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" required>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" maxlength="50" required>
                     </div>
                     <div class="form-group">
                         <label for="genero">Género:</label>
@@ -104,11 +104,11 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="form-group">
                         <label for="aula_id">Telefono:</label>
-                        <input type="number" id="telefono" name="telefono" value="<?= htmlspecialchars($alumnos['telefono']) ?>" required>
+                        <input type="number" id="telefono" name="telefono" value="<?= htmlspecialchars($alumnos['telefono']) ?>" minlength="9" maxlength="9" required>
                     </div>
                     <div class="form-group">
                         <label for="grado">Correo:</label>
-                        <input type="text" id="correo" name="correo" value="<?= htmlspecialchars($alumnos['correo']) ?>" required>
+                        <input type="text" id="correo" name="correo" value="<?= htmlspecialchars($alumnos['correo']) ?>" maxlength="100" required>
                     </div>
                 </div>
                 <div class="form-buttons">

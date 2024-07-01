@@ -76,7 +76,7 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="form-group">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($docente['dni']) ?>" onkeydown="return soloNumeros(event)" maxlength="50"required>
+                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($docente['dni']) ?>" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
                         <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">

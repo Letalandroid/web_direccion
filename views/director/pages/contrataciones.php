@@ -47,7 +47,7 @@ $cursos = Cursos::getAll();
                 <div class="row">
                     <div class="column">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                        <input type="text" id="dni" name="dni" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
                         <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
