@@ -128,6 +128,7 @@ foreach ($cursos as $curso) {
                     </tr>
                 </tbody>
             </table>
+            <p id="result_search">-</p>
         </div>
     </main>
     <script>
@@ -139,6 +140,7 @@ foreach ($cursos as $curso) {
         const n_pc = document.querySelector('#n_pc');
         const n_participacion = document.querySelector('#n_participacion');
         const n_examen = document.querySelector('#n_examen');
+        const result_search = document.querySelector('#result_search');
 
         const limpiar = (note) => {
             document.querySelector(`#${note}`).value = 0;
@@ -225,6 +227,11 @@ foreach ($cursos as $curso) {
 
             if (alumnosFiltrados.length > 0) {
                 mostrarNotas(alumnosFiltrados);
+                result_search.innerHTML = `
+                    Resultado de la búsqueda => Curso: ${cursoSeleccionado},
+                    Unidad: ${unidadSeleccionada},
+                    Año: ${yearSeleccionado}
+                `;
             } else {
                 limpiarNotas();
             }
