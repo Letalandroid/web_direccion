@@ -10,12 +10,14 @@ function soloNumeros(event) {
 
 function soloLetras(event) {
     var letras = event.keyCode;
+    
     if ((letras > 0 && letras < 33) || 
     (letras > 64 && letras < 91) || 
     (letras > 96 && letras < 123) || 
     (letras == 241 || letras == 209) || 
     (letras >= 37 && letras <= 40)||
-    (letras >= 221)) {
+    (letras >= 221)||
+    (letras >= 192)) {
         return true;
     } else {
         alert('Solo se permiten Letras y teclas permitidas.');

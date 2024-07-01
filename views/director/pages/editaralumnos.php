@@ -85,15 +85,15 @@ if (isset($_GET['id'])) {
                     </div>
                     <div class="form-group">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" required>
+                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($alumnos['dni']) ?>" minlength="8" maxlength="8" required>
                     </div>
                     <div class="form-group">
                         <label for="nombres">Nombres:</label>
-                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" required>
+                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($alumnos['nombres']) ?>" maxlength="50" required>
                     </div>
                     <div class="form-group">
                         <label for="apellidos">Apellidos:</label>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" required>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($alumnos['apellidos']) ?>" maxlength="50" required>
                     </div>
                     <div class="form-group">
                         <label for="genero">Género:</label>
