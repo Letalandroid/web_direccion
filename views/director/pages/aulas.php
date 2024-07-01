@@ -101,8 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_aula'])) {
                     <label for="new_seccion">Sección:</label>
                     <input id="new_seccion" name="seccion" type="text" onkeydown="return soloLetras(event)" maxlength="50" placeholder="Sección" required oninput="validarLetras(this)">
                     <script src="/views/director/js/grados.js"></script>
-                    <button id="btnAddAula" name="add_aula" type="submit">Agregar Aula</button>
-                    <button type="button" class="btn btn-danger" onclick="window.location.href='/views/pdf/pages/director/pdfAulas.php';">Reporte PDF</button>
+                    <button type="button" class="btn btn-danger" onclick="window.open('/views/pdf/pages/director/pdfAulas.php', '_blank')">Reporte PDF</button>
                 </div>
             </form>
             <div class="container__notas">
