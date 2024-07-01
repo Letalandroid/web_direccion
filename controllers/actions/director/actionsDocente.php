@@ -26,7 +26,7 @@ if (isset($_POST['createDocente'])) {
 
         if (is_array($cursos)) {
             foreach ($cursos as $curso_id) {
-                $add = Docente::create((int) $dni, $nombres, $apellidos, $rol, $fecha_nacimiento, $curso_id, $genero);
+                $add = Docente::create((int) $curso_id, $dni, $nombres, $apellidos, $genero, $rol, $fecha_nacimiento);
 
                 if (!isset($add['error'])) {
                     array_push($resultados, 1);
