@@ -38,6 +38,7 @@ if (isset($_POST['login'])) {
                             exit();
 
                         case 'Director':
+                            $_SESSION['docente_id'] = $users['docente_id'];
                             header('Location: /director');
                             exit();
 

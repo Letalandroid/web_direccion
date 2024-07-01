@@ -244,4 +244,122 @@ main {
     color: #fff;
     cursor: pointer;
 }
+#citas {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 70px;
+    right: 40px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #000;
+    z-index: 5;
 
+    h4 {
+        font-weight: bold;
+        color: #fff;
+        background-color: #36675E;
+        padding: 20px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    ul {
+        height: calc(54px + 40px);
+        overflow: auto;
+    }
+
+    ul>li {
+        margin: 20px;
+        font-weight: bold;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.citas__container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000a;
+    z-index: 10;
+
+    .citas__modal {
+        position: relative;
+        width: 350px;
+        background-color: #fff;
+        font-size: 20px;
+        border-radius: 10px;
+        transition: box-shadow .2s;
+        top: -15px;
+        opacity: 0;
+        animation: down .5s linear forwards;
+
+        &:hover {
+            box-shadow: 5px 5px 5px #fffa;
+        }
+
+        .closed_msg {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        * {
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        h3 {
+            color: #fff;
+            background-color: #2c554d;
+        }
+
+        p {
+            height: 100px;
+            overflow: auto;
+        }
+
+        button {
+            color: #fff;
+            font-weight: bold;
+            background-color: #983834;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    }
+}
+
+.fa-bell {
+
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #f00;
+        border-radius: 50%;
+    }
+}
+
+
+
+@keyframes down {
+    from {
+        top: -15px;
+        opacity: 0;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}

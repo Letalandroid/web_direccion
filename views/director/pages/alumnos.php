@@ -223,9 +223,12 @@ $aulas = Aulas::getGrado_Seccion();
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             if (xhr.status === 200) {
-                console.log(xhr.response);
-           //     document.querySelector('#reload').style.display = 'block';
-                location.reload();
+                const response = JSON.parse(xhr.response);
+                if (response.error) {
+                    alert(response.message);
+                } else {
+                    location.reload();
+                }
             } else {
                 console.log(xhr.response);
             }
@@ -235,9 +238,10 @@ $aulas = Aulas::getGrado_Seccion();
         };
         xhr.send(`createAlumno=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&apoderado_dni=${apoderado_dni}&aula_id=${aula_id}`);
     } else {
-        alert('Existen uno o más campos vacío.');
+        alert('Existen uno o más campos vacíos.');
     }
 }
+
 
 
         const buscarAlumno = () => {

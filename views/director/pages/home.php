@@ -1,5 +1,9 @@
 <?php
 
+use Letalandroid\controllers\Usuarios;
+
+require_once __DIR__ . '/../../../controllers/Usuarios.php';
+
 session_start();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
@@ -7,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
 	exit();
 }
 
-$username = $_SESSION['username'];
+$getName = Usuarios::getWithIdDoc($_SESSION['docente_id'])[0]['nombres_apellidos'];
 
 ?>
 
@@ -36,31 +40,31 @@ $username = $_SESSION['username'];
 	<main>
 		<?php show_nav('Home') ?>
 		<div class="container">
-        <div class="header">
-            <img src="/views/director/assets/img/usuario.png" alt="Imagen de Persona" class="profile-img">
-            <div class="user-info">
-                <h2>NOMBRES COMPLETOS</h2>
-                <p>Directora - Admin</p>
-            </div>
-        </div>
-        <div class="cards">
-            <div class="card">
-			<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
-                <h3>Lista Docentes</h3>
-                <button class="btn btn-red">→</button>
-            </div>
-            <div class="card">
-			<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
-                <h3>Lista Alumnos</h3>
-                <button class="btn btn-blue">→</button>
-            </div>
-            <div class="card">
-			<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
-                <h3>Administración</h3>
-				<button class="btn btn-orange">→</button>
-            </div>
-        </div>
-    </div>
+			<div class="header">
+				<img src="/views/director/assets/img/usuario.png" alt="Imagen de Persona" class="profile-img">
+				<div class="user-info">
+					<h2><?= $getName ?></h2>
+					<p><?= $_SESSION['rol'] ?></p>
+				</div>
+			</div>
+			<div class="cards">
+				<div class="card">
+					<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
+					<h3>Lista Docentes</h3>
+					<a href="/director/docentes" class="btn btn-red">→</a>
+				</div>
+				<div class="card">
+					<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
+					<h3>Lista Alumnos</h3>
+					<a href="/director/alumnos" class="btn btn-blue">→</a>
+				</div>
+				<div class="card">
+					<img src="/views/director/assets/img/personas.png" alt="Imagen de Persona" class="profile-img">
+					<h3>Administración</h3>
+					<a href="/director/contrataciones" class="btn btn-orange">→</a>
+				</div>
+			</div>
+		</div>
 	</main>
 </body>
 

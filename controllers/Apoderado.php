@@ -3,13 +3,51 @@
 namespace Letalandroid\controllers;
 
 require_once __DIR__ . '/../model/db.php';
+require_once __DIR__ . '/../controllers/Usuarios.php';
 
 use Letalandroid\model\Database;
+use Letalandroid\controllers\Usuarios;
 use Exception;
 use PDO;
 
 class Apoderado
 {
+
+    static function getAllhijos()
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,ap.apoderado_id,
+                                            CONCAT(a.nombres, ' ', a.apellidos) AS nombres_apellidos,
+                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad,ap.telefono,ap.correo
+                                            from alumnos a
+                                            right join apoderados ap
+                                            on (a.apoderado_id=ap.apoderado_id)
+                                            where alumno_id is not null ;");
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
+    public static function getById($id)
+{
+    try {
+        $db = new Database();
+        $query = $db->connect()->prepare("SELECT * FROM apoderados WHERE apoderado_id = ?");
+        $query->bindValue(1, $id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        http_response_code(500);
+        return json_encode(array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage()));
+    }
+}
 
     static function getAll()
     {
@@ -132,7 +170,9 @@ class Apoderado
                                             from alumnos a
                                             right join apoderados ap
                                             on (a.apoderado_id=ap.apoderado_id)
-                                            where alumno_id is not null;");
+                                            where alumno_id is not null 
+                                            group by ap.dni;");
+                                            
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -148,7 +188,7 @@ class Apoderado
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,a.apoderado_id,
+            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,ap.apoderado_id,
                                             concat(ap.nombres,' ',ap.apellidos) as    nombres_apellidos,
                                             ap.fecha_nacimiento, ap.genero, ap.nacionalidad, ap.telefono,ap.correo
                                             from alumnos a
@@ -166,14 +206,14 @@ class Apoderado
         }
     }
 
-    static function create($dni, $nombres, $apellidos, $nacionalidad, $genero, $fecha_nacimiento)
+    static function create($dni, $nombres, $apellidos, $nacionalidad, $genero, $fecha_nacimiento,$telefono,$correo)
     {
         try {
             $db = new Database();
             $query = $db->connect()->prepare('insert into apoderados
                                                 (dni, nombres, apellidos, nacionalidad,
-                                                genero, fecha_nacimiento) values
-                                                (?,?,?,?,?,?);');
+                                                genero, fecha_nacimiento,telefono,correo) values
+                                                (?,?,?,?,?,?,?,?);');
 
             $query->bindValue(1, $dni, PDO::PARAM_STR);
             $query->bindValue(2, $nombres, PDO::PARAM_STR);
@@ -181,6 +221,8 @@ class Apoderado
             $query->bindValue(4, $nacionalidad, PDO::PARAM_STR);
             $query->bindValue(5, $genero, PDO::PARAM_STR);
             $query->bindValue(6, $fecha_nacimiento, PDO::PARAM_STR);
+            $query->bindValue(7, $telefono, PDO::PARAM_STR);
+            $query->bindValue(8, $correo, PDO::PARAM_STR);
             $query->execute();
 
             return array('success' => true, 'message' => '🎅 Apoderado agregado exitosamente');
@@ -210,14 +252,65 @@ class Apoderado
                 LEFT JOIN aulas au ON a.aula_id = au.aula_id;
             ");
             $query->execute();
-    
             $results = $query->fetchAll(PDO::FETCH_ASSOC);
             return $results;
         } catch (Exception $e) {
             http_response_code(500);
-            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }}
+    
+    public static function update($apoderado_id, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento, $telefono, $correo) {
+        try {
+            $lasDni = Apoderado::getById($apoderado_id)[0]['dni'];
+            
+            $db = new Database();
+            $query = $db->connect()->prepare("UPDATE apoderados SET dni = ?, nombres = ?, apellidos = ?, genero = ?, fecha_nacimiento = ?,  telefono = ?, correo = ? WHERE dni = ?");
+            $query->bindValue(1, $dni, PDO::PARAM_STR);
+            $query->bindValue(2, $nombres, PDO::PARAM_STR);
+            $query->bindValue(3, $apellidos, PDO::PARAM_STR);
+            $query->bindValue(4, $genero, PDO::PARAM_STR);
+            $query->bindValue(5, $fecha_nacimiento, PDO::PARAM_STR);
+            $query->bindValue(6, $telefono, PDO::PARAM_STR);
+            $query->bindValue(7, $correo, PDO::PARAM_STR);
+            $query->bindValue(8, $lasDni, PDO::PARAM_STR);
+            $query->execute();
+            return ['success' => true];
+        } catch (PDOException $e) {
+            return ['error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage()];
         }
     }
+
+    public static function eliminar($apoderado_id)
+{
+    try {
+        $db = new Database();
+        $query = $db->connect()->prepare("DELETE FROM apoderados WHERE apoderado_id = ?");
+        $deleteUsuarios = Usuarios::getEliminar($apoderado_id);
+        $query->bindValue(1, $apoderado_id, PDO::PARAM_INT); 
+        $query->execute();
+        return array('error' => false);
+
+    } catch (Exception $e) {
+        error_log('Error en el servidor: ' . $e->getMessage()); 
+        return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+    }
+}
     
+    static function getHijos_id($apoderado_id){
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select * from apoderados where apoderado_id = ?;');
+            $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
 
 }

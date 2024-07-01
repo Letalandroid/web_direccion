@@ -256,6 +256,10 @@ main {
     }
     
     .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         background: #fff;
         border: 1px solid #ddd;
         border-radius: 10px;
@@ -269,12 +273,13 @@ main {
     
     .card h3 {
         margin: 0 0 10px;
-        font-size: 1.2em;
+        font-size: 18px;
         color: #ffffff;
     }
     
     .btn {
-        display: inline-block;
+        display: flex;
+        justify-content: center;
         width: 40px;
         height: 40px;
         line-height: 40px;
@@ -286,9 +291,7 @@ main {
     }
     
     .btn-red {
-        display: inline-block;
     padding: 0px 10px;
-    font-size: 18px;
     color: #fff;
     background-color: #005bbdad;
     border: none;
@@ -300,9 +303,7 @@ main {
     }
     
     .btn-blue {
-        display: inline-block;
     padding: 0px 10px;
-    font-size: 18px;
     color: #fff;
     background-color: #005bbdad;
     border: none;
@@ -314,9 +315,7 @@ main {
     }
     
     .btn-orange {
-        display: inline-block;
     padding: 0px 10px;
-    font-size: 18px;
     color: #fff;
     background-color: #005bbdad;
     border: none;
