@@ -55,15 +55,16 @@ btnAdd.addEventListener('click', () => {
     }
 });
 
-function soloLetras(event) {
-    var letras = event.keyCode;
+// para que solo permita letras A B C 
+function soloLetras(event){
+    var letra = event.keyCode;
     
-    if ((letras >= 65 && letras <= 74 && letras != 69 && letras != 73) ||
-        letras == 16 || letras == 9 || letras == 13 || letras == 8 ||
-        (letras >= 37 && letras <= 40)) {
+    if(!isNaN(event.target.value)){
         return true;
-    } else {
-        alert('Solo se permiten las letras A, B, C, D, F, G, H, J.');
+        
+
+    }else{
+        alert('Solo de permiten Letras');
         return false;
     }
 }
