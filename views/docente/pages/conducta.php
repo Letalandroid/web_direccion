@@ -120,10 +120,10 @@ foreach ($cursos as $curso) {
             listaAlumnos.innerHTML = '';
 
             const alumnosFiltrados = alumnos.reduce((acc, alumno) => {
-                if (alumno.alumno_id === null) {
+                if (alumno.a_id === null) {
                     // Conserva los registros con alumno_id null
                     acc.push({
-                        alumno_id: alumno.alumno_id,
+                        alumno_id: alumno.a_id,
                         nombres_apellidos: alumno.nombres_apellidos,
                         curso_id: alumno.curso_id,
                         bimestre: alumno.bimestre
@@ -131,7 +131,7 @@ foreach ($cursos as $curso) {
                     });
                 } else {
                     // Busca si ya existe un alumno con el mismo alumno_id en acc
-                    const existingAlumno = acc.find(a => a.alumno_id === alumno.alumno_id);
+                    const existingAlumno = acc.find(a => a.a_id === alumno.a_id);
 
                     if (existingAlumno) {
                         // Si existe, agrega las propiedades que no están aún en el registro existente
@@ -143,7 +143,7 @@ foreach ($cursos as $curso) {
                     } else {
                         // Si no existe, agrega el alumno completo a acc
                         acc.push({
-                            alumno_id: alumno.alumno_id,
+                            a_id: alumno.a_id,
                             nombres_apellidos: alumno.nombres_apellidos,
                             curso_id: alumno.curso_id,
                             bimestre: alumno.bimestre
@@ -154,14 +154,14 @@ foreach ($cursos as $curso) {
 
                 return acc;
             }, []);
-            console.log(alumnosFiltrados);
+            console.log(alumnosFiltrados[0]);
 
-                const optionAlumno = document.createElement('option');
-                optionAlumno.value = alumnosFiltrados[0].alumno_id;
-                optionAlumno.textContent = alumnosFiltrados[0].nombres_apellidos;
-                listaAlumnos.appendChild(optionAlumno);
-                calificacion.value = alumnosFiltrados[0].calificacion ?? 'Sin calificación';
-                nota.value = alumnosFiltrados[0].descripcion ?? '';
+            const optionAlumno = document.createElement('option');
+            optionAlumno.value = alumnosFiltrados[0].a_id;
+            optionAlumno.textContent = alumnosFiltrados[0].nombres_apellidos;
+            listaAlumnos.appendChild(optionAlumno);
+            calificacion.value = alumnosFiltrados[0].calificacion ?? 'Sin calificación';
+            nota.value = alumnosFiltrados[0].descripcion ?? '';
         }
 
         cargarAlumnos();
