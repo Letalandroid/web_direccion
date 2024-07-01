@@ -81,8 +81,7 @@ class Notas
                                             n.* from notas n
                                             inner join alumnos a
                                             on (a.alumno_id=n.alumno_id)
-                                            where n.curso_id=?
-                                            group by a.dni;');
+                                            where n.curso_id=?;');
             $query->bindValue(1, $curso_id, PDO::PARAM_INT);
             $query->execute();
 

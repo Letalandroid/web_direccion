@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    height: 92vh;
+}
+
+.container__section {
+    width: 1920px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.centered-card {
+    width: 80%;
+}
+
+.docente-info .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.alumnos-table {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.alumnos-table th, .alumnos-table td {
+    border-bottom: 1px solid black;
+}
+
+.alumnos-table th {
+    border-top: none;
+}
+
+.alumnos-table tr:last-child td {
+    border-bottom: none;
+}
+
+.card-header {
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.centered-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container_tablaAlumnos {
+    width: 80%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    border-collapse: separate; 
+    border-spacing: 0;
+}
+.tituloA, .tituloD {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 10px;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    background-color: #31554d;
+}
+
+@media (max-width: 768px) {
+    .container__section {
+        padding: 10px;
+    }
+
+    .centered-card {
+        width: 100%;
+    }
+
+    .docente-info .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .alumnos-table {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container__section {
+        padding: 5px;
+    }
+
+    .centered-card {
+        width: 100%;
+    }
+
+    .docente-info .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .alumnos-table {
+        width: 100%;
+    }
+}
