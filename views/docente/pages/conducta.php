@@ -154,7 +154,6 @@ foreach ($cursos as $curso) {
 
                 return acc;
             }, []);
-            console.log(alumnosFiltrados[0]);
 
             const optionAlumno = document.createElement('option');
             optionAlumno.value = alumnosFiltrados[0].a_id;
