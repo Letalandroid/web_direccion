@@ -94,6 +94,12 @@ button#add-button {
     font-family: 'Segoe UI Black', sans-serif;
 }
 
+.pdf{
+    background-color: #822b2b;
+    color: rgb(255, 255, 255);
+    font-family: 'Segoe UI Black', sans-serif;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

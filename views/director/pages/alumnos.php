@@ -116,6 +116,12 @@ $aulas = Aulas::getGrado_Seccion();
                 </div>
                 <button onclick="addAlumno()" >Agregar</button>
             </div>
+            <div class="container_Boton">
+    <button onclick="window.open('/views/pdf/pages/director/imprimirAlumnos.php', '_blank')">
+        <i class="fas fa-file-pdf"></i> Generar PDF
+    </button>
+</div>
+
             <table id="alumnosTable">
                 <thead>
                     <th>DNI</th>

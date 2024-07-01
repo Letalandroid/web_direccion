@@ -141,4 +141,22 @@ class Docente
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
         }
     }
+
+    static function getDocenteInfo()
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare("SELECT d.dni, d.nombres, d.apellidos, d.fecha_nacimiento, c.nombre AS curso, 
+                                                    a.grado, a.seccion, a.nivel
+                                             FROM docentes d
+                                             JOIN cursos c ON d.curso_id = c.curso_id
+                                             JOIN aulas a ON d.aula_id = a.aula_id;");
+            $query->execute();
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+        }
+    }
 }
