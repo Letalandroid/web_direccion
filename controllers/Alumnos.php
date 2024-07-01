@@ -82,31 +82,41 @@ class Alumnos
     }
 
     static function create($apoderado_dni, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento, $aula_id)
-{
-    try {
-        $apoderado_id = Apoderado::getId($apoderado_dni)[0]['apoderado_id'];
-        $db = new Database();
-        $query = $db->connect()->prepare('INSERT INTO alumnos
-                                          (apoderado_id, dni, nombres, apellidos,
-                                           genero, fecha_nacimiento, aula_id) VALUES
-                                          (?,?,?,?,?,?,?);');
+    {
+        try {
+            $db = new Database();
 
-        $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
-        $query->bindValue(2, $dni, PDO::PARAM_STR);
-        $query->bindValue(3, $nombres, PDO::PARAM_STR);
-        $query->bindValue(4, $apellidos, PDO::PARAM_STR);
-        $query->bindValue(5, $genero, PDO::PARAM_STR);
-        $query->bindValue(6, $fecha_nacimiento, PDO::PARAM_STR);
-        $query->bindValue(7, $aula_id, PDO::PARAM_INT);
-        $query->execute();
+            // Verificar si el DNI ya existe
+            $checkQuery = $db->connect()->prepare('SELECT COUNT(*) AS count FROM alumnos WHERE dni = ?');
+            $checkQuery->bindValue(1, $dni, PDO::PARAM_STR);
+            $checkQuery->execute();
+            $count = $checkQuery->fetch(PDO::FETCH_ASSOC)['count'];
 
-        return array('success' => true, 'message' => '🎅 Alumno agregado exitosamente');
+            if ($count > 0) {
+                return array('error' => true, 'message' => 'El DNI ya está registrado.');
+            }
 
-    } catch (PDOException $e) {
-        http_response_code(500);
-        return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+            $apoderado_id = Apoderado::getId($apoderado_dni)[0]['apoderado_id'];
+            $query = $db->connect()->prepare('INSERT INTO alumnos
+                                              (apoderado_id, dni, nombres, apellidos,
+                                               genero, fecha_nacimiento, aula_id) VALUES
+                                              (?,?,?,?,?,?,?);');
+
+            $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
+            $query->bindValue(2, $dni, PDO::PARAM_STR);
+            $query->bindValue(3, $nombres, PDO::PARAM_STR);
+            $query->bindValue(4, $apellidos, PDO::PARAM_STR);
+            $query->bindValue(5, $genero, PDO::PARAM_STR);
+            $query->bindValue(6, $fecha_nacimiento, PDO::PARAM_STR);
+            $query->bindValue(7, $aula_id, PDO::PARAM_INT);
+            $query->execute();
+
+            return array('success' => true, 'message' => 'Alumno agregado exitosamente');
+        } catch (PDOException $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+        }
     }
-}
 
 
     public static function getById($id)

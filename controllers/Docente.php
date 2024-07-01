@@ -82,30 +82,38 @@ class Docente
     }
 
     static function create($curso_id, $dni, $nombres, $apellidos, $genero, $rol, $fecha_nacimiento)
-    {
-        try {
-            $db = new Database();
-            $query = $db->connect()->prepare('insert into docentes
-                                                (dni, nombres, apellidos, rol,
-                                                fecha_nacimiento, curso_id, genero) values
-                                                (?,?,?,?,?,?,?);');
-
-            $query->bindValue(1, $dni, PDO::PARAM_STR);
-            $query->bindValue(2, $nombres, PDO::PARAM_STR);
-            $query->bindValue(3, $apellidos, PDO::PARAM_STR);
-            $query->bindValue(4, $rol, PDO::PARAM_STR);
-            $query->bindValue(5, $fecha_nacimiento, PDO::PARAM_STR);
-            $query->bindValue(6, $curso_id, PDO::PARAM_STR);
-            $query->bindValue(7, $genero, PDO::PARAM_STR);
-            $query->execute();
-
-            return array('success' => true, 'message' => '🧑‍🏫 Docente agregado exitosamente');
-
-        } catch (Exception $e) {
-            http_response_code(500);
-            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+{
+    try {
+        $db = new Database();
+        
+        // Verificar si el DNI ya existe
+        $checkQuery = $db->connect()->prepare('SELECT COUNT(*) as count FROM docentes WHERE dni = ?');
+        $checkQuery->bindValue(1, $dni, PDO::PARAM_STR);
+        $checkQuery->execute();
+        $countResult = $checkQuery->fetch(PDO::FETCH_ASSOC);
+        
+        if ($countResult['count'] > 0) {
+            return array('error' => true, 'message' => 'El DNI ya está registrado.');
         }
+
+        $query = $db->connect()->prepare('INSERT INTO docentes (dni, nombres, apellidos, rol, fecha_nacimiento, curso_id, genero) VALUES (?,?,?,?,?,?,?)');
+        $query->bindValue(1, $dni, PDO::PARAM_STR);
+        $query->bindValue(2, $nombres, PDO::PARAM_STR);
+        $query->bindValue(3, $apellidos, PDO::PARAM_STR);
+        $query->bindValue(4, $rol, PDO::PARAM_STR);
+        $query->bindValue(5, $fecha_nacimiento, PDO::PARAM_STR);
+        $query->bindValue(6, $curso_id, PDO::PARAM_STR);
+        $query->bindValue(7, $genero, PDO::PARAM_STR);
+        $query->execute();
+
+        return array('success' => true, 'message' => '🧑‍🏫 Docente agregado exitosamente');
+
+    } catch (Exception $e) {
+        http_response_code(500);
+        return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
     }
+}
+
 
 
     static function getById($id)
