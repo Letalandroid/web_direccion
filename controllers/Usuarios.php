@@ -27,6 +27,27 @@ class Usuarios
         }
     }
 
+    static function getWithIdDoc($docente_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare("select u.*, concat(d.nombres,' ',d.apellidos) as nombres_apellidos
+                                            from usuarios u
+                                            inner join docentes d
+                                            on (u.docente_id=d.docente_id)
+                                            where u.docente_id=?;");
+            $query->bindValue(1, $docente_id, \PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            error_log('Error in Usuarios::getAll(): ' . $e->getMessage());
+            return array('error' => true, 'message' => 'Error en el servidor. Por favor, inténtelo de nuevo más tarde.');
+        }
+    }
+
     static function getEliminar($apoderado_id)
     {
         try {

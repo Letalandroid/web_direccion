@@ -1,5 +1,9 @@
 <?php
 
+use Letalandroid\controllers\Usuarios;
+
+require_once __DIR__ . '/../../../controllers/Usuarios.php';
+
 session_start();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
@@ -7,7 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
 	exit();
 }
 
-$username = $_SESSION['username'];
+$getName = Usuarios::getWithIdDoc($_SESSION['docente_id'])[0]['nombres_apellidos'];
 
 ?>
 
@@ -39,8 +43,8 @@ $username = $_SESSION['username'];
         <div class="header">
             <img src="/views/director/assets/img/usuario.png" alt="Imagen de Persona" class="profile-img">
             <div class="user-info">
-                <h2>NOMBRES COMPLETOS</h2>
-                <p>Directora - Admin</p>
+                <h2><?= $getName ?></h2>
+                <p><?= $_SESSION['rol'] ?></p>
             </div>
         </div>
         <div class="cards">
