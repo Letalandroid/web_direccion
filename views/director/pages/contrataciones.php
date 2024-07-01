@@ -47,24 +47,26 @@ $cursos = Cursos::getAll();
                 <div class="row">
                     <div class="column">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni">
+                        <input type="text" id="dni" name="dni" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
                         <label for="fecha_nacimiento">FECHA DE NACIMIENTO:</label>
-                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="column">
                         <label for="nombres">NOMBRES:</label>
-                        <input type="text" id="nombres" name="nombres">
+                        <input type="text" id="nombres" name="nombres" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
                         <label for="cursos">CURSOS:</label>
-                        <select id="curso_id" name="curso_id">
-                            <option value="">Seleccionar cursos</option>
+                        <select id="curso_id" name="curso_id" required>
+                            <option value="" disabled selected>Seleccionar cursos</option>
                             <?php foreach ($cursos as $curso): ?>
-                                <option value="<?= htmlspecialchars($curso['id'] ?? '') ?>"><?= htmlspecialchars($curso['nombre'] ?? '') ?></option>
+                                <option value="<?= htmlspecialchars($curso['curso_id'] ?? '') ?>"><?= htmlspecialchars($curso['nombre'] ?? '') ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -72,12 +74,13 @@ $cursos = Cursos::getAll();
                 <div class="row">
                     <div class="column">
                         <label for="apellidos">APELLIDOS:</label>
-                        <input type="text" id="apellidos" name="apellidos">
+                        <input type="text" id="apellidos" name="apellidos" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="column">
-                        <label for="genero">GENERO:</label>
+                        <label for="genero" required>GENERO:</label>
                         <select id="genero" name="genero">
-                            <option value="">Seleccionar género</option>
+                            <option value="" disabled selected>Seleccionar género</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
                         </select>
@@ -87,7 +90,7 @@ $cursos = Cursos::getAll();
                     <div class="column">
                         <label for="rol">ROL:</label>
                         <select id="rol" name="rol">
-                            <option value="">Seleccionar rol</option>
+                            <option value="" disabled selected>Seleccionar rol</option>
                             <option value="Administrador">Administrador</option>
                             <option value="Docente">Docente</option>
                         </select>
@@ -142,27 +145,34 @@ $cursos = Cursos::getAll();
         document.getElementById('addButton').addEventListener('click', addDocente);
 
         async function addDocente() {
-            const dni = document.getElementById('dni').value.trim();
-            const nombres = document.getElementById('nombres').value.trim();
-            const apellidos = document.getElementById('apellidos').value.trim();
+            const dni = document.getElementById('dni').value;
+            const nombres = document.getElementById('nombres').value;
+            const apellidos = document.getElementById('apellidos').value;
             const rol = document.getElementById('rol').value;
             const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
             const curso_id = document.getElementById('curso_id').value;
             const genero = document.getElementById('genero').value;
+            console.log(dni,
+                        nombres,
+                        apellidos,
+                        rol,
+                        fecha_nacimiento,
+                        curso_id,
+                        genero);
 
-            if (!dni || !nombres || !apellidos || !rol || !fecha_nacimiento || !curso_id || !genero) {
+            if (dni == '' || nombres == '' || apellidos == '') {
                 alert('Por favor, complete todos los campos.');
                 return;
             }
 
             try {
-                const response = await fetch('/controllers/actions/docente/actionsDocente.php', {
+                const response = await fetch('/controllers/actions/director/actionsDocente.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     body: new URLSearchParams({
-                        action: 'create',
+                        createDocente: 'true',
                         dni,
                         nombres,
                         apellidos,
@@ -179,7 +189,9 @@ $cursos = Cursos::getAll();
                     location.reload();
                 } else {
                     alert('Error al añadir docente: ' + result.message);
+                    console.error(result);
                 }
+            
             } catch (error) {
                 console.error('Error de conexión', error);
                 alert('Error de conexión');
@@ -188,7 +200,7 @@ $cursos = Cursos::getAll();
 
         async function editDocente(docenteId) {
             try {
-                const response = await fetch('/controllers/actions/docente/actionsDocente.php', {
+                const response = await fetch('/controllers/actions/director/actionsDocente.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'

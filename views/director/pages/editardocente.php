@@ -72,19 +72,22 @@ if (isset($_GET['id'])) {
                 <div class="form__contrataciones">
                     <div class="form-group">
                         <label for="curso_id">Curso ID:</label>
-                        <input type="number" id="curso_id" name="curso_id" value="<?= htmlspecialchars($docente['curso_id']) ?>" required>
+                        <input type="number" id="curso_id" name="curso_id" value="<?= htmlspecialchars($docente['curso_id']) ?>">
                     </div>
                     <div class="form-group">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($docente['dni']) ?>" required>
+                        <input type="text" id="dni" name="dni" value="<?= htmlspecialchars($docente['dni']) ?>" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="nombres">Nombres:</label>
-                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($docente['nombres']) ?>" required>
+                        <input type="text" id="nombres" name="nombres" value="<?= htmlspecialchars($docente['nombres']) ?>" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="apellidos">Apellidos:</label>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($docente['apellidos']) ?>" required>
+                        <input type="text" id="apellidos" name="apellidos" value="<?= htmlspecialchars($docente['apellidos']) ?>" onkeydown="return soloLetras(event)" maxlength="50" required>
+                        <script src="/views/director/js/home.js"></script>
                     </div>
                     <div class="form-group">
                         <label for="genero">Género:</label>

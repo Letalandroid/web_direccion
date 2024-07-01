@@ -126,9 +126,9 @@ class Apoderado
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,
-                                            ap.nombres,ap.apellidos,
-                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad
+            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,ap.apoderado_id,
+                                            CONCAT(ap.nombres, ' ', ap.apellidos) AS nombres_apellidos,
+                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad,ap.telefono,ap.correo
                                             from alumnos a
                                             right join apoderados ap
                                             on (a.apoderado_id=ap.apoderado_id)
@@ -148,9 +148,9 @@ class Apoderado
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,
+            $query = $db->connect()->prepare("select a.alumno_id, ap.dni,a.apoderado_id,
                                             concat(ap.nombres,' ',ap.apellidos) as    nombres_apellidos,
-                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad
+                                            ap.fecha_nacimiento, ap.genero, ap.nacionalidad, ap.telefono,ap.correo
                                             from alumnos a
                                             right join apoderados ap
                                             on (a.apoderado_id=ap.apoderado_id)

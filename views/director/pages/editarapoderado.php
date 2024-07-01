@@ -1,12 +1,8 @@
 <?php
 
-use Letalandroid\controllers\Alumnos;
 use Letalandroid\controllers\Apoderado;
-use Letalandroid\controllers\Cursos;
 
-require_once __DIR__ . '/../../../controllers/Alumnos.php';
 require_once __DIR__ . '/../../../controllers/Apoderado.php';
-require_once __DIR__ . '/../../../controllers/Cursos.php';
 
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
@@ -14,6 +10,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
     exit();
 }
 
+$apoderados_con = Apoderado::getAllCon();
+$apoderados_reverse = Apoderado::getAllReverse();
+$apoderados_sin = Apoderado::getAllSinAlumn();
 
 if (isset($_GET['id'])) {
     $alumno_id = $_GET['id'];
@@ -54,7 +53,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/views/director/css/header.css" />
-    <link rel="stylesheet" href="/views/director/css/editaralumnos.css">
+    <link rel="stylesheet" href="/views/director/css/apoderado.css">
     <link rel="shortcut icon" href="/views/director/assets/img/logo_transparent.png" type="image/x-icon" />
     <script defer src="/views/director/js/header.js"></script>
     <script defer>
@@ -63,13 +62,13 @@ if (isset($_GET['id'])) {
         });
     </script>
     <script src="https://kit.fontawesome.com/8b1c082df7.js" crossorigin="anonymous"></script>
-    <title>I.E.P Los Clavelitos de SJT - Piura | Alumnos</title>
+    <title>I.E.P Los Clavelitos de SJT - Piura | Apoderados</title>
 </head>
 
 <body>
     <?php require_once __DIR__ . '/../components/header.php' ?>
     <main>
-        <?php show_nav('Alumnos'); ?>
+        <?php show_nav('Apoderados'); ?>
         <div class="container">
             <h1>Editar Datos de Alumno</h1>
             <?php if (isset($error_message)): ?>
@@ -104,25 +103,17 @@ if (isset($_GET['id'])) {
                         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?= htmlspecialchars($alumnos['fecha_nacimiento']) ?>" required>
                     </div>
                     <div class="form-group">
-                        <label for="aula_id">Aula ID:</label>
-                        <input type="number" id="aula_id" name="aula_id" value="<?= htmlspecialchars($alumnos['aula_id']) ?>" required>
+                        <label for="aula_id">Telefono:</label>
+                        <input type="number" id="telefono" name="telefono" value="<?= htmlspecialchars($alumnos['telefono']) ?>" minlength="9" maxlength="9" required>
                     </div>
                     <div class="form-group">
-                        <label for="grado">Grado:</label>
-                        <input type="text" id="grado" name="grado" value="<?= htmlspecialchars($alumnos['grado']) ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="seccion">Sección:</label>
-                        <input type="text" id="seccion" name="seccion" value="<?= htmlspecialchars($alumnos['seccion']) ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nivel">Nivel:</label>
-                        <input type="text" id="nivel" name="nivel" value="<?= htmlspecialchars($alumnos['nivel']) ?>" required>
+                        <label for="grado">Correo:</label>
+                        <input type="text" id="correo" name="correo" value="<?= htmlspecialchars($alumnos['correo']) ?>" maxlength="100" required>
                     </div>
                 </div>
                 <div class="form-buttons">
                     <input type="submit" name="update" class="btn agregar" value="Actualizar">
-                    <button type="button" class="btn limpiar" onclick="window.location.href='/views/director/pages/alumnos.php'">Cancelar</button>
+                    <button type="button" class="btn limpiar" onclick="window.location.href='/views/director/pages/apoderados.php'">Cancelar</button>
                 </div>
             </form>
         </div>

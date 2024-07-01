@@ -45,7 +45,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             <div class="search__apoderado">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_apoderado" type="text" placeholder="<?= $apoderados_reverse[0]['nombres_apellidos'] ?>">
+                    <input id="search_apoderado" type="text" placeholder="<?= $apoderados_reverse[0]['nombres_apellidos'] ?>" maxlength="100">
                     <button onclick="buscarApoderado()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
@@ -58,11 +58,13 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text">
+                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text">
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Género: </label>
@@ -76,15 +78,16 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <div class="right">
                         <div>
                             <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Nacionalidad:</label>
-                            <input id="nacionalidad" class="send_data" type="text">
+                            <input id="nacionalidad" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
-                            <input id="fecha_nacimiento" class="send_data" type="date">
+                            <input id="fecha_nacimiento" class="send_data" type="date" required>
                         </div>
                     </div>
                 </div>
@@ -99,12 +102,11 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <table>
                         <thead>
                             <th>DNI</th>
-                            <th>NOMBRES</th>
-                            <th>APELLIDOS</th>
+                            <th>NOMBRES Y APODERDADO</th>
                             <th>GENERO</th>
-                            <th>NACIONALIDAD</th>
-                            <th>FECHA DE NACIMIENTO</th>
-                            <th>ALUMNOS</th>
+                            <th>FECHA.NACIM</th>
+                            <th>TELEF</th>
+                            <th>CORREO</th>
                             <th>EDITAR</th>
                             <th>ELIMINAR</th>
                         </thead>
@@ -114,12 +116,13 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                                     <td><?= $apoderado['dni'] ?></td>
                                     <td><?= $apoderado['nombres_apellidos'] ?></td>
                                     <td><?= $apoderado['genero'] ?></td>
-                                    <td><?= $apoderado['nacionalidad'] ?></td>
                                     <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
                                     <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
-                                    <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $apoderado_id['apoderado_id'] ?>'"><i class="fa fa-edit"></button></td>                         
-                                     <td><a href="/views/director/pages/alumnos.php?id=<?php echo $apoderado_id['apoderado_id'] ?>" class="btn btn-danger">X</a></td>
-                                </tr>
+                                    <td><?= $apoderado['telefono'] ?></td>
+                                    <td><?= $apoderado['correo'] ?></td>
+                                    <td><a class="edit-button" href='/views/director/pages/editaralumnos.php?id=<?= $apoderado['apoderado_id'] ?>'"><i class="fa fa-edit"></a></td>                         
+                                    <td><button class="delete-button" onclick="eliminarAlumno(<?= $alumno['alumno_id'] ?>)"><i class="fa fa-trash"></i></button></td>                 
+                                    </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -136,12 +139,12 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             <table id="apoderadosTable">
                 <thead>
                             <th>DNI</th>
-                            <th>NOMBRES</th>
-                            <th>APELLIDOS</th>
+                            <th>NOMBRES Y APELLIDOS</th>
                             <th>GENERO</th>
-                            <th>NACIONALIDAD</th>
-                            <th>FECHA DE NACIMIENTO</th>
-                            <th>ALUMNOS</th>
+                            <th>FECHA.NACIM</th>
+                            <th>TELEF</th>
+                            <th>CORREO</th>
+                            <th>ALUM</th>
                             <th>EDITAR</th>
                             <th>ELIMINAR</th>
                 </thead>
@@ -149,12 +152,15 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     <?php foreach ($apoderados_con as $apoderado) { ?>
                         <tr>
                             <td><?= $apoderado['dni'] ?></td>
-                            <td><?= $apoderado['nombres'] ?></td>
-                            <td><?= $apoderado['apellidos'] ?></td>
+                            <td><?= $apoderado['nombres_apellidos'] ?></td>
                             <td><?= $apoderado['genero'] ?></td>
-                            <td><?= $apoderado['nacionalidad'] ?></td>
                             <?php $d_apoderado = explode('-', date("d-m-Y", strtotime($apoderado['fecha_nacimiento']))); ?>
                             <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
+                            <td><?= $apoderado['telefono'] ?></td>
+                            <td><?= $apoderado['correo'] ?></td>
+                            <td><button class="ver-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $apoderado_id['apoderado_id'] ?>'"><i class="fa fa-eye icon"></button></td>
+                            <td><a class="edit-button" href='/views/director/pages/editaralumnos.php?id=<?= $apoderado['apoderado_id'] ?>'"><i class="fa fa-edit"></a></td>                         
+                            <td><button class="delete-button" onclick="eliminarAlumno(<?= $alumno['alumno_id'] ?>)"><i class="fa fa-trash"></i></button></td>                                                 
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -184,8 +190,10 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                         <td>${apoderado.dni}</td>
                         <td>${apoderado.nombres_apellidos}</td>
                         <td>${apoderado.genero}</td>
-                        <td>${apoderado.nacionalidad}</td>
                         <td>${apoderado.fecha_nacimiento}</td>
+                        <td>${apoderado.telefono}</td>
+                        <td>${apoderado.correo}</td>
+
                     `;
                 });
             } else {

@@ -211,6 +211,7 @@ main {
         border: 1px solid #fff;
         border-collapse: collapse;
         padding: 5px 0;
+        align-items: center;
     }
 
     .botones{
@@ -218,3 +219,29 @@ main {
         margin: 5px;
     }
 }
+.ver-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #00af1d;
+    color: #fff;
+    cursor: pointer;
+}
+.edit-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.delete-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff1f1f;
+    color: #fff;
+    cursor: pointer;
+}
+

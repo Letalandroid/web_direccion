@@ -216,3 +216,41 @@
             
         }
     }
+    
+
+    table,
+    th{
+        border-collapse: collapse;
+        color: #000;
+        padding: 5px 0;
+        border-top: 1px solid rgb(255, 255, 255);
+        border-bottom: 1px solid rgb(0, 0, 0);
+        border-left: 2px solid rgb(255, 255, 255);
+        border-right: 1px solid rgb(255, 255, 255)  
+        
+    }
+    td {
+        border: 1px solid #ffffff;
+        border-collapse: collapse;
+        padding: 5px 0;
+        
+    }
+
+.edit-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.delete-button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ff1f1f;
+    color: #fff;
+    cursor: pointer;
+}
+
