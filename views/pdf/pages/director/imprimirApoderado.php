@@ -12,16 +12,16 @@ class PDF extends FPDF {
         $this->Image('icon.png', 250, 4, 30); // Logo de la empresa, posición X, posición Y, tamaño de la imagen
         $this->SetFont('Arial', 'B', 12);
         $this->Cell(60); // Mover a la derecha
-        $this->Cell(120, 20, utf8_decode('REPORTE  DE APODERADOS'), 0, 0, 'C');
+        $this->Cell(120, 20, mb_convert_encoding('REPORTE DE APODERADOS', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
         $this->Ln(30);
         $this->SetFont('Arial', 'B', 9);
-        $this->Cell(20, 10, utf8_decode('DNI'), 1, 0, 'C');
-        $this->Cell(60, 10, utf8_decode('Nombre Apoderado'), 1, 0, 'C');
-        $this->Cell(25, 10, utf8_decode('Nacionalidad'), 1, 0, 'C');
-        $this->Cell(28, 10, utf8_decode('Teléfono'), 1, 0, 'C');
-        $this->Cell(50, 10, utf8_decode('Correo'), 1, 0, 'C'); // Ajustado el tamaño para adaptarse al contenido
-        $this->Cell(60, 10, utf8_decode('Nombre Alumno'), 1, 0, 'C');
-        $this->Cell(25, 10, utf8_decode('Aula'), 1, 0, 'C');
+        $this->Cell(20, 10, mb_convert_encoding('DNI', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(60, 10, mb_convert_encoding('Nombre Apoderado', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(25, 10, mb_convert_encoding('Nacionalidad', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(28, 10, mb_convert_encoding('Teléfono', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(50, 10, mb_convert_encoding('Correo', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C'); // Ajustado el tamaño para adaptarse al contenido
+        $this->Cell(60, 10, mb_convert_encoding('Nombre Alumno', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+        $this->Cell(25, 10, mb_convert_encoding('Aula', 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
         $this->Ln();
 
     }
@@ -50,13 +50,13 @@ $pdf->SetFont('Arial', '', 9);
 $pdf->SetY(50);
 
 foreach ($apoderado_alumnos as $row) {
-    $pdf->Cell(20, 10, utf8_decode($row['apoderado_dni']), 1, 0, 'C');
-    $pdf->Cell(60, 10, utf8_decode($row['apoderado_nombres'] . ' ' . $row['apoderado_apellidos']), 1, 0, 'C'); // Nombre completo apoderado
-    $pdf->Cell(25, 10, utf8_decode($row['apoderado_nacionalidad']),1, 0, 'C');
-    $pdf->Cell(28, 10, utf8_decode($row['apoderado_telefono']), 1, 0, 'C');
-    $pdf->Cell(50, 10, utf8_decode($row['apoderado_correo']), 1, 0, 'C');
-    $pdf->Cell(60, 10, utf8_decode($row['alumno_nombres'] . ' ' . $row['alumno_apellidos']), 1, 0, 'C'); // Nombre completo alumno
-    $pdf->Cell(25, 10, utf8_decode($row['grado_y_seccion']. ' ' .$row['nivel']),1, 0, 'C');
+    $pdf->Cell(20, 10, mb_convert_encoding($row['apoderado_dni'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(60, 10, mb_convert_encoding($row['apoderado_nombres'] . ' ' . $row['apoderado_apellidos'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C'); // Nombre completo apoderado
+    $pdf->Cell(25, 10, mb_convert_encoding($row['apoderado_nacionalidad'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(28, 10, mb_convert_encoding($row['apoderado_telefono'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(50, 10, mb_convert_encoding($row['apoderado_correo'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
+    $pdf->Cell(60, 10, mb_convert_encoding($row['alumno_nombres'] . ' ' . $row['alumno_apellidos'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C'); // Nombre completo alumno
+    $pdf->Cell(25, 10, mb_convert_encoding($row['grado_y_seccion'] . ' ' . $row['nivel'], 'ISO-8859-1', 'UTF-8'), 1, 0, 'C');
     $pdf->Ln();
 }
 
