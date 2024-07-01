@@ -72,6 +72,27 @@ class Notas
         }
     }
 
+    static function getAllFilter_Course($curso_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('select a.alumno_id,concat(a.apellidos," ",a.nombres) as nombres_apellidos,
+                                            n.* from notas n
+                                            inner join alumnos a
+                                            on (a.alumno_id=n.alumno_id)
+                                            where n.curso_id=?
+                                            group by a.dni;');
+            $query->bindValue(1, $curso_id, PDO::PARAM_INT);
+            $query->execute();
+
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
     static function getAll_Course($curso_id)
     {
         try {
