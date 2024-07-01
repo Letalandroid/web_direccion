@@ -81,31 +81,33 @@ class Alumnos
         }
     }
 
-    static function create($apoderado_dni, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento)
-    {
-        try {
-            $apoderado_id = Apoderado::getId($apoderado_dni)[0]['apoderado_id'];
-            $db = new Database();
-            $query = $db->connect()->prepare('insert into alumnos
-                                                (apoderado_id, dni, nombres, apellidos,
-                                                genero, fecha_nacimiento) values
-                                                (?,?,?,?,?,?);');
+    static function create($apoderado_dni, $dni, $nombres, $apellidos, $genero, $fecha_nacimiento, $aula_id)
+{
+    try {
+        $apoderado_id = Apoderado::getId($apoderado_dni)[0]['apoderado_id'];
+        $db = new Database();
+        $query = $db->connect()->prepare('INSERT INTO alumnos
+                                          (apoderado_id, dni, nombres, apellidos,
+                                           genero, fecha_nacimiento, aula_id) VALUES
+                                          (?,?,?,?,?,?,?);');
 
-            $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
-            $query->bindValue(2, $dni, PDO::PARAM_STR);
-            $query->bindValue(3, $nombres, PDO::PARAM_STR);
-            $query->bindValue(4, $apellidos, PDO::PARAM_STR);
-            $query->bindValue(5, $genero, PDO::PARAM_STR);
-            $query->bindValue(6, $fecha_nacimiento, PDO::PARAM_STR);
-            $query->execute();
+        $query->bindValue(1, $apoderado_id, PDO::PARAM_INT);
+        $query->bindValue(2, $dni, PDO::PARAM_STR);
+        $query->bindValue(3, $nombres, PDO::PARAM_STR);
+        $query->bindValue(4, $apellidos, PDO::PARAM_STR);
+        $query->bindValue(5, $genero, PDO::PARAM_STR);
+        $query->bindValue(6, $fecha_nacimiento, PDO::PARAM_STR);
+        $query->bindValue(7, $aula_id, PDO::PARAM_INT);
+        $query->execute();
 
-            return array('success' => true, 'message' => '🎅 Alumno agregado exitosamente');
+        return array('success' => true, 'message' => '🎅 Alumno agregado exitosamente');
 
-        } catch (PDOException $e) {
-            http_response_code(500);
-            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
-        }
+    } catch (PDOException $e) {
+        http_response_code(500);
+        return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
     }
+}
+
 
     public static function getById($id)
 {
