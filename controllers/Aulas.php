@@ -9,15 +9,15 @@ use Letalandroid\model\Database;
 use Exception;
 use PDO;
 
-class Cursos
+class Aulas
 {
 
-    static function getAll()
+    static function getGrado_Seccion()
     {
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare("select * from cursos");
+            $query = $db->connect()->prepare("SELECT * FROM aulas");
             $query->execute();
 
             $results = $query->fetchAll(PDO::FETCH_ASSOC);

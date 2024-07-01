@@ -26,20 +26,20 @@ if (isset($_POST['createAlumno'])) {
             exit();
         } else {
 
-            $alumno_id = Alumnos::getAllReverse()[0]['alumno_id'];
-            $cursos_array = explode(',', $cursos);
+           // $alumno_id = Alumnos::getAllReverse()[0]['alumno_id'];
+           // $cursos_array = explode(',', $cursos);
 
-            if (is_array($cursos_array)) {
-                foreach ($cursos_array as $curso_id) {
-                    $addCourses = Notas::create($curso_id, $alumno_id, 1, date("Y"), 0);
+           // if (is_array($cursos_array)) {
+            //    foreach ($cursos_array as $curso_id) {
+             //       $addCourses = Notas::create($curso_id, $alumno_id, 1, date("Y"), 0);
 
-                    if (isset($addCourses['error'])) {
-                        http_response_code(500);
-                        echo json_encode(array('error' => true, 'message' => 'Error al ejecutar la consulta', 'details' => $addCourses['message']));
-                        exit();
-                    }
-                }
-            }
+                //    if (isset($addCourses['error'])) {
+                 //       http_response_code(500);
+                //        echo json_encode(array('error' => true, 'message' => 'Error al ejecutar la consulta', 'details' => $addCourses['message']));
+                //       exit();
+                 //   }
+              //  }
+           // }
 
             http_response_code(200);
             echo json_encode(array('message' => 'Alumno agregado exitosamente'));
