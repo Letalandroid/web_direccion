@@ -20,25 +20,16 @@ if (isset($_POST['createDocente'])) {
         $curso_id = $_POST['curso_id'];
         $genero = $_POST['genero'];
        
-        $cursos = explode(',', $cursos_string);
-
-        $resultados = [];
-
-        if (is_array($cursos)) {
-            foreach ($cursos as $curso_id) {
+         
                 $add = Docente::create((int) $curso_id, $dni, $nombres, $apellidos, $genero, $rol, $fecha_nacimiento);
 
-                if (!isset($add['error'])) {
-                    array_push($resultados, 1);
-                } else {
-                    array_push($resultados, 0);
-                }
-            }
-        }
+                
+            
+        
 
-        if (array_filter($resultados) == 0 || empty($resultados)) {
+                if (isset($add['error'])) {
             http_response_code(500);
-            echo json_encode('Error al ejecutar la consulta');
+            echo json_encode(['Error al ejecutar la consulta',$add['message']]);
             exit();
         } else {
 

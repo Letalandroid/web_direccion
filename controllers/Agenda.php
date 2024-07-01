@@ -10,7 +10,7 @@ use PDO;
 use PDOException;
 
 class Agenda
-{
+{   
     static function getAll()
     {
         try {
@@ -61,6 +61,9 @@ class Agenda
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
         }
     }
+
+    
+
     //Actualizar
     public static function getById($evento_id)
     {
@@ -112,17 +115,16 @@ class Agenda
 
     
     //
-    static function create($curso_id, $descripcion, $fecha_evento)
+    static function create($curso_id, $descripcion, $fecha_evento, $aula_id)
     {
         try {
             $db = new Database();
-            $query = $db->connect()->prepare('insert into actividad
-                                                (curso_id, descripcion, fecha_evento)
-                                                values (?,?,?);');
+            $query = $db->connect()->prepare('INSERT INTO actividad (curso_id, descripcion, fecha_evento, aula_id) VALUES (?,?,?,?);');
 
             $query->bindValue(1, $curso_id, PDO::PARAM_INT);
             $query->bindValue(2, $descripcion, PDO::PARAM_STR);
             $query->bindValue(3, $fecha_evento, PDO::PARAM_STR);
+            $query->bindValue(4, $aula_id, PDO::PARAM_INT);
             $query->execute();
 
             return array('success' => true, 'message' => '📅 Actividad agregado exitosamente');
@@ -132,6 +134,20 @@ class Agenda
             return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
         }
     }
-    
 
+    public static function getAulaIdByDocenteId($docente_id)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare('SELECT aula_id FROM docentes WHERE docente_id = ?');
+            $query->bindValue(1, $docente_id, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+
+            return $result ? $result['aula_id'] : null;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e->getMessage());
+    }
+}
 }

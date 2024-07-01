@@ -53,11 +53,11 @@ $all_descripcion = Conducta::getByBimestre($alumno_id, '2024-06-25');
                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                         <a class="link__menu" href="/apoderado/agenda">Agenda</a>
                     </li>
-                    <li class="selected__page">
+                    <li>
                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                         <a class="link__menu" href="/apoderado/notas">Notas</a>
                     </li>
-                    <li>
+                    <li class="selected__page">
                         <i class="fas fa-chevron-right" aria-hidden="true"></i>
                         <a class="link__menu" href="/apoderado/conducta">Conducta</a>
                     </li>
@@ -69,109 +69,109 @@ $all_descripcion = Conducta::getByBimestre($alumno_id, '2024-06-25');
             </a>
         </div>
         <div class="container__general"> <!-- Nuevo contenedor general -->
-        <div class="container__section">
-            <h2>CONDUCTA</h2>
-            <div class="container__conductas">
-                <div class="section_conductas_bimestre1 sec_1">
-                    <div class="conductas_contain">
-                        <div>
-                            <h3>I Bimestre</h3>
+            <div class="container__section">
+                <h2>CONDUCTA</h2>
+                <div class="container__conductas">
+                    <div class="section_conductas_bimestre1 sec_1">
+                        <div class="conductas_contain">
+                            <div>
+                                <h3>I Bimestre</h3>
+                            </div>
+                            <div>
+                                <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
+                                    <?= $all_descripcion[0]['calificacion'] ?>
+                                </span>
+                            </div>
+                            <button id="btn_1" onclick="btnActivate(1)" class="toggle-button">
+                                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                            </button>
                         </div>
-                        <div>
-                            <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
-                                <?= $all_descripcion[0]['calificacion'] ?>
-                            </span>
-                        </div>
-                        <button id="btn_1" onclick="btnActivate(1)" class="toggle-button">
-                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="notas__bim n__1">
-                        <div>
-                            <h3>Comentario:</h3>
-                            <div class="descripcion"><span><?= $all_descripcion[0]['descripcion'] ?></span>
+                        <div class="notas__bim n__1">
+                            <div>
+                                <h3>Comentario:</h3>
+                                <div class="descripcion"><span><?= $all_descripcion[0]['descripcion'] ?></span>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <?php if (sizeof($all_descripcion) >= 2) { ?>
+                        <div class="section_conductas_bimestre1 sec_2">
+                            <div class="conductas_contain">
+                                <div>
+                                    <h3>II Bimestre</h3>
+                                </div>
+                                <div>
+                                    <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
+                                        <?= $all_descripcion[1]['calificacion'] ?>
+                                    </span>
+                                </div>
+                                <button id="btn_2" onclick="btnActivate(2)" class="toggle-button">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="notas__bim n__2">
+                                <div>
+                                    <h3>Comentario:</h3>
+                                    <div class="descripcion"><span><?= $all_descripcion[1]['descripcion'] ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (sizeof($all_descripcion) >= 3) { ?>
+                        <div class="section_conductas_bimestre1 sec_3">
+                            <div class="conductas_contain">
+                                <div>
+                                    <h3>III Bimestre</h3>
+                                </div>
+                                <div>
+                                    <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
+                                        <?= $all_descripcion[2]['calificacion'] ?>
+                                    </span>
+                                </div>
+                                <button id="btn_3" onclick="btnActivate(3)" class="toggle-button">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="notas__bim n__3">
+                                <div>
+                                    <h3>Comentario:</h3>
+                                    <div class="descripcion"><span><?= $all_descripcion[2]['descripcion'] ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (sizeof($all_descripcion) >= 4) { ?>
+                        <div class="section_conductas_bimestre1 sec_4">
+                            <div class="conductas_contain">
+                                <div>
+                                    <h3>IV Bimestre</h3>
+                                </div>
+                                <div>
+                                    <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
+                                        <?= $all_descripcion[3]['calificacion'] ?>
+                                    </span>
+                                </div>
+                                <button id="btn_4" onclick="btnActivate(4)" class="toggle-button">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="notas__bim n__4">
+                                <div>
+                                    <h3>Comentario:</h3>
+                                    <div class="descripcion"><span><?= $all_descripcion[3]['descripcion'] ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
 
-                <?php if (sizeof($all_descripcion) >= 2) { ?>
-                <div class="section_conductas_bimestre1 sec_2">
-                    <div class="conductas_contain">
-                        <div>
-                            <h3>II Bimestre</h3>
-                        </div>
-                        <div>
-                            <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
-                                <?= $all_descripcion[1]['calificacion'] ?>
-                            </span>
-                        </div>
-                        <button id="btn_2" onclick="btnActivate(2)" class="toggle-button">
-                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="notas__bim n__2">
-                        <div>
-                            <h3>Comentario:</h3>
-                            <div class="descripcion"><span><?= $all_descripcion[1]['descripcion'] ?></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
-
-                <?php if (sizeof($all_descripcion) >= 3) { ?>
-                <div class="section_conductas_bimestre1 sec_3">
-                    <div class="conductas_contain">
-                        <div>
-                            <h3>III Bimestre</h3>
-                        </div>
-                        <div>
-                            <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
-                                <?= $all_descripcion[2]['calificacion'] ?>
-                            </span>
-                        </div>
-                        <button id="btn_3" onclick="btnActivate(3)" class="toggle-button">
-                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="notas__bim n__3">
-                        <div>
-                            <h3>Comentario:</h3>
-                            <div class="descripcion"><span><?= $all_descripcion[2]['descripcion'] ?></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
-
-                <?php if (sizeof($all_descripcion) >= 4) { ?>
-                <div class="section_conductas_bimestre1 sec_4">
-                    <div class="conductas_contain">
-                        <div>
-                            <h3>IV Bimestre</h3>
-                        </div>
-                        <div>
-                            <p>Promedio:</p><span style="background-color: #ff8d00; color: #000;">
-                                <?= $all_descripcion[3]['calificacion'] ?>
-                            </span>
-                        </div>
-                        <button id="btn_4" onclick="btnActivate(4)" class="toggle-button">
-                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                    <div class="notas__bim n__4">
-                        <div>
-                            <h3>Comentario:</h3>
-                            <div class="descripcion"><span><?= $all_descripcion[3]['descripcion'] ?></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
             </div>
-
-        </div>
         </div>
     </main>
 </body>

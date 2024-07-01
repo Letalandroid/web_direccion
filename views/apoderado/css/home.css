@@ -163,7 +163,7 @@ main {
 
 .container__proxeventos {
     width: 380px;
-    height: 150px;
+    height: 130px;
     box-sizing: border-box;
     padding: 1px;
     background-color: #ffffff;
@@ -172,7 +172,6 @@ main {
     border: 2px solid #a2a2a2;
     box-sizing: border-box;
     position: relative;
-    
     bottom: -45px;
     left: 200px;
 
@@ -189,46 +188,45 @@ main {
             }
         }
     }
-    h3 {
+    h4 {
         text-align: right;
         position: relative;
         font-family: 'Segoe UI Black', sans-serif;
         color: #000;
-        top: 4px;
-        left: -280px;
+        top: 2px;
+        left: -270px;
         
 
     }
-    p {
+    h5 {
         text-align:left;
         position: relative;
         color: #000;
-        top: -16px;
+        top: -18px;
         left: 120px;
     }
 }
 
 .container_conducta {
-    width: 580px;
-    height: 100px;
+    width: 540px;
+    height: 101px;
     box-sizing: border-box;
-    padding: 1px;
+    padding: 10px;
     background-color: #ffffff;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
     border-radius: 20px;
     border: 2px solid #a2a2a2;
     box-sizing: border-box;
     position: relative;
-    
     bottom: -65px;
     left: 100px;
-
+    overflow-y: auto;
     h2 {
         width: 100%;
         text-align:left;
         position: relative;
-        top: 3px;
-        left: 13px;
+        top: -4px;
+        left: 2px;
 
         a {
             font-family: 'Segoe UI Black', sans-serif;
@@ -240,12 +238,14 @@ main {
             }
         }
     }
-    p {
-        text-align:left;
+    h3 {
+        text-align:justify;
         position: relative;
         color: #000;
-        top: 5px;
+        top: 10px;
         left: 20px;
+        max-width:540px;
+         max-height:20px;
     }
 }
 
@@ -340,8 +340,9 @@ div:nth-child(1) {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px 10px;
+    padding: 15px 20px;
     gap: 5px;
+    background-color: #39E379 ;
 
     i {
         font-size: 24px;
@@ -356,8 +357,8 @@ div:nth-child(2) {
     border-top: 1px solid #000;
     padding: 10px;
     font-weight: bold;
-    color: #fff;
-    background-color: #39E379;
+    color: #ffffff;
+    background-color: #e33939 
 }
 
 }

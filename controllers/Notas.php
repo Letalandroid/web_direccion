@@ -98,7 +98,7 @@ class Notas
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare('select c.curso_id, c.nombre
+            $query = $db->connect()->prepare('select c.curso_id, c.nombre, n.*
                                             from notas n
                                             inner join cursos c
                                             on (c.curso_id=n.curso_id)
@@ -154,4 +154,29 @@ class Notas
             exit();
         }
     }
+    
+    static function getAverageByStudent($alumno_id)
+    {
+        try {
+            $db = new Database();
+
+            $query = $db->connect()->prepare('
+                SELECT c.curso_id, c.nombre, AVG(n.valor) as promedio
+                FROM notas n
+                INNER JOIN cursos c ON n.curso_id = c.curso_id
+                WHERE n.alumno_id = ?
+                GROUP BY c.curso_id, c.nombre
+            ');
+            $query->bindValue(1, $alumno_id, PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            http_response_code(500);
+            return array('error' => true, 'message' => 'Error en el servidor: ' . $e);
+        }
+    }
+
 }
+

@@ -50,7 +50,7 @@ $cursos = Cursos::getAll();
             <div class="search__alumno">
                 <label>Buscar:</label>
                 <div>
-                    <input id="search_alumno" type="text" placeholder="Pedrito">
+                    <input id="search_alumno" type="text" placeholder="Pedrito" maxlength="100" >
                     <button onclick="buscarAlumno()">Buscar</button>
                     <button onclick="showAdd()">
                         <i class="fa fa-plus"></i>
@@ -63,15 +63,18 @@ $cursos = Cursos::getAll();
                     <div class="left">
                         <div>
                             <label>Nombres: </label>
-                            <input id="nombres" class="send_data" type="text">
+                            <input id="nombres" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>DNI: </label>
-                            <input id="dni" class="send_data" type="text">
+                            <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" maxlength="8" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
                             <label>Género: </label>
                             <select id="genero">
+                                <option value="" disabled selected>Seleccionar género</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Femenino">Femenino</option>
                                 <option value="Prefiero no decirlo">Prefiero no decirlo</option>
@@ -79,7 +82,7 @@ $cursos = Cursos::getAll();
                         </div>
                         <div>
                             <label>Apoderado</label>
-                            <input list="apoderados" id="apoderado">
+                            <input list="apoderados" id="apoderado" required>
                             <datalist id="apoderados">
                                 <?php foreach ($apoderados as $apoderado) { ?>
                                     <option value="<?= $apoderado['dni'] . ' - ' . $apoderado['nombres_apellidos'] ?>">
@@ -91,18 +94,19 @@ $cursos = Cursos::getAll();
                     <div class="right">
                         <div>
                             <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text">
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
                         </div>
-                        <div>
-                            <label>Cursos:</label>
-                            <div class="cursos__container">
+                        <div class="cursos__container"> 
+                            <label>Curso:</label>
+                            <select id="curso">
+                                <option value="">Seleccionar Curso</option>
                                 <?php foreach ($cursos as $curso) { ?>
-                                    <div>
-                                        <input class="cursos_docente" name="<?= $curso['nombre'] ?>" value="<?= $curso['curso_id'] ?>" type="checkbox">
-                                        <label><?= $curso['nombre'] ?></label>
-                                    </div>
+                                <option class="cursos_docente" value="<?= $curso['curso_id'] ?>">
+                                <label><?= $curso['nombre'] ?></label>
+                                </option>
                                 <?php } ?>
-                            </div>
+                            </select>
                         </div>
                         <div>
                             <label>Fecha Nacimiento: </label>
@@ -118,6 +122,8 @@ $cursos = Cursos::getAll();
                     <th>NOMBRES Y APELLIDOS</th>
                     <th>GENERO</th>
                     <th>FECHA DE NACIMIENTO</th>
+                    <th>GRADO Y SECCION</th>
+                    <th>NIVEL</th>
                     <th>EDITAR</th>
                     <th>ELIMINAR</th>
                 </thead>
@@ -127,12 +133,14 @@ $cursos = Cursos::getAll();
                         <td><?= $alumno['nombres_apellidos'] ?></td>
                         <td><?= $alumno['genero'] ?></td>
                         <?php $d_alumno = explode('-', date("d-m-Y", strtotime($alumno['fecha_nacimiento']))); ?>
-                        <td><?= "$d_alumno[0] de $d_alumno[1] del $d_alumno[2]" ?></td>
-                        <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $alumno['dni'] ?>'"><i class="fa fa-edit"></button></td>                         
-                            <td><a href="/views/director/pages/alumnos.php?id=<?php echo $alumno['alumno_id'] ?>" class="btn btn-danger">X</a></td>
+                        <td><?= "$d_alumno[0] de $d_alumno[1] del $d_alumno[2]" ?></td> 
+                        <td><?= $alumno['grado_seccion'] ?></td>
+                        <td><?= $alumno['nivel'] ?></td>
+                        <td><button class="edit-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $alumno['alumno_id'] ?>'"><i class="fa fa-edit"></button></td>                         
+                        <td><button class="delete-button" onclick="eliminarAlumno(<?= $alumno['alumno_id'] ?>)"><i class="fa fa-trash"></i></button></td>                 
                     </tr>
                 <?php } ?>
-            </table>
+            </table>    
         </div>
     </main>
     <script>
@@ -155,6 +163,7 @@ $cursos = Cursos::getAll();
                 <td>${alumno.genero}</td>
                 <td>${alumno.nacionalidad}</td>
                 <td>${alumno.fecha_nacimiento}</td>
+                <td>${alumno.aula_id}</td>
             `;
                 });
             } else {
@@ -205,6 +214,7 @@ $cursos = Cursos::getAll();
                 const dni = document.querySelector('#dni').value;
                 const genero = document.querySelector('#genero').value;
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
+                const grado = document.querySelector('#aula_id').value;
 
                 const cursosSeleccionados = [];
                 document.querySelectorAll('.cursos_docente').forEach((curso) => {
@@ -246,13 +256,33 @@ $cursos = Cursos::getAll();
             });
         }
 
-        const limpiarBusqueda = () => {
-            document.getElementById('search_alumno').value = '';
-            const rows = document.querySelectorAll('#alumnosTable tbody tr');
-            rows.forEach(row => {
-                row.style.display = '';
-            });
-        }
+
+        // Eliminar
+        const eliminarAlumno = (alumno_id) => {
+    console.log(`Intentando eliminar el alumno con ID: ${alumno_id}`); 
+    if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/controllers/actions/director/actionsAlumno.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Estado del servidor: ', xhr.status); // Registro de depuración
+            console.log('Respuesta del servidor: ', xhr.response); // Registro de depuración
+            if (xhr.status === 200) {
+                alert('Alumno eliminado exitosamente');
+                location.reload(); // Recargar la página para ver los cambios
+            } else {
+                alert('Error al eliminar al alumno');
+                console.error(xhr.response);
+            }
+        };
+        xhr.onerror = function() {
+            alert('Error de conexión');
+            console.error('Error de conexión');
+        };
+        xhr.send(`deleteAlumno=true&alumno_id=${alumno_id}`);
+    }
+}
+        
     </script>
 </body>
 
