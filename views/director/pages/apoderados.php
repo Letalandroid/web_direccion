@@ -96,6 +96,12 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 <button onclick="limpiarBusqueda()" class="btn btn-orange">Limpiar</button>
                 </div>
             </div>
+
+            <div class="container_Boton">
+    <button onclick="window.open('/views/pdf/pages/director/imprimirApoderado.php', '_blank')">
+        <i class="fas fa-file-pdf"></i> Generar PDF</button>
+</div>
+
             <?php if (!empty($apoderados_sin)) { ?>
                 <div class="apo_null_container">
                     <h2>Apoderados sin hijos asignados</h2>
@@ -128,12 +134,6 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     </table>
                     
                 </div>
-
-                <div class="container_Boton">
-    <button onclick="window.open('/views/pdf/pages/director/imprimirApoderado.php', '_blank')">
-        <i class="fas fa-file-pdf"></i> Generar PDF
-    </button>
-</div>
             <?php } ?>
 
             <table id="apoderadosTable">
