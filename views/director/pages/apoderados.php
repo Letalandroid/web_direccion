@@ -12,6 +12,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rol'] != 'Director') {
 $apoderados_con = Apoderado::getAllCon();
 $apoderados_reverse = Apoderado::getAllReverse();
 $apoderados_sin = Apoderado::getAllSinAlumn();
+$apoderados = Apoderado::getAll();
+$apoderados_hijos = Apoderado::getAllhijos();
 
 ?>
 
@@ -62,6 +64,11 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                             <script src="/views/director/js/home.js"></script>
                         </div>
                         <div>
+                            <label>Apellidos: </label>
+                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
+                            <script src="/views/director/js/home.js"></script>
+                        </div>
+                        <div>
                             <label>DNI: </label>
                             <input id="dni" class="send_data" type="text" onkeydown="return soloNumeros(event)" minlength="8" maxlength="8" required>
                             <script src="/views/director/js/home.js"></script>
@@ -77,11 +84,6 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                     </div>
                     <div class="right">
                         <div>
-                            <label>Apellidos: </label>
-                            <input id="apellidos" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="50" required>
-                            <script src="/views/director/js/home.js"></script>
-                        </div>
-                        <div>
                             <label>Nacionalidad:</label>
                             <input id="nacionalidad" class="send_data" type="text" onkeydown="return soloLetras(event)" maxlength="20" required>
                         </div>
@@ -89,11 +91,18 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                             <label>Fecha Nacimiento: </label>
                             <input id="fecha_nacimiento" class="send_data" type="date" required>
                         </div>
+                        <div>
+                            <label>Telefono: </label>
+                            <input id="telefono" class="send_data" type="text" required>
+                        </div>
+                        <div>
+                            <label>Correo: </label>
+                            <input id="correo" class="send_data" type="text" required>
+                        </div>
                     </div>
                 </div>
                 <div class="botones">
                 <button onclick="addApoderado()">Agregar</button>
-                <button onclick="limpiarBusqueda()" class="btn btn-orange">Limpiar</button>
                 </div>
             </div>
 
@@ -126,8 +135,9 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                                     <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
                                     <td><?= $apoderado['telefono'] ?></td>
                                     <td><?= $apoderado['correo'] ?></td>
-                                    <td><a class="edit-button" href='/views/director/pages/editaralumnos.php?id=<?= $apoderado['apoderado_id'] ?>'"><i class="fa fa-edit"></a></td>                         
-                                    <td><button class="delete-button" onclick="eliminarAlumno(<?= $alumno['alumno_id'] ?>)"><i class="fa fa-trash"></i></button></td>                 
+                                    <td><a class="edit-button" href='/views/director/pages/editarapoderado.php?id=<?= $apoderado['apoderado_id'] ?>'"><i class="fa fa-edit"></a></td>                         
+                                    <td><button class="delete-button" onclick="eliminarApoderado(<?= htmlspecialchars($apoderado['apoderado_id']) ?>)"><i class="fa fa-trash"></i></button></td>
+
                                     </tr>
                             <?php } ?>
                         </tbody>
@@ -158,9 +168,9 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                             <td><?= "$d_apoderado[0] de $d_apoderado[1] del $d_apoderado[2]" ?></td>
                             <td><?= $apoderado['telefono'] ?></td>
                             <td><?= $apoderado['correo'] ?></td>
-                            <td><button class="ver-button" onclick="window.location.href='/views/director/pages/editaralumnos.php?id=<?= $apoderado_id['apoderado_id'] ?>'"><i class="fa fa-eye icon"></button></td>
-                            <td><a class="edit-button" href='/views/director/pages/editaralumnos.php?id=<?= $apoderado['apoderado_id'] ?>'"><i class="fa fa-edit"></a></td>                         
-                            <td><button class="delete-button" onclick="eliminarAlumno(<?= $alumno['alumno_id'] ?>)"><i class="fa fa-trash"></i></button></td>                                                 
+                            <td><button class="ver-button apo_<?=$apoderado['apoderado_id'] ?> " onclick="getHijos(<?=$apoderado['apoderado_id'] ?>)" ><i class="fa fa-eye icon"></button></td>
+                            <td><a class="edit-button"  href='/views/director/pages/editarapoderado.php?id=<?= $apoderado['apoderado_id'] ?>'"><i class="fa fa-edit"></a></td>                         
+                            <td><a class="delete-button" onclick="eliminarApoderado(<?= $apoderado['apoderado_id'] ?>)"><i class="fa fa-trash"></i></a></td>                                               
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -168,10 +178,63 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
             
         </div>
         </div>
+        
+	<div class="citas__container">
+		<div class="citas__modal">
+			<h3>Hijos</h3>
+			<p></p>
+			<div class="closed_cita">
+				<button onclick="closed_cita()">Cerrar</button>
+			</div>
+		</div>
+	</div>
     </main>
     <script>
         let show = false;
+        const apoderadosAll = <?= json_encode($apoderados_hijos ?? []) ?>;
 
+        const getHijos = (apoderado_id) => {
+            let hijos = [];
+            apoderadosAll.forEach((a)=>{
+                if(a.apoderado_id==apoderado_id){
+                    hijos.push(a);
+                }
+                
+        })
+        setCita(hijos);
+        }
+///ALUMNOS
+        
+		const citas_container = document.querySelector('#citas');
+		const citas__container = document.querySelector('.citas__container');
+
+		
+
+		const setCita = (desc) => {
+            
+
+			const desc_json = JSON.parse(JSON.stringify(desc));
+
+			if (typeof desc_json === 'object') {
+				let ul = document.createElement('ul');
+				desc_json.forEach((item) => {
+					let li = document.createElement('li');
+					li.textContent = item.nombres_apellidos;
+					ul.appendChild(li);
+				});
+				citas__container.querySelector('p').innerHTML = '';
+				citas__container.querySelector('p').appendChild(ul);
+			} else {
+				citas__container.querySelector('p').textContent = desc;
+			}
+			citas__container.style.display = 'flex';
+		};
+        
+		const closed_cita = () => {
+			citas__container.style.display = 'none';
+		};
+        
+///
         const buscarApoderado = () => {
             const apoderadoName = document.getElementById('search_apoderado').value.toLowerCase();
             const apoderados = <?= json_encode($apoderados_con ?? []) ?>;
@@ -236,6 +299,8 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 const genero = document.querySelector('#genero').value;
                 const nacionalidad = document.querySelector('#nacionalidad').value;
                 const fecha_nacimiento = document.querySelector('#fecha_nacimiento').value;
+                const telefono = document.querySelector('#telefono').value;
+                const correo = document.querySelector('#correo').value;
 
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', '/controllers/actions/director/actionsApoderado.php');
@@ -243,7 +308,8 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 xhr.onload = function() {
                     if (xhr.status === 200) {
                         console.log(xhr.response);
-                        document.querySelector('#reload').style.display = 'block';
+                       // document.querySelector('#reload').style.display = 'block';
+                        location.reload();
                     } else {
                         console.log(xhr.response);
                     }
@@ -251,7 +317,7 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 xhr.onerror = function() {
                     console.error('Error de conexión');
                 };
-                xhr.send(`createApoderado=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&nacionalidad=${nacionalidad}`);
+                xhr.send(`createApoderado=true&nombres=${nombres}&apellidos=${apellidos}&dni=${dni}&genero=${genero}&fecha_nacimiento=${fecha_nacimiento}&nacionalidad=${nacionalidad}&telefono=${telefono}&correo=${correo}`);
             } else {
                 alert('Existen uno o más campos vacíos.');
             }
@@ -263,6 +329,35 @@ $apoderados_sin = Apoderado::getAllSinAlumn();
                 row.style.display = '';
             });
         }
+
+        const eliminarApoderado = (apoderado_id) => {
+    console.log(`Intentando eliminar el apoderado con ID: ${apoderado_id}`); 
+    if (confirm('¿Estás seguro de que deseas eliminar este apoderado?')) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/controllers/actions/director/actionsApoderado.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            console.log('Estado del servidor: ', xhr.status); // Registro de depuración
+            console.log('Respuesta del servidor: ', xhr.response); // Registro de depuración
+            if (xhr.status === 200) {
+                alert('Apoderado eliminado exitosamente');
+                location.reload(); // Recargar la página para ver los cambios
+            } else {
+                alert('Error al eliminar el apoderado');
+                console.error(xhr.response);
+            }
+        };
+        xhr.onerror = function() {
+            alert('Error de conexión');
+            console.error('Error de conexión');
+        };
+        xhr.send(`deleteApoderado=true&apoderado_id=${apoderado_id}`);
+    }
+}
+
+
+
+
     </script>
 </body>
 

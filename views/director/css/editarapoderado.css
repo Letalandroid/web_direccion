@@ -1,0 +1,240 @@
+@import '/views/director/css/header.css';
+
+main {
+    display: flex;
+}
+
+.container__section {
+    width: calc(100% - 221px);
+    height: calc(100vh - 76.31px);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    #reload {
+        display: none;
+        color: #777;
+        background-color: #ffe600;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        box-shadow: 5px 5px 5px #0004;
+
+        button {
+            background-color: transparent;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .search__apoderado {
+        width: 97%;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 15px 0;
+
+        div {
+            width: 100%;
+            display: flex;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid #000;
+            padding: 5px 8px;
+            font-size: 14px;
+        }
+
+    }
+
+    .create__apoderado {
+        width: 97%;
+        height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 15px;
+        transition: height .5s;
+
+        .container__data_apoderado {
+
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .left,
+            .right {
+                display: flex;
+                gap: 15px;
+
+                input,
+                select {
+                    padding: 3px 8px;
+                    border: 1px solid #000;
+                }
+            }
+
+            .cursos__container {
+                height: 60px;
+                overflow: auto;
+                padding: 0 5px;
+
+                &::-webkit-scrollbar {
+                    width: 1px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: var(--red);
+                }
+            }
+        }
+
+        button {
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: var(--green);
+
+            &:hover {
+                background-color: #31635a;
+            }
+        }
+    }
+
+    .apo_null_container {
+        width: 100%;
+        height: 250px;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        h2 {
+            width: 97%;
+            text-align: left;
+            color: #f00;
+            text-decoration: underline;
+        }
+
+        thead {
+            color: #fff;
+            background-color: #f00;
+        }
+    }
+
+    #apoderadosTable {
+        height: 300px;
+        overflow: auto;
+        thead {
+            color: #fff;
+            background-color: var(--blue);
+        }
+    }
+}
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-sizing: border-box;
+    max-height: 560px;
+    overflow: auto;
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form__contrataciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px ;
+    bottom: 100px;
+    padding: 20px ;
+    gap: 50px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn.limpiar {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn.agregar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 768px) {
+    .form__contrataciones {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .form-buttons {
+        grid-column: 1;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}

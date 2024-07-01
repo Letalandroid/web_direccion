@@ -27,6 +27,24 @@ class Usuarios
         }
     }
 
+    static function getEliminar($apoderado_id)
+    {
+        try {
+            $db = new Database();
+            $query = $db->connect()->prepare("DELETE FROM usuarios WHERE apoderado_id = ?");
+            $query->bindValue(1, $apoderado_id, \PDO::PARAM_INT);
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (Exception $e) {
+            error_log('Error in Usuarios::getAll(): ' . $e->getMessage());
+            return array('error' => true, 'message' => 'Error en el servidor. Por favor, inténtelo de nuevo más tarde.');
+        }
+    }
+    
+    
+
     static function createDocente($docente_id, $username, $password, $rol)
     {
         try {
