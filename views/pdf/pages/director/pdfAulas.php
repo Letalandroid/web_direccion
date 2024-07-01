@@ -2,6 +2,7 @@
 require('fpdf.php');
 require_once __DIR__ . '/../../../../controllers/Aulas.php'; 
 
+
 use Letalandroid\controllers\Aulas;
 
 class PDF extends FPDF {
@@ -17,7 +18,7 @@ class PDF extends FPDF {
     function Footer() {
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, mb_convert_encoding('Page ' . $this->PageNo() . '/{nb}', 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
     }
 }
 
