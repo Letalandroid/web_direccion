@@ -227,14 +227,15 @@ foreach ($cursos as $curso) {
 
             if (alumnosFiltrados.length > 0) {
                 mostrarNotas(alumnosFiltrados);
-                result_search.innerHTML = `
-                    Resultado de la búsqueda => Curso: ${cursoSeleccionado},
-                    Unidad: ${unidadSeleccionada},
-                    Año: ${yearSeleccionado}
-                `;
             } else {
                 limpiarNotas();
             }
+
+            result_search.innerHTML = `
+                Resultado de la búsqueda => Curso: ${cursoSeleccionado},
+                Unidad: ${unidadSeleccionada},
+                Año: ${yearSeleccionado}
+            `;
         }
 
         function mostrarNotas(alumno) {
@@ -260,6 +261,7 @@ foreach ($cursos as $curso) {
             n_participacion.value = 0;
             n_examen.value = 0;
         }
+        realizarBusqueda();
 
         const enviarNota = () => {
 

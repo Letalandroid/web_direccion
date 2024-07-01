@@ -55,7 +55,7 @@ class Notas
         try {
             $db = new Database();
 
-            $query = $db->connect()->prepare('select a.alumno_id,concat(a.apellidos," ",a.nombres) as nombres_apellidos,
+            $query = $db->connect()->prepare('select a.alumno_id as a_id,concat(a.apellidos," ",a.nombres) as nombres_apellidos,
                                             n.*, c.* from notas n
                                             inner join alumnos a
                                             on (a.alumno_id=n.alumno_id)
