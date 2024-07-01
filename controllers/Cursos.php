@@ -36,9 +36,11 @@ class Cursos
             $docente_dni = Docente::getMinId($docente_id)[0]['dni'];
             $db = new Database();
 
-            $query = $db->connect()->prepare("select * from cursos c
+            $query = $db->connect()->prepare("select * from detalle_aulas_cursos dca
                                             inner join docentes d
-                                            on (c.curso_id=d.curso_id)
+                                            on (dca.aula_id=d.aula_id)
+                                            inner join cursos c
+                                            on (c.curso_id=dca.curso_id)
                                             where d.dni=?;");
 
             $query->bindValue(1, $docente_dni, PDO::PARAM_STR);
